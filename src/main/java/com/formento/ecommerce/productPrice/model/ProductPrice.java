@@ -7,11 +7,9 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 
 import javax.persistence.*;
-import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.Currency;
 
 
 @Getter
@@ -23,17 +21,48 @@ public class ProductPrice {
 
     @Id
     @GeneratedValue
-    private Long id;
+    private final Long id;
 
     @NotNull
-    private LocalDate initialDate;
+    private final LocalDate initialDate;
 
     @JsonIgnore
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY)
-    private Product product;
+    private final Product product;
 
     @NotNull
-    private BigDecimal price;
+    private final BigDecimal price;
 
+    public static class Builder {
+        private Long id;
+        private LocalDate initialDate;
+        private Product product;
+        private BigDecimal price;
+
+        public Builder withId(Long id) {
+            this.id = id;
+            return this;
+        }
+
+        public Builder withInitialDate(LocalDate initialDate) {
+            this.initialDate = initialDate;
+            return this;
+        }
+
+        public Builder withProduct(Product product) {
+            this.product = product;
+            return this;
+        }
+
+        public Builder withPrice(BigDecimal price) {
+            this.price = price;
+            return this;
+        }
+
+        public ProductPrice build() {
+            return new ProductPrice(id, initialDate, product, price);
+        }
+    }
+    
 }

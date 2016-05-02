@@ -1,5 +1,6 @@
 package com.formento.ecommerce.shoppingCart.model;
 
+import com.formento.ecommerce.product.model.Product;
 import com.formento.ecommerce.user.model.User;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
@@ -8,8 +9,10 @@ import lombok.Getter;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
+import java.util.Collection;
 
 @Getter
 @EqualsAndHashCode
@@ -23,5 +26,8 @@ public class ShoppingCart implements Serializable {
 
     @NotNull
     private User user;
+
+    @OneToMany
+    private Collection<Product> products;
 
 }

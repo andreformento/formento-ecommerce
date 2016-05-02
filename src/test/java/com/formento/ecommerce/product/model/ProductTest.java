@@ -25,15 +25,17 @@ public class ProductTest {
 
     @Test
     public void shouldBeCurrentPrice() {
-        // given
-        Collection<ProductPrice> productPrices = new ArrayList<>();
-        productPrices.add(Fixture.from(ProductPrice.class).gimme(ProductPriceTemplate.VALID_CURRENT_PRODUCT_PRICE));
-        productPrices.add(Fixture.from(ProductPrice.class).gimme(ProductPriceTemplate.VALID_PRODUCT_PRICE_FROM_ONE_MONTH_AGO));
-        productPrices.add(Fixture.from(ProductPrice.class).gimme(ProductPriceTemplate.VALID_PRODUCT_PRICE_TO_NEXT_MONTH));
-
-        // when
+        // given..when
         LocalDate initialDate = Optional
-                .ofNullable(new Product(1l, "Chair", "Beautiful chair", 5, productPrices))
+                .ofNullable(new Product.Builder()
+                        .withId(1l)
+                        .withName("Chair")
+                        .withDescription("Beautiful chair")
+                        .withAvailability(5)
+                        .addProductPrice(Fixture.from(ProductPrice.class).gimme(ProductPriceTemplate.VALID_CURRENT_PRODUCT_PRICE))
+                        .addProductPrice(Fixture.from(ProductPrice.class).gimme(ProductPriceTemplate.VALID_PRODUCT_PRICE_FROM_ONE_MONTH_AGO))
+                        .addProductPrice(Fixture.from(ProductPrice.class).gimme(ProductPriceTemplate.VALID_PRODUCT_PRICE_TO_NEXT_MONTH))
+                        .build())
                 .map(Product::getCurrentProductPrice)
                 .map(Optional::get)
                 .map(ProductPrice::getInitialDate)

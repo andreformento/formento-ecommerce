@@ -1,6 +1,8 @@
 package com.formento.ecommerce.product.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.formento.ecommerce.productPrice.converter.ProductPriceSerializer;
 import com.formento.ecommerce.productPrice.model.ProductPrice;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
@@ -42,13 +44,14 @@ public class Product implements Serializable {
     private Integer availability;
 
     @JsonIgnore
-    @OneToMany
+    @OneToMany(mappedBy = "product")
     private Collection<ProductPrice> productPrices;
 
     public Boolean isAvailable() {
         return availability.compareTo(0) > 0;
     }
 
+    @JsonSerialize(using = ProductPriceSerializer.class)
     public Optional<ProductPrice> getCurrentProductPrice() {
         return getProductPriceBy(LocalDate.now());
     }

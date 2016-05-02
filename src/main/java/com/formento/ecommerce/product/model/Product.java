@@ -1,9 +1,11 @@
 package com.formento.ecommerce.product.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.formento.ecommerce.productPrice.model.ProductPrice;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -21,25 +23,27 @@ import java.util.Optional;
 @Getter
 @EqualsAndHashCode
 @AllArgsConstructor
+@NoArgsConstructor
 @Entity
 public class Product implements Serializable {
 
     @Id
     @GeneratedValue
-    private final Long id;
+    private Long id;
 
     @Size(min = 3, max = 255)
-    private final String name;
+    private String name;
 
     @Size(max = 1024)
-    private final String description;
+    private String description;
 
     @Min(0)
     @NotNull
-    private final Integer availability;
+    private Integer availability;
 
+    @JsonIgnore
     @OneToMany
-    private final Collection<ProductPrice> productPrices;
+    private Collection<ProductPrice> productPrices;
 
     public Boolean isAvailable() {
         return availability.compareTo(0) > 0;

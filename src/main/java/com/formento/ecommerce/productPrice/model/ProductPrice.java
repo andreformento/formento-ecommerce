@@ -1,10 +1,13 @@
 package com.formento.ecommerce.productPrice.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.formento.ecommerce.core.converter.LocalDateSerializer;
 import com.formento.ecommerce.product.model.Product;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -15,24 +18,26 @@ import java.time.LocalDate;
 @Getter
 @EqualsAndHashCode
 @AllArgsConstructor
+@NoArgsConstructor
 @Entity
 //@Table(uniqueConstraints = @UniqueConstraint(name = "un_product_price", columnNames = {"product", "initial_date"}))
 public class ProductPrice {
 
     @Id
     @GeneratedValue
-    private final Long id;
+    private Long id;
 
     @NotNull
-    private final LocalDate initialDate;
+    @JsonSerialize(using = LocalDateSerializer.class)
+    private LocalDate initialDate;
 
     @JsonIgnore
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY)
-    private final Product product;
+    private Product product;
 
     @NotNull
-    private final BigDecimal price;
+    private BigDecimal price;
 
     public static class Builder {
         private Long id;
@@ -64,5 +69,5 @@ public class ProductPrice {
             return new ProductPrice(id, initialDate, product, price);
         }
     }
-    
+
 }

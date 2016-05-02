@@ -7,15 +7,18 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 
 import javax.persistence.*;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
+import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.Currency;
 
 
 @Getter
 @EqualsAndHashCode
 @AllArgsConstructor
 @Entity
-@Table(uniqueConstraints = @UniqueConstraint(columnNames = {"product", "initialDate"}))
+//@Table(uniqueConstraints = @UniqueConstraint(name = "un_product_price", columnNames = {"product", "initial_date"}))
 public class ProductPrice {
 
     @Id
@@ -29,5 +32,8 @@ public class ProductPrice {
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY)
     private Product product;
+
+    @NotNull
+    private BigDecimal price;
 
 }

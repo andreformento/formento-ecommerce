@@ -6,6 +6,7 @@ import br.com.six2six.fixturefactory.loader.TemplateLoader;
 import com.formento.ecommerce.product.model.Product;
 import com.formento.ecommerce.productPrice.model.ProductPrice;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 
 public class ProductPriceTemplate implements TemplateLoader {
@@ -21,16 +22,19 @@ public class ProductPriceTemplate implements TemplateLoader {
                     add("id", 10l);
                     add("initialDate", LocalDate.now());
                     add("product", new Product(1l, null, null, null, null));
+                    add("price", BigDecimal.ONE);
                 }})
                 .addTemplate(VALID_PRODUCT_PRICE_FROM_ONE_MONTH_AGO, new Rule() {{
                     add("id", 11l);
                     add("initialDate", LocalDate.now().minusMonths(1));
                     add("product", new Product(1l, null, null, null, null));
+                    add("price", BigDecimal.TEN);
                 }})
                 .addTemplate(VALID_PRODUCT_PRICE_TO_NEXT_MONTH, new Rule() {{
                     add("id", 12l);
                     add("initialDate", LocalDate.now().plusMonths(1));
                     add("product", new Product(1l, null, null, null, null));
+                    add("price", BigDecimal.valueOf(15l));
                 }});
     }
 

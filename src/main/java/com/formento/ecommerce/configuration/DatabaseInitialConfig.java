@@ -36,13 +36,18 @@ public class DatabaseInitialConfig {
 
         ProductPrice.Builder builderChairPrice = new ProductPrice.Builder().withProduct(chair);
 
-        ProductPrice chairPriceOneMonthAgo = productPriceRepository.save(builderChairPrice.withPrice(BigDecimal.valueOf(5)).withInitialDate(LocalDate.now().minusMonths(1)).build());
-        ProductPrice chairCurrentPrice = productPriceRepository.save(builderChairPrice.withPrice(BigDecimal.valueOf(10)).withInitialDate(LocalDate.now()).build());
-        ProductPrice chairPriceNextMonth = productPriceRepository.save(builderChairPrice.withPrice(BigDecimal.valueOf(15)).withInitialDate(LocalDate.now().plusMonths(1)).build());
-
-        System.out.println(chairPriceOneMonthAgo);
-        System.out.println(chairCurrentPrice);
-        System.out.println(chairPriceNextMonth);
+        productPriceRepository.save(builderChairPrice
+                .withPrice(BigDecimal.valueOf(5))
+                .withInitialDate(LocalDate.now().minusMonths(1))
+                .build());
+        productPriceRepository.save(builderChairPrice
+                .withPrice(BigDecimal.valueOf(10))
+                .withInitialDate(LocalDate.now())
+                .build());
+        productPriceRepository.save(builderChairPrice
+                .withPrice(BigDecimal.valueOf(15))
+                .withInitialDate(LocalDate.now().plusMonths(1))
+                .build());
     }
 
 }

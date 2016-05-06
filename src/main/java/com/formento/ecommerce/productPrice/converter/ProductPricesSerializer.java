@@ -3,20 +3,20 @@ package com.formento.ecommerce.productPrice.converter;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.JsonSerializer;
 import com.fasterxml.jackson.databind.SerializerProvider;
-import com.formento.ecommerce.productPrice.model.ProductPriceDefault;
+import com.formento.ecommerce.productPrice.model.ProductPriceEntity;
 
 import java.io.IOException;
 import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class ProductPricesSerializer extends JsonSerializer<Collection<ProductPriceDefault>> {
+public class ProductPricesSerializer extends JsonSerializer<Collection<ProductPriceEntity>> {
 
     @Override
-    public void serialize(Collection<ProductPriceDefault> value, JsonGenerator jsonGenerator, SerializerProvider provider) throws IOException {
-        List<ProductPriceDefault> productPrices = value
+    public void serialize(Collection<ProductPriceEntity> value, JsonGenerator jsonGenerator, SerializerProvider provider) throws IOException {
+        List<ProductPriceEntity> productPrices = value
                 .stream()
-                .map(productPrice -> new ProductPriceDefault.Builder()
+                .map(productPrice -> new ProductPriceEntity.Builder()
                         .withPrice(productPrice.getPrice())
                         .withInitialDate(productPrice.getInitialDate())
                         .build())

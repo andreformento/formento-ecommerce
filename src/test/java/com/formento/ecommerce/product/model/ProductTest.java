@@ -3,7 +3,7 @@ package com.formento.ecommerce.product.model;
 import br.com.six2six.fixturefactory.Fixture;
 import br.com.six2six.fixturefactory.loader.FixtureFactoryLoader;
 import com.formento.ecommerce.exception.BusinessEcommerceException;
-import com.formento.ecommerce.productPrice.model.ProductPriceDefault;
+import com.formento.ecommerce.productPrice.model.ProductPriceEntity;
 import com.formento.ecommerce.productPrice.model.template.ProductPriceTemplate;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -30,13 +30,13 @@ public class ProductTest {
                         .withName("Chair")
                         .withDescription("Beautiful chair")
                         .withAvailability(5)
-                        .addProductPrice(Fixture.from(ProductPriceDefault.class).gimme(ProductPriceTemplate.VALID_CURRENT_PRODUCT_PRICE))
-                        .addProductPrice(Fixture.from(ProductPriceDefault.class).gimme(ProductPriceTemplate.VALID_PRODUCT_PRICE_FROM_ONE_MONTH_AGO))
-                        .addProductPrice(Fixture.from(ProductPriceDefault.class).gimme(ProductPriceTemplate.VALID_PRODUCT_PRICE_TO_NEXT_MONTH))
+                        .addProductPrice(Fixture.from(ProductPriceEntity.class).gimme(ProductPriceTemplate.VALID_CURRENT_PRODUCT_PRICE))
+                        .addProductPrice(Fixture.from(ProductPriceEntity.class).gimme(ProductPriceTemplate.VALID_PRODUCT_PRICE_FROM_ONE_MONTH_AGO))
+                        .addProductPrice(Fixture.from(ProductPriceEntity.class).gimme(ProductPriceTemplate.VALID_PRODUCT_PRICE_TO_NEXT_MONTH))
                         .build())
                 .map(Product::getCurrentProductPrice)
                 .map(Optional::get)
-                .map(ProductPriceDefault::getInitialDate)
+                .map(ProductPriceEntity::getInitialDate)
                 .orElseThrow(() -> new BusinessEcommerceException("Cannot find product price"));
 
         // then

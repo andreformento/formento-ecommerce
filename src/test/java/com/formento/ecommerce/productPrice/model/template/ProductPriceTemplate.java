@@ -4,7 +4,7 @@ import br.com.six2six.fixturefactory.Fixture;
 import br.com.six2six.fixturefactory.Rule;
 import br.com.six2six.fixturefactory.loader.TemplateLoader;
 import com.formento.ecommerce.product.model.Product;
-import com.formento.ecommerce.productPrice.model.ProductPriceDefault;
+import com.formento.ecommerce.productPrice.model.ProductPriceEntity;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -17,7 +17,7 @@ public class ProductPriceTemplate implements TemplateLoader {
 
     @Override
     public void load() {
-        Fixture.of(ProductPriceDefault.class)
+        Fixture.of(ProductPriceEntity.class)
                 .addTemplate(VALID_CURRENT_PRODUCT_PRICE, new Rule() {{
                     add("id", 10l);
                     add("initialDate", LocalDate.now());

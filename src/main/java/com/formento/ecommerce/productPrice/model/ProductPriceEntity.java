@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.formento.ecommerce.core.converter.LocalDateSerializer;
 import com.formento.ecommerce.product.model.Product;
-import com.formento.ecommerce.productPrice.converter.ProductPricesSerializer;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -22,7 +21,7 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @Entity
 //@Table(uniqueConstraints = @UniqueConstraint(name = "un_product_price", columnNames = {"product", "initial_date"}))
-public class ProductPriceDefault implements ProductPrice {
+public class ProductPriceEntity implements ProductPrice {
 
     @Id
     @GeneratedValue
@@ -66,8 +65,8 @@ public class ProductPriceDefault implements ProductPrice {
             return this;
         }
 
-        public ProductPriceDefault build() {
-            return new ProductPriceDefault(id, initialDate, product, price);
+        public ProductPriceEntity build() {
+            return new ProductPriceEntity(id, initialDate, product, price);
         }
     }
 

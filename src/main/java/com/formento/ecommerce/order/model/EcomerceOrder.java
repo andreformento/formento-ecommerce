@@ -2,8 +2,6 @@ package com.formento.ecommerce.order.model;
 
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.formento.ecommerce.order.model.converter.ItemOrdersSerializer;
-import com.formento.ecommerce.productPrice.converter.ProductPricesSerializer;
-import com.formento.ecommerce.productPrice.model.ProductPriceDefault;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;

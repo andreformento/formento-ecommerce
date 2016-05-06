@@ -1,10 +1,9 @@
 package com.formento.ecommerce.product.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.formento.ecommerce.productPrice.converter.ProductPriceSerializer;
 import com.formento.ecommerce.productPrice.converter.ProductPricesSerializer;
-import com.formento.ecommerce.productPrice.model.ProductPrice;
+import com.formento.ecommerce.productPrice.model.ProductPriceDefault;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -46,18 +45,18 @@ public class Product implements Serializable {
 
     @JsonSerialize(using = ProductPricesSerializer.class)
     @OneToMany(mappedBy = "product")
-    private Collection<ProductPrice> productPrices;
+    private Collection<ProductPriceDefault> productPrices;
 
     public Boolean isAvailable() {
         return availability.compareTo(0) > 0;
     }
 
     @JsonSerialize(using = ProductPriceSerializer.class)
-    public Optional<ProductPrice> getCurrentProductPrice() {
+    public Optional<ProductPriceDefault> getCurrentProductPrice() {
         return getProductPriceBy(LocalDate.now());
     }
 
-    public Optional<ProductPrice> getProductPriceBy(LocalDate initialDate) {
+    public Optional<ProductPriceDefault> getProductPriceBy(LocalDate initialDate) {
         if (productPrices == null)
             return Optional.empty();
 
@@ -75,7 +74,7 @@ public class Product implements Serializable {
         private String name;
         private String description;
         private Integer availability;
-        private Collection<ProductPrice> productPrices = new ArrayList<>();
+        private Collection<ProductPriceDefault> productPrices = new ArrayList<>();
 
         public Builder withId(Long id) {
             this.id = id;
@@ -97,7 +96,7 @@ public class Product implements Serializable {
             return this;
         }
 
-        public Builder addProductPrice(ProductPrice productPrice) {
+        public Builder addProductPrice(ProductPriceDefault productPrice) {
             this.productPrices.add(productPrice);
             return this;
         }

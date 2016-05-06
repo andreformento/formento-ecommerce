@@ -2,7 +2,7 @@ package com.formento.ecommerce.configuration;
 
 import com.formento.ecommerce.product.model.Product;
 import com.formento.ecommerce.product.repository.ProductRepository;
-import com.formento.ecommerce.productPrice.model.ProductPrice;
+import com.formento.ecommerce.productPrice.model.ProductPriceDefault;
 import com.formento.ecommerce.productPrice.repository.ProductPriceRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
@@ -34,7 +34,7 @@ public class DatabaseInitialConfig {
                 .build()
         );
 
-        ProductPrice.Builder builderChairPrice = new ProductPrice.Builder().withProduct(chair);
+        ProductPriceDefault.Builder builderChairPrice = new ProductPriceDefault.Builder().withProduct(chair);
 
         productPriceRepository.save(builderChairPrice
                 .withPrice(BigDecimal.valueOf(5))

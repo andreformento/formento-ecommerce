@@ -1,6 +1,5 @@
 package com.formento.ecommerce.user.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -8,12 +7,10 @@ import lombok.NoArgsConstructor;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
+import java.time.LocalDate;
 
 @Getter
 @EqualsAndHashCode
@@ -39,5 +36,10 @@ public class User implements Serializable {
     private String password;
 
     private String token;
+
+    private LocalDate birthDate;
+
+    @OneToOne(fetch = FetchType.LAZY)
+    private TaxDocument taxDocument;
 
 }

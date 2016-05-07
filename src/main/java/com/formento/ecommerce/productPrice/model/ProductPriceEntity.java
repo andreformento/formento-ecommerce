@@ -2,7 +2,7 @@ package com.formento.ecommerce.productPrice.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.formento.ecommerce.core.converter.LocalDateSerializer;
+import com.formento.ecommerce.util.converter.LocalDateSerializer;
 import com.formento.ecommerce.product.model.Product;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;

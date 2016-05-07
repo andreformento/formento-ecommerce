@@ -1,4 +1,4 @@
-package com.formento.ecommerce.phone.model;
+package com.formento.ecommerce.user.model;
 
 import com.formento.ecommerce.user.model.User;
 import lombok.AllArgsConstructor;

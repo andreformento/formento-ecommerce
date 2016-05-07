@@ -1,4 +1,4 @@
-package com.formento.ecommerce.core.util;
+package com.formento.ecommerce.util.util;
 
 import java.time.LocalDate;
 import java.time.ZoneId;

@@ -17,6 +17,7 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -69,39 +70,51 @@ public class Product implements Serializable {
     }
 
     public static class Builder {
-        private Long id;
-        private String name;
-        private String description;
-        private Integer availability;
-        private Collection<ProductPriceEntity> productPrices = new ArrayList<>();
+
+        private Product product;
+
+        public Builder() {
+            this.product = new Product();
+            product.productPrices = new ArrayList<>();
+        }
 
         public Builder withId(Long id) {
-            this.id = id;
+            product.id = id;
             return this;
         }
 
         public Builder withName(String name) {
-            this.name = name;
+            product.name = name;
             return this;
         }
 
         public Builder withDescription(String description) {
-            this.description = description;
+            product.description = description;
             return this;
         }
 
         public Builder withAvailability(Integer availability) {
-            this.availability = availability;
+            product.availability = availability;
             return this;
         }
 
         public Builder addProductPrice(ProductPriceEntity productPrice) {
-            this.productPrices.add(productPrice);
+            product.productPrices.add(productPrice);
             return this;
         }
 
+        public Builder addProductPrice(BigDecimal price, LocalDate initialDate) {
+            return addProductPrice(
+                    new ProductPriceEntity.Builder()
+                            .withProduct(product)
+                            .withPrice(price)
+                            .withInitialDate(initialDate)
+                            .build()
+            );
+        }
+
         public Product build() {
-            return new Product(id, name, description, availability, productPrices);
+            return product;
         }
 
     }

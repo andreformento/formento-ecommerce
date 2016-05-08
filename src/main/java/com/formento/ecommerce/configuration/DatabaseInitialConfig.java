@@ -4,7 +4,6 @@ import com.formento.ecommerce.discount.model.Coupon;
 import com.formento.ecommerce.discount.repository.CouponRepository;
 import com.formento.ecommerce.product.model.Product;
 import com.formento.ecommerce.product.repository.ProductRepository;
-import com.formento.ecommerce.productPrice.model.ProductPriceEntity;
 import com.formento.ecommerce.productPrice.repository.ProductPriceRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
@@ -31,27 +30,43 @@ public class DatabaseInitialConfig {
 
     @PostConstruct
     public void initializeValues() {
-        Product chair = productRepository.save(new Product.Builder()
-                .withName("Chair")
-                .withDescription("Beautiful chair")
-                .withAvailability(5)
-                .build()
-        );
+        productPriceRepository.save(
+                productRepository.save(new Product.Builder()
+                        .withName("Cadeira")
+                        .withDescription("Cadeira com rodinhas")
+                        .withAvailability(5)
+                        .addProductPrice(BigDecimal.valueOf(50), LocalDate.now().minusMonths(1))
+                        .addProductPrice(BigDecimal.valueOf(120), LocalDate.now())
+                        .addProductPrice(BigDecimal.valueOf(200), LocalDate.now().plusMonths(6))
+                        .build()
+                ).getProductPrices());
 
-        ProductPriceEntity.Builder builderChairPrice = new ProductPriceEntity.Builder().withProduct(chair);
+        productPriceRepository.save(
+                productRepository.save(new Product.Builder()
+                        .withName("Mesa")
+                        .withDescription("Mesa de escritório")
+                        .withAvailability(15)
+                        .addProductPrice(BigDecimal.valueOf(250), LocalDate.now().minusMonths(1))
+                        .build()
+                ).getProductPrices());
 
-        productPriceRepository.save(builderChairPrice
-                .withPrice(BigDecimal.valueOf(5))
-                .withInitialDate(LocalDate.now().minusMonths(1))
-                .build());
-        productPriceRepository.save(builderChairPrice
-                .withPrice(BigDecimal.valueOf(10))
-                .withInitialDate(LocalDate.now())
-                .build());
-        productPriceRepository.save(builderChairPrice
-                .withPrice(BigDecimal.valueOf(15))
-                .withInitialDate(LocalDate.now().plusMonths(1))
-                .build());
+        productPriceRepository.save(
+                productRepository.save(new Product.Builder()
+                        .withName("Computador")
+                        .withDescription("Computador com Linux")
+                        .withAvailability(30)
+                        .addProductPrice(BigDecimal.valueOf(2500), LocalDate.now().minusMonths(1))
+                        .build()
+                ).getProductPrices());
+
+        productPriceRepository.save(
+                productRepository.save(new Product.Builder()
+                        .withName("Folhas")
+                        .withDescription("Bloco de 500 folhas")
+                        .withAvailability(5000)
+                        .addProductPrice(BigDecimal.valueOf(13), LocalDate.now().minusDays(10))
+                        .build()
+                ).getProductPrices());
 
         couponRepository.save(new Coupon(null, "funny-promo", BigDecimal.valueOf(5), LocalDate.now().plusYears(10l)));
         couponRepository.save(new Coupon(null, "boring-promo", BigDecimal.valueOf(15), LocalDate.now().minusDays(3)));

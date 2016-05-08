@@ -12,6 +12,7 @@ import java.time.LocalDate;
 public class ProductPriceTemplate implements TemplateLoader {
 
     public static String VALID_CURRENT_PRODUCT_PRICE = "validCurrentProductPrice";
+    public static String VALID_TABLE_CURRENT_PRODUCT_PRICE = "validTableCurrentProductPrice";
     public static String VALID_PRODUCT_PRICE_FROM_ONE_MONTH_AGO = "validProductPriceFromOneMonthAgo";
     public static String VALID_PRODUCT_PRICE_TO_NEXT_MONTH = "validProductPriceToNextMonth";
 
@@ -35,6 +36,12 @@ public class ProductPriceTemplate implements TemplateLoader {
                     add("initialDate", LocalDate.now().plusMonths(1));
                     add("product", new Product(1l, null, null, null, null));
                     add("price", BigDecimal.valueOf(15l));
+                }})
+                .addTemplate(VALID_TABLE_CURRENT_PRODUCT_PRICE, new Rule() {{
+                    add("id", 13l);
+                    add("initialDate", LocalDate.now());
+                    add("product", new Product(2l, null, null, null, null));
+                    add("price", BigDecimal.TEN);
                 }});
     }
 

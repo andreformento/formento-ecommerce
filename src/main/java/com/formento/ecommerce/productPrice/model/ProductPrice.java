@@ -7,5 +7,5 @@ import java.math.BigDecimal;
 public interface ProductPrice {
     Product getProduct();
 
-    BigDecimal getPrice();
+    BigDecimal getTotalPrice();
 }

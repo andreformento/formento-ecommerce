@@ -1,6 +1,5 @@
 package com.formento.ecommerce.shoppingCart.model;
 
-import com.formento.ecommerce.product.model.Product;
 import com.formento.ecommerce.user.model.User;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
@@ -13,6 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Collection;
 
 @Getter
@@ -29,7 +29,16 @@ public class ShoppingCart implements Serializable {
     @NotNull
     private User user;
 
-    @OneToMany
-    private Collection<Product> products;
+    @NotNull
+    @OneToMany(mappedBy = "shoppingCart")
+    private Collection<ItemShoppingCart> itemShoppingCarts;
+
+    public BigDecimal getTotalValue() {
+        return itemShoppingCarts
+                .stream()
+                .map(ItemShoppingCart::getTotalPrice)
+                .reduce(BigDecimal::add)
+                .orElseGet(() -> BigDecimal.ZERO);
+    }
 
 }

@@ -10,7 +10,7 @@ import javax.persistence.Entity;
 import java.math.BigDecimal;
 
 @Getter
-@EqualsAndHashCode
+@EqualsAndHashCode(callSuper = false)
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity

@@ -18,7 +18,6 @@ public class ProductTest {
     @BeforeClass
     public static void initClass() {
         FixtureFactoryLoader.loadTemplates("com.formento.ecommerce.productPrice.model.template");
-        FixtureFactoryLoader.loadTemplates("com.formento.ecommerce.product.model.template");
     }
 
     @Test

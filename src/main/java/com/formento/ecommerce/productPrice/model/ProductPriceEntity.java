@@ -2,8 +2,8 @@ package com.formento.ecommerce.productPrice.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.formento.ecommerce.util.converter.LocalDateSerializer;
 import com.formento.ecommerce.product.model.Product;
+import com.formento.ecommerce.util.converter.LocalDateSerializer;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -12,6 +12,7 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.time.LocalDate;
 
 
@@ -68,6 +69,10 @@ public class ProductPriceEntity implements ProductPrice {
         public ProductPriceEntity build() {
             return new ProductPriceEntity(id, initialDate, product, price);
         }
+    }
+
+    public BigDecimal getTotalPrice() {
+        return price.setScale(2, RoundingMode.DOWN);
     }
 
 }

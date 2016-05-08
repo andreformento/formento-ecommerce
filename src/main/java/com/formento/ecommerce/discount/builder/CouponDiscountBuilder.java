@@ -31,7 +31,7 @@ public class CouponDiscountBuilder implements DiscountBuilder {
     }
 
     public CouponDiscountBuilder withProductPrice(ProductPrice productPrice) {
-        return withValue(productPrice.getPrice());
+        return withValue(productPrice.getTotalPrice());
     }
 
     @Override

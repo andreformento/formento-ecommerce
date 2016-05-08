@@ -11,6 +11,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -36,12 +37,27 @@ public class ItemOrder implements ProductPrice, Serializable {
     @ManyToOne(fetch = FetchType.LAZY)
     private EcomerceOrder ecomerceOrder;
 
-    @NotNull
-    private BigDecimal price;
+    @Min(1)
+    private Integer quantity;
 
-    public ItemOrder(Product product, BigDecimal price) {
+    @NotNull
+    private BigDecimal unitPrice;
+
+    @NotNull
+    private BigDecimal totalPrice;
+
+    public ItemOrder(Product product, BigDecimal unitPrice, Integer quantity, BigDecimal totalPrice) {
         this.product = product;
-        this.price = price;
+        this.unitPrice = unitPrice;
+        this.quantity = quantity;
+        this.totalPrice = totalPrice;
+    }
+
+    public ItemOrder(ItemOrder itemOrder) {
+        this(itemOrder.product,
+                itemOrder.unitPrice,
+                itemOrder.quantity,
+                itemOrder.totalPrice);
     }
 
 }

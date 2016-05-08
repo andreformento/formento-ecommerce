@@ -16,7 +16,7 @@ public class ItemOrdersSerializer extends JsonSerializer<Collection<ItemOrder>> 
     public void serialize(Collection<ItemOrder> value, JsonGenerator jsonGenerator, SerializerProvider provider) throws IOException {
         List<ItemOrder> itemOrders = value
                 .stream()
-                .map(itemOrder -> new ItemOrder(itemOrder.getProduct(), itemOrder.getPrice()))
+                .map(ItemOrder::new)
                 .collect(Collectors.toList());
 
         jsonGenerator.writeObject(itemOrders);

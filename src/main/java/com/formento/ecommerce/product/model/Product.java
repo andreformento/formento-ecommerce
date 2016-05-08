@@ -68,7 +68,6 @@ public class Product implements Serializable {
                         productPrice1.getInitialDate().compareTo(productPrice2.getInitialDate()));
     }
 
-
     public static class Builder {
         private Long id;
         private String name;

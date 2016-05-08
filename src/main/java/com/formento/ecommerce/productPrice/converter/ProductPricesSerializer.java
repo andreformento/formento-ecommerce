@@ -17,7 +17,7 @@ public class ProductPricesSerializer extends JsonSerializer<Collection<ProductPr
         List<ProductPriceEntity> productPrices = value
                 .stream()
                 .map(productPrice -> new ProductPriceEntity.Builder()
-                        .withPrice(productPrice.getPrice())
+                        .withPrice(productPrice.getTotalPrice())
                         .withInitialDate(productPrice.getInitialDate())
                         .build())
                 .collect(Collectors.toList());

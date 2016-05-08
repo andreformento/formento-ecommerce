@@ -1,18 +1,16 @@
-package com.formento.ecommerce.shoppingCart.model;
+package com.formento.ecommerce.order.model;
 
 import br.com.six2six.fixturefactory.Fixture;
 import br.com.six2six.fixturefactory.loader.FixtureFactoryLoader;
+import com.formento.ecommerce.shoppingCart.model.ShoppingCart;
 import com.formento.ecommerce.shoppingCart.model.template.ShoppingCartTemplate;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import java.math.BigDecimal;
-import java.math.RoundingMode;
-
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
-public class ShoppingCartTest {
+public class EcomerceOrderTest {
 
     @BeforeClass
     public static void initClass() {
@@ -22,27 +20,17 @@ public class ShoppingCartTest {
     }
 
     @Test
-    public void shouldBePossibleToCreate() {
-        // given
-        ShoppingCart shoppingCart = Fixture.from(ShoppingCart.class).gimme(ShoppingCartTemplate.VALID_SHOPPING_CART);
-
-        // then
-        assertNotNull(shoppingCart);
-        assertNotNull(shoppingCart.getId());
-        assertNotNull(shoppingCart.getUser());
-        assertNotNull(shoppingCart.getItemShoppingCarts());
-    }
-
-    @Test
-    public void shouldCalculateTotal() {
+    public void shouldBeCreatedWithShoppingCart() {
         // given
         ShoppingCart shoppingCart = Fixture.from(ShoppingCart.class).gimme(ShoppingCartTemplate.VALID_SHOPPING_CART);
 
         // when
-        BigDecimal totalValue = shoppingCart.getTotalValue();
+        EcomerceOrder ecomerceOrder = new EcomerceOrder.Builder().withShoppingCart(shoppingCart).build();
 
         // then
-        assertEquals(BigDecimal.valueOf(21.0).setScale(2, RoundingMode.DOWN), totalValue);
+        assertNotNull(ecomerceOrder);
+        assertEquals(shoppingCart.getUser(), ecomerceOrder.getUser());
+        assertEquals(shoppingCart.getTotalValue(), ecomerceOrder.getTotalValue());
     }
 
 }

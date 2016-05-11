@@ -3,7 +3,7 @@ package com.formento.ecommerce.util.converter;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.JsonSerializer;
 import com.fasterxml.jackson.databind.SerializerProvider;
-import com.formento.ecommerce.util.util.LocalDateUtil;
+import com.formento.ecommerce.util.LocalDateUtil;
 
 import java.io.IOException;
 import java.time.LocalDate;

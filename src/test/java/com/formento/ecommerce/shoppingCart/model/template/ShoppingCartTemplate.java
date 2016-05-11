@@ -14,24 +14,31 @@ import com.google.common.collect.ImmutableList;
 
 public class ShoppingCartTemplate implements TemplateLoader {
 
+    public static String VALID_SHOPPING_CART_NO_ID = "validShoppingCartNoId";
     public static String VALID_SHOPPING_CART = "validShoppingCart";
 
     @Override
     public void load() {
-        Fixture.of(ShoppingCart.class).addTemplate(VALID_SHOPPING_CART, new Rule() {{
-            add("id", 2l);
-            add("user", one(User.class, UserTemplate.VALID_USER));
-            add("itemShoppingCarts", new ImmutableList.Builder<ItemShoppingCart>()
-                    .add(new ItemShoppingCart(
-                            new Product.Builder().withAvailability(1).addProductPrice(Fixture.from(ProductPriceEntity.class).gimme(ProductPriceTemplate.VALID_CURRENT_PRODUCT_PRICE)).build(),
-                            1
-                    ))
-                    .add(new ItemShoppingCart(
-                            new Product.Builder().withAvailability(2).addProductPrice(Fixture.from(ProductPriceEntity.class).gimme(ProductPriceTemplate.VALID_TABLE_CURRENT_PRODUCT_PRICE)).build(),
-                            2
-                    ))
-                    .build());
-        }});
+        Fixture.of(ShoppingCart.class)
+                .addTemplate(VALID_SHOPPING_CART, new Rule() {{
+                    add("id", 2l);
+                    add("user", one(User.class, UserTemplate.VALID_USER));
+                    add("itemShoppingCarts", new ImmutableList.Builder<ItemShoppingCart>()
+                            .add(new ItemShoppingCart(
+                                    new Product.Builder().withAvailability(1).addProductPrice(Fixture.from(ProductPriceEntity.class).gimme(ProductPriceTemplate.VALID_CURRENT_PRODUCT_PRICE)).build(),
+                                    1
+                            ))
+                            .add(new ItemShoppingCart(
+                                    new Product.Builder().withAvailability(2).addProductPrice(Fixture.from(ProductPriceEntity.class).gimme(ProductPriceTemplate.VALID_TABLE_CURRENT_PRODUCT_PRICE)).build(),
+                                    2
+                            ))
+                            .build());
+                }})
+                .addTemplate(VALID_SHOPPING_CART_NO_ID)
+                .inherits(VALID_SHOPPING_CART, new Rule() {{
+                    add("id", null);
+                    add("user", one(User.class, UserTemplate.VALID_USER_NO_ID));
+                }});
     }
 
 }

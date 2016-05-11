@@ -1,10 +1,7 @@
 package com.formento.ecommerce.discount.model;
 
 import com.formento.ecommerce.exception.DiscountEcommerceException;
-import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -20,6 +17,7 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
+@ToString
 public class Coupon implements Serializable {
 
     @Id

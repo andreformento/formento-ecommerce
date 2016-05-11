@@ -7,10 +7,12 @@ import lombok.NoArgsConstructor;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
-import java.time.LocalDate;
 
 @Getter
 @EqualsAndHashCode
@@ -37,9 +39,41 @@ public class User implements Serializable {
 
     private String token;
 
-    private LocalDate birthDate;
+    public static class Builder {
+        private User instance;
 
-    @OneToOne(fetch = FetchType.LAZY)
-    private TaxDocument taxDocument;
+        public Builder() {
+            this.instance = new User();
+        }
+
+        public Builder withId(Long id) {
+            instance.id = id;
+            return this;
+        }
+
+        public Builder withName(String name) {
+            instance.name = name;
+            return this;
+        }
+
+        public Builder withEmail(String email) {
+            instance.email = email;
+            return this;
+        }
+
+        public Builder withPassword(String password) {
+            instance.password = password;
+            return this;
+        }
+
+        public Builder withToken(String token) {
+            instance.token = token;
+            return this;
+        }
+
+        public User build() {
+            return instance;
+        }
+    }
 
 }

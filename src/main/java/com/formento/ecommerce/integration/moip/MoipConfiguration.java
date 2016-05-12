@@ -1,4 +1,4 @@
-package com.formento.ecommerce.integration2.moip;
+package com.formento.ecommerce.integration.moip;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

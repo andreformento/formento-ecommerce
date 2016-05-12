@@ -1,10 +1,9 @@
 package com.formento.ecommerce.installment.factory;
 
 import com.formento.ecommerce.exception.BusinessEcommerceException;
-import com.formento.ecommerce.exception.DiscountEcommerceException;
-import com.formento.ecommerce.installment.model.PaymentInstallment;
-import com.formento.ecommerce.installment.model.PaymentInstallmentInNTimes;
-import com.formento.ecommerce.installment.model.PaymentInstallmentUnique;
+import com.formento.ecommerce.payment.model.MethodPayment;
+import com.formento.ecommerce.payment.model.MethodPaymentInNTimes;
+import com.formento.ecommerce.payment.model.UniqueMethodPayment;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -33,10 +32,10 @@ public class PaymentInstallmentFactoryDefaultTest {
         Integer count = 1;
 
         // when
-        PaymentInstallment paymentInstallment = paymentInstallmentFactoryDefault.makePaymentInstallment(totalValue, count);
+        MethodPayment paymentRequest = paymentInstallmentFactoryDefault.makeMethodPayment(totalValue, count);
 
         // then
-        assertTrue(paymentInstallment instanceof PaymentInstallmentUnique);
+        assertTrue(paymentRequest instanceof UniqueMethodPayment);
     }
 
     @Test
@@ -46,10 +45,10 @@ public class PaymentInstallmentFactoryDefaultTest {
         Integer count = 12;
 
         // when
-        PaymentInstallment paymentInstallment = paymentInstallmentFactoryDefault.makePaymentInstallment(totalValue, count);
+        MethodPayment methodPayment = paymentInstallmentFactoryDefault.makeMethodPayment(totalValue, count);
 
         // then
-        assertTrue(paymentInstallment instanceof PaymentInstallmentInNTimes);
+        assertTrue(methodPayment instanceof MethodPaymentInNTimes);
     }
 
     @Test
@@ -60,10 +59,10 @@ public class PaymentInstallmentFactoryDefaultTest {
 
         // then
         expectedException.expect(BusinessEcommerceException.class);
-        expectedException.expectMessage("paymentInstallment.quantity.notAccepted");
+        expectedException.expectMessage("methodPayment.quantity.notAccepted");
 
         // when
-        PaymentInstallment paymentInstallment = paymentInstallmentFactoryDefault.makePaymentInstallment(totalValue, count);
+        paymentInstallmentFactoryDefault.makeMethodPayment(totalValue, count);
     }
 
 }

@@ -1,5 +1,7 @@
-package com.formento.ecommerce.installment.model;
+package com.formento.ecommerce.payment.model;
 
+import com.formento.ecommerce.installment.model.Installment;
+import com.formento.ecommerce.installment.model.InstallmentDefault;
 import com.google.common.collect.ImmutableList;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
@@ -12,10 +14,9 @@ import java.util.Collection;
 @Getter
 @EqualsAndHashCode
 @AllArgsConstructor
-public class PaymentInstallmentUnique implements PaymentInstallment, Serializable {
+public class UniqueMethodPayment implements MethodPayment, Serializable {
 
     private static int COUNT_OF_UNIQUE_INSTALLMENT = 1;
-
     private BigDecimal totalValue;
 
     @Override

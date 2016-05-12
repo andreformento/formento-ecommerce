@@ -1,5 +1,7 @@
-package com.formento.ecommerce.installment.model;
+package com.formento.ecommerce.payment.model;
 
+import com.formento.ecommerce.installment.model.Installment;
+import com.formento.ecommerce.installment.model.InstallmentCalculatorInNTimes;
 import com.google.common.collect.ImmutableList;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
@@ -15,7 +17,7 @@ import static java.util.stream.Collectors.toList;
 @Getter
 @EqualsAndHashCode
 @AllArgsConstructor
-public class PaymentInstallmentInNTimes implements PaymentInstallment, Serializable {
+public class MethodPaymentInNTimes implements MethodPayment, Serializable {
 
     private BigDecimal totalValue;
     private Integer count;

@@ -1,4 +1,4 @@
-package com.formento.ecommerce.integration2.moip;
+package com.formento.ecommerce.integration.moip;
 
 import br.com.moip.API;
 import br.com.moip.Client;

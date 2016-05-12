@@ -1,24 +1,19 @@
 package com.formento.ecommerce.integration.moip;
 
 import br.com.moip.API;
-import br.com.moip.Client;
-import br.com.moip.authentication.Authentication;
-import br.com.moip.authentication.BasicAuth;
-import br.com.moip.request.*;
+import br.com.moip.request.CustomerRequest;
+import br.com.moip.request.OrderRequest;
 import br.com.moip.resource.Order;
-import br.com.moip.resource.Payment;
 import com.formento.ecommerce.ecommerceOrder.model.EcommerceOrder;
 import com.formento.ecommerce.ecommerceOrder.model.StatusEcommerceOrder;
 import com.formento.ecommerce.ecommerceOrder.service.EcommerceOrderService;
 import com.formento.ecommerce.integration.OrderFacade;
-import com.formento.ecommerce.integration2.moip.MoipApi;
 import com.formento.ecommerce.shoppingCart.model.ShoppingCart;
 import com.formento.ecommerce.user.model.User;
 import lombok.AllArgsConstructor;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.util.UUID;
 
 @AllArgsConstructor
 public class MoipOrderIntegrationFacade implements OrderFacade {

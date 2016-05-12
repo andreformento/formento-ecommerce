@@ -28,7 +28,6 @@ public class ShoppingCart implements Serializable {
     @ManyToOne
     private User user;
 
-    @NotNull
     @OneToMany(mappedBy = "shoppingCart", fetch = FetchType.EAGER)
     private Collection<ItemShoppingCart> itemShoppingCarts;
 

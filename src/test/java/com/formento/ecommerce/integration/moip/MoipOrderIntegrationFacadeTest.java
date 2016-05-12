@@ -5,7 +5,6 @@ import com.formento.ecommerce.ecommerceOrder.model.EcommerceOrder;
 import com.formento.ecommerce.ecommerceOrder.model.StatusEcommerceOrder;
 import com.formento.ecommerce.ecommerceOrder.repository.EcommerceOrderRepositoryTemplate;
 import com.formento.ecommerce.ecommerceOrder.service.EcommerceOrderService;
-import com.formento.ecommerce.integration2.moip.MoipApi;
 import com.formento.ecommerce.shoppingCart.model.ShoppingCart;
 import org.junit.Test;
 import org.junit.runner.RunWith;

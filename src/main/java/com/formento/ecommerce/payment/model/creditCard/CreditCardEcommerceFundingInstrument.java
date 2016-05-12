@@ -11,10 +11,10 @@ import java.io.Serializable;
 @Getter
 @EqualsAndHashCode
 @AllArgsConstructor
-//@NoArgsConstructor
-public class CreditCardFundingInstrument implements FundingInstrument, Serializable {
+@NoArgsConstructor
+public class CreditCardEcommerceFundingInstrument implements FundingInstrument, Serializable {
 
-    private CreditCardHolder creditCardHolder;
+    private CreditCard creditCard;
 
     @Override
     public String getMethod() {

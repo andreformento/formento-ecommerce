@@ -11,7 +11,6 @@ import lombok.NoArgsConstructor;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.time.LocalDate;
-import java.util.Optional;
 
 @Getter
 @NoArgsConstructor
@@ -24,11 +23,9 @@ public class CreditCardHolder {
     @NotNull
     @JsonSerialize(using = LocalDateSerializer.class)
     @JsonDeserialize(using = LocalDateDeserializer.class)
-    private LocalDate birthDate;
+    private LocalDate birthdate;
 
     @NotNull
     private TaxDocument taxDocument;
-
-    private Optional<Phone> phone;
 
 }

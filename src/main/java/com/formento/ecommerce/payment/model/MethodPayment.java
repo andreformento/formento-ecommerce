@@ -1,9 +1,11 @@
-package com.formento.ecommerce.installment.model;
+package com.formento.ecommerce.payment.model;
+
+import com.formento.ecommerce.installment.model.Installment;
 
 import java.math.BigDecimal;
 import java.util.Collection;
 
-public interface PaymentInstallment {
+public interface MethodPayment {
 
     BigDecimal getTotalValue();
 

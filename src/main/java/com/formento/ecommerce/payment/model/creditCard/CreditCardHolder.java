@@ -28,4 +28,6 @@ public class CreditCardHolder {
     @NotNull
     private TaxDocument taxDocument;
 
+    private Phone phone;
+
 }

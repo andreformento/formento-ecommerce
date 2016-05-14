@@ -16,7 +16,7 @@ import java.util.UUID;
 
 import static org.junit.Assert.assertNotNull;
 
-public class TestMoip {
+public class MoipTest {
 
     private static final String CC_HASH = "HhL0kbhfid+jwgj5l6Kt9EPdetDxQN8s7uKUHDYxDC/XoULjzik44rSda3EcWuOcL17Eb8JjWc1JI7gsuwg9P0rJv1mJQx+d3Dv1puQYz1iRjEWWhnB1bw0gTvnnC/05KbWN5M8oTiugmhVK02Rt2gpbcTtpS7VWyacfgesBJFavYYMljYg8p2YGHXkXrMuQiOCeemKLk420d0OTMBba27jDVVJ663HZDrObnjFXJH/4B5irkj+HO5genV+V4PYoLcOESG4nrI3oFAsMGsLLcdJo0NNvkEmJpn0e9GzureKKFYisYU+BEd9EMr/odS0VMvOYRV65HbPTspIkjl2+3Q==";
     private static final String TOKEN = "01010101010101010101010101010101";
@@ -132,8 +132,7 @@ public class TestMoip {
         PaymentRequest paymentRequest = new PaymentRequest()
                 .orderId(createdOrder.getId())
                 .installmentCount(1)
-                .fundingInstrument(fundingInstrumentRequest
-                );
+                .fundingInstrument(fundingInstrumentRequest);
         Payment createdPaymentBoleto = api.payment().create(paymentRequest);
         assertNotNull(createdPaymentBoleto);
     }

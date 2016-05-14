@@ -28,8 +28,7 @@ public class MoipOrderIntegrationFacadeTest extends EcommerceOrderRepositoryTemp
     @Test
     public void sholdDoAnOrder() {
         // given
-        ShoppingCart shoppingCart = giveShoppingCart();
-        MoipOrderIntegrationFacade moipOrderIntegrationFacade = new MoipOrderIntegrationFacade(moipApi, ecommerceOrderService, shoppingCart);
+        MoipOrderIntegrationFacade moipOrderIntegrationFacade = new MoipOrderIntegrationFacade(moipApi, ecommerceOrderService, giveShoppingCart());
 
         // when
         EcommerceOrder ecommerceOrder = moipOrderIntegrationFacade.makeOrder();

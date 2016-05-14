@@ -29,14 +29,14 @@ public class MoipOrderIntegrationFacade implements OrderFacade {
 
         API api = moipApi.getApi();
 
-        EcommerceOrder ecommerceOrder = createLocalEcommerceOrder(shoppingCart);
+        EcommerceOrder ecommerceOrder = initializeLocalEcommerceOrder();
 
-        Order moipOrder = getOrderRequest(shoppingCart, customerOwnId, api, ecommerceOrder);
+        Order moipOrder = getOrderRequest(customerOwnId, api, ecommerceOrder.getId().toString());
 
-        return changeToCreated(ecommerceOrder, moipOrder.getId());
+        return changeToCreated(ecommerceOrder.getId(), moipOrder.getId());
     }
 
-    private EcommerceOrder createLocalEcommerceOrder(ShoppingCart shoppingCart) {
+    private EcommerceOrder initializeLocalEcommerceOrder() {
         return ecommerceOrderService.create(
                 new EcommerceOrder.Builder()
                         .withShoppingCart(shoppingCart)
@@ -45,14 +45,19 @@ public class MoipOrderIntegrationFacade implements OrderFacade {
         );
     }
 
-    private EcommerceOrder changeToCreated(EcommerceOrder ecommerceOrder, String integrationId) {
-        return ecommerceOrderService.changeStatusOrder(ecommerceOrder, integrationId, StatusEcommerceOrder.CREATED);
+    private EcommerceOrder changeToCreated(Long orderId, String integrationId) {
+        return ecommerceOrderService.changeStatusOrder(orderId,
+                new EcommerceOrder.Builder()
+                        .withStatusEcommerceOrder(StatusEcommerceOrder.CREATED)
+                        .withIntegrationId(integrationId)
+                        .build()
+        );
     }
 
-    private Order getOrderRequest(ShoppingCart shoppingCart, CustomerRequest customerOwnId, API api, EcommerceOrder ecommerceOrder) {
+    private Order getOrderRequest(CustomerRequest customerRequest, API api, String ecommerceOrderId) {
         OrderRequest orderRequest = new OrderRequest()
-                .ownId(ecommerceOrder.getId().toString())
-                .customer(customerOwnId);
+                .ownId(ecommerceOrderId)
+                .customer(customerRequest);
         shoppingCart
                 .getItemShoppingCarts()
                 .stream()

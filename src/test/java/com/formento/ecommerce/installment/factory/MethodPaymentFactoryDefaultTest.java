@@ -13,16 +13,16 @@ import java.math.BigDecimal;
 
 import static org.junit.Assert.assertTrue;
 
-public class PaymentInstallmentFactoryDefaultTest {
+public class MethodPaymentFactoryDefaultTest {
 
     @Rule
     public ExpectedException expectedException = ExpectedException.none();
 
-    private PaymentInstallmentFactoryDefault paymentInstallmentFactoryDefault;
+    private MethodPaymentFactoryDefault paymentInstallmentFactoryDefault;
 
     @Before
     public void init() {
-        this.paymentInstallmentFactoryDefault = new PaymentInstallmentFactoryDefault();
+        this.paymentInstallmentFactoryDefault = new MethodPaymentFactoryDefault();
     }
 
     @Test

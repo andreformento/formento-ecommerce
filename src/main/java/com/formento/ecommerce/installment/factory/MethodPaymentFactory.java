@@ -4,7 +4,7 @@ import com.formento.ecommerce.payment.model.MethodPayment;
 
 import java.math.BigDecimal;
 
-public interface PaymentInstallmentFactory {
+public interface MethodPaymentFactory {
 
     MethodPayment makeMethodPayment(BigDecimal totalValue, Integer count);
 

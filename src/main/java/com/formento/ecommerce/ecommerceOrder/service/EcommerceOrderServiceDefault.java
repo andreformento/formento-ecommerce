@@ -1,7 +1,6 @@
 package com.formento.ecommerce.ecommerceOrder.service;
 
 import com.formento.ecommerce.ecommerceOrder.model.EcommerceOrder;
-import com.formento.ecommerce.ecommerceOrder.model.StatusEcommerceOrder;
 import com.formento.ecommerce.ecommerceOrder.repository.EcommerceOrderRepository;
 import com.formento.ecommerce.exception.BusinessEcommerceException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,15 +20,14 @@ public class EcommerceOrderServiceDefault implements EcommerceOrderService {
     }
 
     @Override
-    public EcommerceOrder changeStatusOrder(EcommerceOrder ecommerceOrder, String integrationId, StatusEcommerceOrder newStatus) {
+    public EcommerceOrder changeStatusOrder(Long orderId, EcommerceOrder ecommerceOrderToChange) {
         return ecommerceOrderRepository.save(
                 new EcommerceOrder
                         .Builder()
                         .changeStatus(
-                                Optional.ofNullable(ecommerceOrderRepository.findOne(ecommerceOrder.getId()))
+                                Optional.ofNullable(ecommerceOrderRepository.findOne(orderId))
                                         .orElseThrow(() -> new BusinessEcommerceException("ecommerceOrder.cannotChangeStatusBecauseDotNotExists")),
-                                integrationId,
-                                newStatus)
+                                ecommerceOrderToChange)
                         .build()
         );
     }

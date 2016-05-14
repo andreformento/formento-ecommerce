@@ -15,6 +15,7 @@ import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Collection;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Getter
@@ -45,17 +46,13 @@ public class EcommerceOrder implements Serializable {
     @Enumerated(EnumType.STRING)
     public StatusEcommerceOrder statusEcommerceOrder;
 
-    public EcommerceOrder(Collection<ItemOrder> itemOrders) {
-        this.itemOrders = itemOrders;
+    public Optional<String> getIntegrationId() {
+        return Optional.ofNullable(this.integrationId);
     }
 
     public static class Builder {
 
-        private final EcommerceOrder instance;
-
-        public Builder() {
-            this.instance = new EcommerceOrder();
-        }
+        private final EcommerceOrder instance = new EcommerceOrder();
 
         private Builder withTotalValue(Collection<ItemOrder> itemOrders) {
             instance.totalValue = itemOrders
@@ -89,19 +86,28 @@ public class EcommerceOrder implements Serializable {
             return this;
         }
 
-        public Builder changeStatus(EcommerceOrder ecommerceOrder, String integrationId, StatusEcommerceOrder statusEcommerceOrder) {
-            instance.id = ecommerceOrder.id;
-            instance.user = ecommerceOrder.user;
-            instance.itemOrders = ecommerceOrder.itemOrders;
-            instance.totalValue = ecommerceOrder.totalValue;
+
+        public Builder withIntegrationId(String integrationId) {
             instance.integrationId = integrationId;
-            instance.statusEcommerceOrder = statusEcommerceOrder;
+            return this;
+        }
+
+        public Builder changeStatus(EcommerceOrder ecommerceOrderOld, EcommerceOrder ecommerceOrderToChange) {
+            instance.id = ecommerceOrderOld.id;
+            instance.user = ecommerceOrderOld.user;
+            instance.itemOrders = ecommerceOrderOld.itemOrders;
+            instance.totalValue = ecommerceOrderOld.totalValue;
+
+            instance.integrationId = ecommerceOrderToChange.integrationId;
+            instance.statusEcommerceOrder = ecommerceOrderToChange.statusEcommerceOrder;
+
             return this;
         }
 
         public EcommerceOrder build() {
             return instance;
         }
+
     }
 
 }

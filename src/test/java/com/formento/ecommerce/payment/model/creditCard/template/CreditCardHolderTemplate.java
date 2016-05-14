@@ -4,6 +4,7 @@ import br.com.six2six.fixturefactory.Fixture;
 import br.com.six2six.fixturefactory.Rule;
 import br.com.six2six.fixturefactory.loader.TemplateLoader;
 import com.formento.ecommerce.payment.model.creditCard.CreditCardHolder;
+import com.formento.ecommerce.payment.model.creditCard.Phone;
 import com.formento.ecommerce.payment.model.creditCard.TaxDocument;
 
 import java.time.LocalDate;
@@ -19,6 +20,7 @@ public class CreditCardHolderTemplate implements TemplateLoader {
                     add("name", "Andre Formento");
                     add("birthdate", LocalDate.of(1991, 3, 14));
                     add("taxDocument", one(TaxDocument.class, TaxDocumentTemplate.VALID));
+                    add("phone", one(Phone.class, PhoneTemplate.VALID));
                 }});
     }
 

@@ -8,7 +8,7 @@ import com.formento.ecommerce.payment.model.UniqueMethodPayment;
 
 import java.math.BigDecimal;
 
-public class PaymentInstallmentFactoryDefault implements PaymentInstallmentFactory {
+public class MethodPaymentFactoryDefault implements MethodPaymentFactory {
 
     @Override
     public MethodPayment makeMethodPayment(BigDecimal totalValue, Integer count) {

@@ -4,10 +4,7 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.formento.ecommerce.productPrice.converter.ProductPriceSerializer;
 import com.formento.ecommerce.productPrice.converter.ProductPricesSerializer;
 import com.formento.ecommerce.productPrice.model.ProductPriceEntity;
-import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.Min;
@@ -29,7 +26,8 @@ public class Product implements Serializable {
 
     @Id
     @GeneratedValue
-    private Long id;
+    @Getter(AccessLevel.NONE)
+    private Long productId;
 
     @Size(min = 3, max = 255)
     private String name;
@@ -54,6 +52,14 @@ public class Product implements Serializable {
         return getProductPriceBy(LocalDate.now());
     }
 
+    public Long getId() {
+        return this.productId;
+    }
+
+    public void setId(Long id) {
+        this.productId = id;
+    }
+
     public Optional<ProductPriceEntity> getProductPriceBy(LocalDate initialDate) {
         if (productPrices == null)
             return Optional.empty();
@@ -76,7 +82,7 @@ public class Product implements Serializable {
         }
 
         public Builder withId(Long id) {
-            product.id = id;
+            product.productId = id;
             return this;
         }
 

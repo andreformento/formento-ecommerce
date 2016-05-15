@@ -6,4 +6,6 @@ public interface ProductService {
 
     Iterable<Product> findByAvaliable();
 
+    Product findById(Long id);
+
 }

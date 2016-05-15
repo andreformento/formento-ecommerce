@@ -1,10 +1,13 @@
 package com.formento.ecommerce.product.service;
 
+import com.formento.ecommerce.exception.DataNotFoundEcommerceException;
 import com.formento.ecommerce.product.model.Product;
 import com.formento.ecommerce.product.repository.ProductRepository;
 import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.Optional;
 
 @NoArgsConstructor
 @Service
@@ -16,6 +19,13 @@ public class ProductServiceDefault implements ProductService {
     @Override
     public Iterable<Product> findByAvaliable() {
         return productRepository.findByAvaliable();
+    }
+
+    @Override
+    public Product findById(Long id) {
+        return Optional
+                .ofNullable(productRepository.findOne(id))
+                .orElseThrow(() -> new DataNotFoundEcommerceException("product.notFoundById"));
     }
 
 }

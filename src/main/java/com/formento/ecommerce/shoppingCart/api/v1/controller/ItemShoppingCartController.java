@@ -14,6 +14,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -33,7 +34,7 @@ public class ItemShoppingCartController {
 
     @ApiOperation(value = "Add a item shopping cart", notes = "Add a item in a shopping cart and return updated list from shopping cart", response = ShoppingCart.class)
     @RequestMapping(method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-    public HttpEntity<Resources<ItemShoppingCart>> addItemShoppingCart(ItemShoppingCart itemShoppingCart) {
+    public HttpEntity<Resources<ItemShoppingCart>> addItemShoppingCart(@RequestBody ItemShoppingCart itemShoppingCart) {
         return new ResponseEntity<>(new Resources<>(itemShoppingCartService.addItemShoppingCart(itemShoppingCart), linkTo(ItemShoppingCartController.class).withSelfRel()), HttpStatus.CREATED);
     }
 

@@ -12,8 +12,10 @@ server:
 # JACKSON
 spring:
   jackson:
+    serialization-inclusion: "non_null"
     serialization:
       INDENT_OUTPUT: true
+  data.rest.base-path: "/api"
 
 jwt:
   header: Authorization

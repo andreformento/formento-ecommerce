@@ -27,6 +27,8 @@
         <money-api.version>1.0</money-api.version>
         <springfox-swagger-ui.version>2.2.2</springfox-swagger-ui.version>
         <springfox-swagger2.version>2.2.2</springfox-swagger2.version>
+        <jjwt.version>0.4</jjwt.version>
+        <springfox-swagger.version>2.4.0</springfox-swagger.version>
     </properties>
 
     <dependencies>
@@ -56,6 +58,26 @@
             <artifactId>spring-boot-starter-validation</artifactId>
         </dependency>
 
+        <!-- Security -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-jwt</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-config</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt</artifactId>
+            <version>${jjwt.version}</version>
+        </dependency>
+
         <!-- moip integration -->
         <dependency>
             <groupId>br.com.moip</groupId>
@@ -63,12 +85,18 @@
             <version>${br.com.moip.version}</version>
         </dependency>
 
-
         <!-- Swagger -->
         <dependency>
             <groupId>org.springframework.data</groupId>
             <artifactId>spring-data-rest-hal-browser</artifactId>
             <scope>runtime</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger2</artifactId>
+            <version>${springfox-swagger.version}</version>
+            <scope>compile</scope>
         </dependency>
 
 

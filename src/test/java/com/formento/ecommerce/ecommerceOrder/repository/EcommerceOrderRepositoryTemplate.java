@@ -43,8 +43,7 @@ public class EcommerceOrderRepositoryTemplate {
 //                        .withName("Andre Formento")
 //                        .build())
 //                );
-        Optional<User> user = Optional
-                .ofNullable(userRepository.findByEmail(email));
+        Optional<User> user = userRepository.findByEmail(email);
 
         if (user.isPresent()) {
             return user.get();

@@ -4,3 +4,25 @@ integration:
     token: "01010101010101010101010101010101"
     key: "ABABABABABABABABABABABABABABABABABABABAB"
     dateFormat: "yyyy-MM-dd"
+
+# config context path to "/" by setting an empty string
+server:
+  contextPath:
+
+# JACKSON
+spring:
+  jackson:
+    serialization:
+      INDENT_OUTPUT: true
+
+jwt:
+  header: Authorization
+  scheme: Bearer
+  secret: Senha
+  expiration: 1800 #segundos -> 30 minutos
+#  expiration: 30 #segundos -> teste
+  route:
+    user:
+      path: "/api/v1/users"
+    authentication:
+      path: "/api/v1/auth"

@@ -92,9 +92,7 @@ public class UserServiceProvider implements UserService {
 
     @Override
     public User getByEmailAndPassword(String email, String password) {
-        return userRepository.findByEmailAndPassword(email, password).orElseThrow(() -> {
-            return new UnauthorizedEcommerceException(USER_BY_EMAIL_AND_PASSWORD_NOT_FOUND);
-        });
+        return userRepository.findByEmailAndPassword(email, password).orElseThrow(() -> new UnauthorizedEcommerceException(USER_BY_EMAIL_AND_PASSWORD_NOT_FOUND));
     }
 
     @Override

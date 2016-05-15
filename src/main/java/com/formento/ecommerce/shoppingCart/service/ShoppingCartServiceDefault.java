@@ -1,9 +1,8 @@
 package com.formento.ecommerce.shoppingCart.service;
 
-import com.formento.ecommerce.shoppingCart.model.ItemShoppingCart;
+import com.formento.ecommerce.exception.BusinessEcommerceException;
 import com.formento.ecommerce.shoppingCart.model.ShoppingCart;
 import com.formento.ecommerce.shoppingCart.repository.ShoppingCartRepository;
-import com.formento.ecommerce.user.model.User;
 import com.formento.ecommerce.user.model.service.UserService;
 import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,33 +20,17 @@ public class ShoppingCartServiceDefault implements ShoppingCartService {
     @Autowired
     private UserService userService;
 
-    @Override
-    public ShoppingCart newItemShoppingCart(ItemShoppingCart itemShoppingCart) {
-        User user = userService.loadUserValidated();
-
-        Optional<ShoppingCart> currentFromUser = repository.getCurrentFromUser(user.getEmail());
-        if (currentFromUser.isPresent()) {
-            return save(new ShoppingCart
-                    .Builder()
-                    .withSelf(currentFromUser.get())
-                    .withItemShoppingCart(itemShoppingCart)
-                    .build());
-        } else {
-            return save(new ShoppingCart
-                    .Builder()
-                    .withUser(user)
-                    .withItemShoppingCart(itemShoppingCart)
-                    .build());
-        }
-    }
-
-    public ShoppingCart save1(ShoppingCart shoppingCart) {
-        return shoppingCart;
-    }
-
-    @Override
     public ShoppingCart save(ShoppingCart shoppingCart) {
         return repository.save(shoppingCart);
+    }
+
+    @Override
+    public ShoppingCart getOrCreateCurrentFromUser() {
+        return getCurrentFromUser()
+                .orElse(save(new ShoppingCart
+                        .Builder()
+                        .withUser(userService.loadUserValidated())
+                        .build()));
     }
 
     @Override
@@ -56,7 +39,15 @@ public class ShoppingCartServiceDefault implements ShoppingCartService {
     }
 
     @Override
-    public Optional<ShoppingCart> getCurrentFromUser() {
+    public ShoppingCart finalizeCurrentFromUser() {
+        return new ShoppingCart
+                .Builder()
+                .withSelf(getCurrentFromUser().orElseThrow(() -> new BusinessEcommerceException("order.shoppingCart.fromUserNotFound")))
+                .finalizeShoppingCart()
+                .build();
+    }
+
+    private Optional<ShoppingCart> getCurrentFromUser() {
         return userService
                 .getUserOfSession()
                 .flatMap(userAuthentication -> repository.getCurrentFromUser(userAuthentication.getEmail()));

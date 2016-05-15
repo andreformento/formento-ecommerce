@@ -12,8 +12,6 @@ import java.util.UUID;
 @RepositoryRestController
 public interface UserRepository extends PagingAndSortingRepository<User, UUID> {
 
-//    Optional<User> findByEmail(@Param("email") String email);
-
     @Query(" select user " +
             " from User user " +
             " where user.email = ?1")

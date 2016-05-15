@@ -1,6 +1,8 @@
 package com.formento.ecommerce.shoppingCart.model;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.formento.ecommerce.user.model.User;
+import com.formento.ecommerce.util.converter.LocalDateTimeSerializer;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -10,8 +12,10 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Optional;
 
 @Getter
 @EqualsAndHashCode
@@ -39,6 +43,13 @@ public class ShoppingCart implements Serializable {
                 .orElseGet(() -> BigDecimal.ZERO);
     }
 
+    @JsonSerialize(using = LocalDateTimeSerializer.class)
+    private LocalDateTime shoppingDate;
+
+    public Optional<LocalDateTime> getShoppingDate() {
+        return Optional.ofNullable(shoppingDate);
+    }
+
     public static class Builder {
         private ShoppingCart instance;
 
@@ -50,7 +61,18 @@ public class ShoppingCart implements Serializable {
         public Builder withSelf(ShoppingCart shoppingCart) {
             return withId(shoppingCart.id)
                     .withUser(shoppingCart.user)
+                    .withShoppingDate(shoppingCart.shoppingDate)
                     .withItemShoppingCarts(shoppingCart.itemShoppingCarts);
+        }
+
+        private Builder withShoppingDate(LocalDateTime shoppingDate) {
+            instance.shoppingDate = shoppingDate;
+            return this;
+        }
+
+        public Builder finalizeShoppingCart() {
+            instance.shoppingDate = LocalDateTime.now();
+            return this;
         }
 
         public Builder withId(Long id) {

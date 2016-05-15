@@ -34,9 +34,7 @@ public class EcommerceOrderServiceDefault implements EcommerceOrderService {
         return new MoipOrderIntegrationFacade(
                 moipApi,
                 this,
-                shoppingCartService
-                        .getCurrentFromUser()
-                        .orElseThrow(() -> new BusinessEcommerceException("order.shoppingCart.fromUserNotFound"))
+                shoppingCartService.finalizeCurrentFromUser()
         ).makeOrder();
     }
 

@@ -12,6 +12,8 @@ import com.formento.ecommerce.user.model.User;
 import com.formento.ecommerce.user.model.template.UserTemplate;
 import com.google.common.collect.ImmutableList;
 
+import java.time.LocalDateTime;
+
 public class ShoppingCartTemplate implements TemplateLoader {
 
     public static String VALID_SHOPPING_CART_NO_ID = "validShoppingCartNoId";
@@ -23,6 +25,7 @@ public class ShoppingCartTemplate implements TemplateLoader {
                 .addTemplate(VALID_SHOPPING_CART, new Rule() {{
                     add("id", 2l);
                     add("user", one(User.class, UserTemplate.VALID_USER));
+                    add("shoppingDate", LocalDateTime.now());
                     add("itemShoppingCarts", new ImmutableList.Builder<ItemShoppingCart>()
                             .add(new ItemShoppingCart(
                                     new Product.Builder().withAvailability(1).addProductPrice(Fixture.from(ProductPriceEntity.class).gimme(ProductPriceTemplate.VALID_CURRENT_PRODUCT_PRICE)).build(),

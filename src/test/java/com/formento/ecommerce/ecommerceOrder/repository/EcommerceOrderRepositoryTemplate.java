@@ -77,7 +77,6 @@ public class EcommerceOrderRepositoryTemplate {
                 .withUser(giveUser())
                 .build());
 
-
         itemShoppingCartService.save(shoppingCart.getItemShoppingCarts());
 
         return shoppingCartService.findOne(shoppingCart.getId());

@@ -15,7 +15,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -45,7 +45,7 @@ public class EcommerceOrder implements Serializable {
     private String integrationId;
 
     @JsonSerialize(using = LocalDateSerializer.class)
-    private LocalDate integrationDate;
+    private LocalDateTime integrationDate;
 
     @NotNull
     @Enumerated(EnumType.STRING)
@@ -53,6 +53,10 @@ public class EcommerceOrder implements Serializable {
 
     public Optional<String> getIntegrationId() {
         return Optional.ofNullable(this.integrationId);
+    }
+
+    public Optional<LocalDateTime> getIntegrationDate() {
+        return Optional.ofNullable(this.integrationDate);
     }
 
     public static class Builder {
@@ -94,7 +98,7 @@ public class EcommerceOrder implements Serializable {
         public Builder withIntegrationId(String integrationId) {
             instance.integrationId = integrationId;
             if (integrationId != null && (!integrationId.isEmpty())) {
-                instance.integrationDate = LocalDate.now();
+                instance.integrationDate = LocalDateTime.now();
             }
             return this;
         }

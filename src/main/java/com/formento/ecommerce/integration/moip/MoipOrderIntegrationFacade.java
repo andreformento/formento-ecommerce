@@ -31,7 +31,7 @@ public class MoipOrderIntegrationFacade implements OrderFacade {
 
         EcommerceOrder ecommerceOrder = initializeLocalEcommerceOrder();
 
-        Order moipOrder = getOrderRequest(customerOwnId, api, ecommerceOrder.getId().toString());
+        Order moipOrder = getOrderRequest(customerOwnId, ecommerceOrder, api, ecommerceOrder.getId().toString());
 
         return changeToCreated(ecommerceOrder.getId(), moipOrder.getId());
     }
@@ -54,19 +54,19 @@ public class MoipOrderIntegrationFacade implements OrderFacade {
         );
     }
 
-    private Order getOrderRequest(CustomerRequest customerRequest, API api, String ecommerceOrderId) {
+    private Order getOrderRequest(CustomerRequest customerRequest, EcommerceOrder ecommerceOrder, API api, String ecommerceOrderId) {
         OrderRequest orderRequest = new OrderRequest()
                 .ownId(ecommerceOrderId)
                 .customer(customerRequest);
-        shoppingCart
-                .getItemShoppingCarts()
+        ecommerceOrder
+                .getItemOrders()
                 .stream()
-                .forEach(itemShoppingCart ->
+                .forEach(itemOrder ->
                         orderRequest.addItem(
-                                itemShoppingCart.getProduct().getName(),
-                                itemShoppingCart.getQuantity(),
-                                itemShoppingCart.getProduct().getDescription(),
-                                itemShoppingCart.getProductPrice().multiply(BigDecimal.valueOf(100)).setScale(0, RoundingMode.DOWN).intValue()
+                                itemOrder.getProduct().getName(),
+                                itemOrder.getQuantity(),
+                                itemOrder.getProduct().getDescription(),
+                                itemOrder.getTotalPrice().multiply(BigDecimal.valueOf(100)).setScale(0, RoundingMode.DOWN).intValue()
                         ));
 
         return api.order().create(orderRequest);

@@ -18,7 +18,11 @@ public interface UserService {
 
     Optional<User> getByEmail(String email);
 
-    Optional<User> getUserOfSession();
+    Optional<UserAuthentication> getUserOfSession();
+
+    Optional<User> loadUser();
+
+    User loadUserValidated();
 
     void validateTokenSaved(String email, String authToken);
 }

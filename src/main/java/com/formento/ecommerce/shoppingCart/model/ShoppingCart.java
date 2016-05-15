@@ -47,6 +47,12 @@ public class ShoppingCart implements Serializable {
             this.instance.itemShoppingCarts = new ArrayList<>();
         }
 
+        public Builder withSelf(ShoppingCart shoppingCart) {
+            return withId(shoppingCart.id)
+                    .withUser(shoppingCart.user)
+                    .withItemShoppingCarts(shoppingCart.itemShoppingCarts);
+        }
+
         public Builder withId(Long id) {
             instance.id = id;
             return this;
@@ -76,7 +82,6 @@ public class ShoppingCart implements Serializable {
         public ShoppingCart build() {
             return instance;
         }
-
     }
 
 }

@@ -54,7 +54,7 @@ public class UserControllerTest {
         assertNotNull(user);
 
         // when
-        when(userService.getUserOfSession()).thenReturn(Optional.of(user));
+        when(userService.loadUser()).thenReturn(Optional.of(user));
 
         ResultActions resultActions = this.mockMvc.perform(get("/api/v1/users").accept(MediaType.APPLICATION_JSON));
 

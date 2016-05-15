@@ -37,7 +37,7 @@ public class MoipOrderIntegrationFacade implements OrderFacade {
     }
 
     private EcommerceOrder initializeLocalEcommerceOrder() {
-        return ecommerceOrderService.create(
+        return ecommerceOrderService.save(
                 new EcommerceOrder.Builder()
                         .withShoppingCart(shoppingCart)
                         .withStatusEcommerceOrder(StatusEcommerceOrder.SENT)

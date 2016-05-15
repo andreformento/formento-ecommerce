@@ -1,5 +1,6 @@
 package com.formento.ecommerce.user.model.service;
 
+import com.formento.ecommerce.exception.AccessDeniedEcommerceException;
 import com.formento.ecommerce.exception.UnauthorizedEcommerceException;
 import com.formento.ecommerce.security.UserAuthentication;
 import com.formento.ecommerce.security.component.JwtTokenUtil;
@@ -54,9 +55,9 @@ public class UserServiceProvider implements UserService {
 
     @Override
     public User create(User user) {
-        Preconditions.checkNotNull(user, "user.create.notValid");
-        Preconditions.checkNotNull(user.getPassword(), "user.create.invalidPassword");
-        Preconditions.checkNotNull(user.getEmail(), "user.create.invalidMail");
+        Preconditions.checkNotNull(user, "user.save.notValid");
+        Preconditions.checkNotNull(user.getPassword(), "user.save.invalidPassword");
+        Preconditions.checkNotNull(user.getEmail(), "user.save.invalidMail");
 
         User newUser = new User
                 .Builder()
@@ -106,14 +107,26 @@ public class UserServiceProvider implements UserService {
     }
 
     @Override
-    public Optional<User> getUserOfSession() {
+    public Optional<UserAuthentication> getUserOfSession() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication != null && authentication.getPrincipal() instanceof UserAuthentication) {
-            UserAuthentication userAuthentication = (UserAuthentication) authentication.getPrincipal();
-            return userRepository.findByEmail(userAuthentication.getEmail());
+            return Optional.of((UserAuthentication) authentication.getPrincipal());
         } else {
             return Optional.empty();
         }
+    }
+
+    @Override
+    public Optional<User> loadUser() {
+        return getUserOfSession()
+                .flatMap(userAuthentication ->
+                        userRepository.findByEmail(userAuthentication.getEmail())
+                );
+    }
+
+    @Override
+    public User loadUserValidated() {
+        return loadUser().orElseThrow(() -> new AccessDeniedEcommerceException("user.userNotFoundInSession"));
     }
 
     @Override

@@ -27,7 +27,7 @@ import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 @Validated
 @AllArgsConstructor
 @NoArgsConstructor
-@Api(value = "API of user", description = "User", basePath = "/v1/users", produces = "application/json")
+@Api(value = "API of user", description = "User", basePath = "/api/v1/users", produces = "application/json")
 public class UserController {
 
     @Autowired
@@ -36,9 +36,9 @@ public class UserController {
     @ApiOperation(value = "Load logged user", notes = "Return logged user", response = User.class)
     @RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public HttpEntity<Resource<User>> getUser() {
-        Optional<User> userOfSession = userService.getUserOfSession();
-        if (userOfSession.isPresent()) {
-            return new ResponseEntity<>(new Resource<>(userOfSession.get(), linkTo(UserController.class).withSelfRel()), HttpStatus.OK);
+        Optional<User> loadedUser = userService.loadUser();
+        if (loadedUser.isPresent()) {
+            return new ResponseEntity<>(new Resource<>(loadedUser.get(), linkTo(UserController.class).withSelfRel()), HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
@@ -47,7 +47,7 @@ public class UserController {
     @ApiOperation(value = "Create an user", notes = "Create and return an user", response = User.class)
     @RequestMapping(method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     public HttpEntity<Resource<User>> create(@RequestBody User user) {
-        return new ResponseEntity<>(new Resource<>(userService.create(user), linkTo(UserController.class).withSelfRel()), HttpStatus.OK);
+        return new ResponseEntity<>(new Resource<>(userService.create(user), linkTo(UserController.class).withSelfRel()), HttpStatus.CREATED);
     }
 
 }

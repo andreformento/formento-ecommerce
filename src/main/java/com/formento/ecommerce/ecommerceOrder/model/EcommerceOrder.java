@@ -5,6 +5,7 @@ import com.formento.ecommerce.ecommerceOrder.model.converter.ItemOrdersSerialize
 import com.formento.ecommerce.shoppingCart.model.ItemShoppingCart;
 import com.formento.ecommerce.shoppingCart.model.ShoppingCart;
 import com.formento.ecommerce.user.model.User;
+import com.formento.ecommerce.util.converter.LocalDateSerializer;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -14,6 +15,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.Collection;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -41,6 +43,9 @@ public class EcommerceOrder implements Serializable {
     private BigDecimal totalValue;
 
     private String integrationId;
+
+    @JsonSerialize(using = LocalDateSerializer.class)
+    private LocalDate integrationDate;
 
     @NotNull
     @Enumerated(EnumType.STRING)
@@ -86,9 +91,11 @@ public class EcommerceOrder implements Serializable {
             return this;
         }
 
-
         public Builder withIntegrationId(String integrationId) {
             instance.integrationId = integrationId;
+            if (integrationId != null && (!integrationId.isEmpty())) {
+                instance.integrationDate = LocalDate.now();
+            }
             return this;
         }
 
@@ -98,10 +105,9 @@ public class EcommerceOrder implements Serializable {
             instance.itemOrders = ecommerceOrderOld.itemOrders;
             instance.totalValue = ecommerceOrderOld.totalValue;
 
-            instance.integrationId = ecommerceOrderToChange.integrationId;
             instance.statusEcommerceOrder = ecommerceOrderToChange.statusEcommerceOrder;
 
-            return this;
+            return withIntegrationId(ecommerceOrderToChange.integrationId);
         }
 
         public EcommerceOrder build() {

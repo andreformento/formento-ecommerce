@@ -1,4 +1,4 @@
-package com.formento.ecommerce.security.api.v1.controller.controller;
+package com.formento.ecommerce.security.api.v1.controller;
 
 import com.formento.ecommerce.security.JwtAuthenticationRequest;
 import com.formento.ecommerce.security.service.AuthenticationRestService;

@@ -1,4 +1,4 @@
-package com.formento.ecommerce.security.api.v1.controller.controller;
+package com.formento.ecommerce.security.api.v1.controller;
 
 import br.com.six2six.fixturefactory.Fixture;
 import br.com.six2six.fixturefactory.loader.FixtureFactoryLoader;
@@ -56,7 +56,7 @@ public class UserControllerTest {
         // when
         when(userService.getUserOfSession()).thenReturn(Optional.of(user));
 
-        ResultActions resultActions = this.mockMvc.perform(get("/v1/users").accept(MediaType.APPLICATION_JSON));
+        ResultActions resultActions = this.mockMvc.perform(get("/api/v1/users").accept(MediaType.APPLICATION_JSON));
 
         // then
         resultActions

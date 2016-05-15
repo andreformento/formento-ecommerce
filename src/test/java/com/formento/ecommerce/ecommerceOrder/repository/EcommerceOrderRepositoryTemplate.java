@@ -6,8 +6,8 @@ import com.formento.ecommerce.product.model.Product;
 import com.formento.ecommerce.product.repository.ProductRepository;
 import com.formento.ecommerce.shoppingCart.model.ItemShoppingCart;
 import com.formento.ecommerce.shoppingCart.model.ShoppingCart;
-import com.formento.ecommerce.shoppingCart.model.repository.ItemShoppingCartRepository;
-import com.formento.ecommerce.shoppingCart.model.repository.ShoppingCartRepository;
+import com.formento.ecommerce.shoppingCart.service.ItemShoppingCartService;
+import com.formento.ecommerce.shoppingCart.service.ShoppingCartService;
 import com.formento.ecommerce.user.model.User;
 import com.formento.ecommerce.user.model.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,10 +26,10 @@ public class EcommerceOrderRepositoryTemplate {
     protected UserRepository userRepository;
 
     @Autowired
-    protected ShoppingCartRepository shoppingCartRepository;
+    protected ShoppingCartService shoppingCartService;
 
     @Autowired
-    protected ItemShoppingCartRepository itemShoppingCartRepository;
+    protected ItemShoppingCartService itemShoppingCartService;
 
     protected User giveUser() {
         String email = "andreformento.sc@gmail.com";
@@ -62,7 +62,7 @@ public class EcommerceOrderRepositoryTemplate {
         Product product1 = productRepository.findOne(1l);
         Product product2 = productRepository.findOne(2l);
 
-        ShoppingCart shoppingCart = shoppingCartRepository.save(new ShoppingCart
+        ShoppingCart shoppingCart = shoppingCartService.save(new ShoppingCart
                 .Builder()
                 .withItemShoppingCart(new ItemShoppingCart
                         .Builder()
@@ -78,9 +78,9 @@ public class EcommerceOrderRepositoryTemplate {
                 .build());
 
 
-        itemShoppingCartRepository.save(shoppingCart.getItemShoppingCarts());
+        itemShoppingCartService.save(shoppingCart.getItemShoppingCarts());
 
-        return shoppingCartRepository.findOne(shoppingCart.getId());
+        return shoppingCartService.findOne(shoppingCart.getId());
     }
 
     protected EcommerceOrder giveEcommerceOrder() {

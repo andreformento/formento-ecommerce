@@ -1,4 +1,4 @@
-package com.formento.ecommerce.shoppingCart.model.repository;
+package com.formento.ecommerce.shoppingCart.repository;
 
 import com.formento.ecommerce.shoppingCart.model.ItemShoppingCart;
 import org.springframework.data.repository.PagingAndSortingRepository;

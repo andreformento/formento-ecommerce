@@ -1,9 +1,11 @@
-package com.formento.ecommerce.security.api.v1.controller.controller;
+package com.formento.ecommerce.security.api.v1.controller;
 
 import com.formento.ecommerce.user.model.User;
 import com.formento.ecommerce.user.model.service.UserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.Resource;
 import org.springframework.http.HttpEntity;
@@ -23,19 +25,13 @@ import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 @RestController
 @RequestMapping("/api/v1/users")
 @Validated
+@AllArgsConstructor
+@NoArgsConstructor
 @Api(value = "API of user", description = "User", basePath = "/v1/users", produces = "application/json")
 public class UserController {
 
     @Autowired
     private UserService userService;
-
-    public UserController() {
-
-    }
-
-    public UserController(UserService userService) {
-        this.userService = userService;
-    }
 
     @ApiOperation(value = "Load logged user", notes = "Return logged user", response = User.class)
     @RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)

@@ -5,7 +5,8 @@ import com.formento.ecommerce.ecommerceOrder.model.converter.ItemOrdersSerialize
 import com.formento.ecommerce.shoppingCart.model.ItemShoppingCart;
 import com.formento.ecommerce.shoppingCart.model.ShoppingCart;
 import com.formento.ecommerce.user.model.User;
-import com.formento.ecommerce.util.converter.LocalDateSerializer;
+import com.formento.ecommerce.util.converter.OptionalLocalDateTimeSerializer;
+import com.formento.ecommerce.util.converter.OptionalObjectSerializer;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -44,17 +45,18 @@ public class EcommerceOrder implements Serializable {
 
     private String integrationId;
 
-    @JsonSerialize(using = LocalDateSerializer.class)
     private LocalDateTime integrationDate;
 
     @NotNull
     @Enumerated(EnumType.STRING)
     public StatusEcommerceOrder statusEcommerceOrder;
 
+    @JsonSerialize(using = OptionalObjectSerializer.class)
     public Optional<String> getIntegrationId() {
         return Optional.ofNullable(this.integrationId);
     }
 
+    @JsonSerialize(using = OptionalLocalDateTimeSerializer.class)
     public Optional<LocalDateTime> getIntegrationDate() {
         return Optional.ofNullable(this.integrationDate);
     }

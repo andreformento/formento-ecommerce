@@ -58,6 +58,7 @@ public class MoipOrderIntegrationFacade implements OrderFacade {
         OrderRequest orderRequest = new OrderRequest()
                 .ownId(ecommerceOrderId)
                 .customer(customerRequest);
+
         ecommerceOrder
                 .getItemOrders()
                 .stream()

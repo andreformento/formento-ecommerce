@@ -86,7 +86,7 @@ public class ShoppingCart implements Serializable {
         }
 
         public Builder withItemShoppingCarts(Collection<ItemShoppingCart> itemShoppingCarts) {
-            instance.itemShoppingCarts.forEach(this::withItemShoppingCart);
+            itemShoppingCarts.forEach(this::withItemShoppingCart);
             return this;
         }
 

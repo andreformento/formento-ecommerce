@@ -33,7 +33,8 @@ public class EcommerceOrderController {
     @ApiOperation(value = "Create an order", notes = "Create and return an order", response = EcommerceOrder.class)
     @RequestMapping(method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     public HttpEntity<Resource<EcommerceOrder>> create() {
-        return new ResponseEntity<>(new Resource<>(ecommerceOrderService.createIntegration(), linkTo(EcommerceOrderController.class).withSelfRel()), HttpStatus.CREATED);
+        Resource<EcommerceOrder> resource = new Resource<>(ecommerceOrderService.createIntegration(), linkTo(EcommerceOrderController.class).withSelfRel());
+        return new ResponseEntity<>(resource, HttpStatus.CREATED);
     }
 
 }

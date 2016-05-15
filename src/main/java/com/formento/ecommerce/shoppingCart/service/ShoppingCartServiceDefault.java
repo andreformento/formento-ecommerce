@@ -40,11 +40,17 @@ public class ShoppingCartServiceDefault implements ShoppingCartService {
 
     @Override
     public ShoppingCart finalizeCurrentFromUser() {
-        return new ShoppingCart
+        ShoppingCart shoppingCart = getCurrentFromUser().orElseThrow(() -> new BusinessEcommerceException("order.shoppingCart.empty"));
+
+        if (shoppingCart.getItemShoppingCarts().isEmpty()) {
+            throw new BusinessEcommerceException("shoppingCart.finalizeCurrentFromUser.notItemsFoundException");
+        }
+
+        return save(new ShoppingCart
                 .Builder()
-                .withSelf(getCurrentFromUser().orElseThrow(() -> new BusinessEcommerceException("order.shoppingCart.fromUserNotFound")))
+                .withSelf(shoppingCart)
                 .finalizeShoppingCart()
-                .build();
+                .build());
     }
 
     private Optional<ShoppingCart> getCurrentFromUser() {

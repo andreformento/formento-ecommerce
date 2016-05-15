@@ -13,7 +13,8 @@ public interface ShoppingCartRepository extends PagingAndSortingRepository<Shopp
 
     @Query(" select shoppingCart " +
             " from ShoppingCart shoppingCart " +
-            " where shoppingCart.user.email = ?1")
+            " where shoppingCart.user.email = ?1" +
+            "   and shoppingCart.shoppingDate is null")
     Optional<ShoppingCart> getCurrentFromUser(String email);
 
 }

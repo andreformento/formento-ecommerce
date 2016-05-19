@@ -1,0 +1,28 @@
+﻿<h1>Produtos</h1>
+<div ng-cloak class="ng-cloak">
+
+    <div id="products" class="row list-group">
+        <div class="item  col-xs-4 col-lg-4" ng-repeat="product in vm.allProducts">
+            <div class="thumbnail">
+                <div class="item-image">
+                    <img class="group list-group-image img-responsive" src="{{product.urlImage}}"
+                         alt="{{product.name}}"/>
+                </div>
+                <div class="caption">
+                    <h4 class="group inner list-group-item-heading">
+                        {{product.name}}</h4>
+                    <p class="group inner list-group-item-text">
+                        {{product.description}}</p>
+                    <div class="row">
+                        <div class="col-xs-12 col-md-6">
+                            <p class="lead">{{product.currentProductPrice | currency}}</p>
+                        </div>
+                        <div class="col-xs-12 col-md-6">
+                            <a class="btn btn-success" href="http://www.jquery2dotnet.com">Add to cart</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

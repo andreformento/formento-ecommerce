@@ -1,0 +1,5 @@
+{
+  "user.byEmailAndPasswordNotFound": "Usuário ou senha inválido :/",
+  "user.error.onLogin": "Erro no login",
+  "user.error.onRegister": "Não foi possível realizar o cadastro. Verifique os dados"
+}

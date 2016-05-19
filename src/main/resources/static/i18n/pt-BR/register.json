@@ -1,0 +1,13 @@
+{
+  "register.title": "Registro de usuário",
+  "register.name": "Nome",
+  "register.name.isRequired": "Nome obrigatório",
+  "register.email": "Email",
+  "register.email.isRequired": "Email obrigatório",
+  "register.password": "Senha",
+  "register.password.isRequired": "Senha obrigatória",
+  "register.enter": "Entrar",
+  "register.register": "Registar",
+  "register.success": "Registrado com sucesso",
+  "register.cancel": "Cancelar"
+}

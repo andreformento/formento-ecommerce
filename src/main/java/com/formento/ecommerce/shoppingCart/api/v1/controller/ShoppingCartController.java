@@ -18,7 +18,7 @@ package com.formento.ecommerce.shoppingCart.api.v1.controller;
 //import org.springframework.web.bind.annotation.RequestMethod;
 //import org.springframework.web.bind.annotation.RestController;
 //
-//import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
+//import static2 org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 //
 //@RestController
 //@RequestMapping("/api/v1/shopping-carts")

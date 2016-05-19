@@ -39,11 +39,10 @@ public class User implements UserAuthentication, Serializable {
     @Getter(AccessLevel.NONE)
     private UUID uuid;
 
-    @Size(min = 5, max = 80)
+    @Size(min = 1, max = 80)
     private String name;
 
     @Email
-    @Size(min = 5, max = 80)
     @Column(unique = true)
     private String email;
 

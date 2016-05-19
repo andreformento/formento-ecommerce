@@ -21,6 +21,7 @@ public class ProductTemplate implements TemplateLoader {
                     add("id", 2l);
                     add("name", "Chair");
                     add("description", "Beautiful chair");
+                    add("urlImage", "http://www.designwreck.com/wp-content/uploads/2014/04/tiles-chair-03.jpg");
                     add("availability", 5);
                     add("productPrices", new ArrayList<>());
                 }})

@@ -1,0 +1,9 @@
+{
+  "login.title": "Login",
+  "login.email": "Email",
+  "login.email.isRequired": "Email obrigatório",
+  "login.password": "Senha",
+  "login.password.isRequired": "Senha obrigatória",
+  "login.enter": "Entrar",
+  "login.register": "Registar"
+}

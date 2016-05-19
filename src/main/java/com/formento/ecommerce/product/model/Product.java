@@ -35,6 +35,8 @@ public class Product implements Serializable {
     @Size(max = 1024)
     private String description;
 
+    private String urlImage;
+
     @Min(0)
     @NotNull
     private Integer availability;
@@ -88,6 +90,11 @@ public class Product implements Serializable {
 
         public Builder withName(String name) {
             product.name = name;
+            return this;
+        }
+
+        public Builder withUrlImage(String urlImage) {
+            product.urlImage = urlImage;
             return this;
         }
 

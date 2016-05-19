@@ -34,6 +34,7 @@ public class DatabaseInitialConfig {
                 productRepository.save(new Product.Builder()
                         .withName("Cadeira")
                         .withDescription("Cadeira com rodinhas")
+                        .withUrlImage("http://www.belesyfurniture.com/image/cache/data/8503-C/19-600x350.jpg")
                         .withAvailability(5)
                         .addProductPrice(BigDecimal.valueOf(50), LocalDate.now().minusMonths(1))
                         .addProductPrice(BigDecimal.valueOf(120), LocalDate.now())
@@ -45,6 +46,7 @@ public class DatabaseInitialConfig {
                 productRepository.save(new Product.Builder()
                         .withName("Mesa")
                         .withDescription("Mesa de escritório")
+                        .withUrlImage("http://safarimp.com/wp-content/uploads/2016/02/brilliant-new-office-reception-furniture-new-office-furniture-reception-with-glass-office-table.jpg")
                         .withAvailability(15)
                         .addProductPrice(BigDecimal.valueOf(250), LocalDate.now().minusMonths(1))
                         .build()
@@ -53,7 +55,8 @@ public class DatabaseInitialConfig {
         productPriceRepository.save(
                 productRepository.save(new Product.Builder()
                         .withName("Computador")
-                        .withDescription("Computador com Linux")
+                        .withDescription("Apple")
+                        .withUrlImage("http://technozigzag.com/wp-content/uploads/2014/10/apple-imac-retina-display.jpg")
                         .withAvailability(30)
                         .addProductPrice(BigDecimal.valueOf(2500), LocalDate.now().minusMonths(1))
                         .build()
@@ -61,10 +64,11 @@ public class DatabaseInitialConfig {
 
         productPriceRepository.save(
                 productRepository.save(new Product.Builder()
-                        .withName("Folhas")
-                        .withDescription("Bloco de 500 folhas")
+                        .withName("Kit para escritório")
+                        .withDescription("Kit contendo vários itens para escritório")
+                        .withUrlImage("http://conasia.net/product_pic/office%20accessories.jpg")
                         .withAvailability(5000)
-                        .addProductPrice(BigDecimal.valueOf(13), LocalDate.now().minusDays(10))
+                        .addProductPrice(BigDecimal.valueOf(129.99), LocalDate.now().minusDays(10))
                         .build()
                 ).getProductPrices());
 

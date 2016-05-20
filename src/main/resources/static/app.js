@@ -53,9 +53,7 @@
     function run($rootScope, $location, $cookieStore, $http) {
         // keep user logged in after page refresh
         $rootScope.globals = $cookieStore.get('globals') || {};
-        console.log('fora do if',$rootScope.globals.currentUser && $rootScope.globals.currentUser.token);
         if ($rootScope.globals.currentUser && $rootScope.globals.currentUser.token) {
-            console.log('dentro do if',$rootScope.globals.currentUser.token);
             $http.defaults.headers.common['Authorization'] = 'Bearer ' + $rootScope.globals.currentUser.token; // jshint ignore:line
         }
 

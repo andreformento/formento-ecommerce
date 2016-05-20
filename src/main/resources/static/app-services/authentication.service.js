@@ -12,6 +12,7 @@
         service.Login = Login;
         service.SetCredentials = SetCredentials;
         service.ClearCredentials = ClearCredentials;
+        service.currentUser = {};
 
         return service;
 
@@ -20,17 +21,17 @@
         }
 
         function SetCredentials(user) {
-            console.log('SetCredentials(user)',user);
             if (user && user.token) {
-                console.log('user && user.token',user);
                 var token = user.token;
                 $rootScope.globals = {
                     currentUser: user,
+                    connected: true,
                     token: token
                 };
 
+                service.currentUser = user;
+
                 $http.defaults.headers.common['Authorization'] = 'Bearer ' + token; // jshint ignore:line
-                console.log('Authorization',$http.defaults.headers.common['Authorization']);
                 $cookieStore.put('globals', $rootScope.globals);
             } else {
                 ClearCredentials();
@@ -38,6 +39,7 @@
         }
 
         function ClearCredentials() {
+            $rootScope.globals.connected = false;
             $rootScope.globals = {};
             $cookieStore.remove('globals');
             $http.defaults.headers.common['Authorization'] = '';

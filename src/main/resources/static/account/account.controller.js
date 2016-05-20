@@ -19,8 +19,6 @@
         initController();
 
         function initController() {
-        console.log('$translate',$translate);
-        console.log('account.welcome',$translate.instant('account.welcome'));
             loadCurrentUser();
         }
 

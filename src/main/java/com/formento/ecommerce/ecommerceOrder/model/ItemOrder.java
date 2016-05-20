@@ -2,7 +2,7 @@ package com.formento.ecommerce.ecommerceOrder.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.formento.ecommerce.product.converter.ProductSerializer;
+import com.formento.ecommerce.product.converter.ProductListSerializer;
 import com.formento.ecommerce.product.model.Product;
 import com.formento.ecommerce.productPrice.model.ProductPrice;
 import lombok.AllArgsConstructor;
@@ -29,7 +29,7 @@ public class ItemOrder implements ProductPrice, Serializable {
 
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY)
-    @JsonSerialize(using = ProductSerializer.class)
+    @JsonSerialize(using = ProductListSerializer.class)
     private Product product;
 
     @JsonIgnore

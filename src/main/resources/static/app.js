@@ -16,9 +16,9 @@
             .preferredLanguage('pt-BR');
 
         $routeProvider
-            .when('/', {
-                controller: 'HomeController',
-                templateUrl: 'home/home.view.html',
+            .when('/account', {
+                controller: 'AccountController',
+                templateUrl: 'account/account.view.html',
                 controllerAs: 'vm'
             })
 
@@ -40,6 +40,12 @@
                 controllerAs: 'vm'
             })
 
+            .when('/shoppingCarts', {
+                controller: 'ShoppingCartController',
+                templateUrl: 'shoppingCart/shoppingCart.view.html',
+                controllerAs: 'vm'
+            })
+
             .otherwise({ redirectTo: '/products' });
     }
 
@@ -47,8 +53,10 @@
     function run($rootScope, $location, $cookieStore, $http) {
         // keep user logged in after page refresh
         $rootScope.globals = $cookieStore.get('globals') || {};
-        if ($rootScope.globals.currentUser) {
-            $http.defaults.headers.common['Authorization'] = 'Bearer ' + $rootScope.globals.currentUser.authdata; // jshint ignore:line
+        console.log('fora do if',$rootScope.globals.currentUser && $rootScope.globals.currentUser.token);
+        if ($rootScope.globals.currentUser && $rootScope.globals.currentUser.token) {
+            console.log('dentro do if',$rootScope.globals.currentUser.token);
+            $http.defaults.headers.common['Authorization'] = 'Bearer ' + $rootScope.globals.currentUser.token; // jshint ignore:line
         }
 
         $rootScope.$on('$locationChangeStart', function (event, next, current) {

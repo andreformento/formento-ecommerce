@@ -20,18 +20,27 @@
         }
 
         function SetCredentials(user) {
-            $rootScope.globals = {
-                currentUser: user
-            };
+            console.log('SetCredentials(user)',user);
+            if (user && user.token) {
+                console.log('user && user.token',user);
+                var token = user.token;
+                $rootScope.globals = {
+                    currentUser: user,
+                    token: token
+                };
 
-            $http.defaults.headers.common['Authorization'] = 'Bearer ' + user.token; // jshint ignore:line
-            $cookieStore.put('globals', $rootScope.globals);
+                $http.defaults.headers.common['Authorization'] = 'Bearer ' + token; // jshint ignore:line
+                console.log('Authorization',$http.defaults.headers.common['Authorization']);
+                $cookieStore.put('globals', $rootScope.globals);
+            } else {
+                ClearCredentials();
+            }
         }
 
         function ClearCredentials() {
             $rootScope.globals = {};
             $cookieStore.remove('globals');
-            $http.defaults.headers.common.Authorization = 'Bearer';
+            $http.defaults.headers.common['Authorization'] = '';
         }
     }
 

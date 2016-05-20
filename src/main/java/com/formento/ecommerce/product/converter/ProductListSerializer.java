@@ -10,7 +10,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class ProductSerializer extends JsonSerializer<Collection<Product>> {
+public class ProductListSerializer extends JsonSerializer<Collection<Product>> {
 
     @Override
     public void serialize(Collection<Product> value, JsonGenerator jsonGenerator, SerializerProvider provider) throws IOException {

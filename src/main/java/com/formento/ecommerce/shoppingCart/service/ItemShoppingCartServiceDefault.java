@@ -1,5 +1,6 @@
 package com.formento.ecommerce.shoppingCart.service;
 
+import com.formento.ecommerce.exception.AccessDeniedEcommerceException;
 import com.formento.ecommerce.exception.BusinessEcommerceException;
 import com.formento.ecommerce.product.service.ProductService;
 import com.formento.ecommerce.shoppingCart.model.ItemShoppingCart;
@@ -37,8 +38,24 @@ public class ItemShoppingCartServiceDefault implements ItemShoppingCartService {
     }
 
     @Override
+    public Optional<ItemShoppingCart> getByIdFromLoggedUser(Long itemShoppingCartId) {
+        return Optional
+                .ofNullable(repository.findOne(itemShoppingCartId))
+                .map(itemShoppingCart -> {
+                    if (!itemShoppingCart.getShoppingCart().getUser().getEmail().equals(userService.loadUserValidated().getEmail()))
+                        throw new AccessDeniedEcommerceException("itemShoppingCart.accessDeniedToLoggedUser");
+                    return itemShoppingCart;
+                });
+    }
+
+    @Override
     public void save(Iterable<ItemShoppingCart> itemShoppingCarts) {
         repository.save(itemShoppingCarts);
+    }
+
+    @Override
+    public void removeItemShoppingCart(Long itemShoppingCartId) {
+        getByIdFromLoggedUser(itemShoppingCartId).ifPresent(itemShoppingCart -> repository.delete(itemShoppingCart));
     }
 
     @Override

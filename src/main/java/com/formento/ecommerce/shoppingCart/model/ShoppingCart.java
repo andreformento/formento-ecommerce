@@ -94,7 +94,7 @@ public class ShoppingCart implements Serializable {
             instance.itemShoppingCarts.add(new ItemShoppingCart
                     .Builder()
                     .withShoppingCart(instance)
-                    .withId(itemShoppingCart.getId())
+                    .withShoppingCartId(itemShoppingCart.getItemShoppingCartId())
                     .withProduct(itemShoppingCart.getProduct())
                     .withQuantity(itemShoppingCart.getQuantity())
                     .build());

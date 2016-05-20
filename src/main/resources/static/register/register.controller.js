@@ -17,34 +17,21 @@
         vm.register = register;
 
         function register() {
-            vm.dataLoading = true;
             UserService.Create(vm.user)
                 .then(function (response) {
+                    vm.dataLoading = false;
                     if (response.token) {
-                        $translate('register.success')
-                            .then(function (translatedValue) {
-                                FlashService.Success(translatedValue, true);
-                                vm.dataLoading = false;
-                            });
-
+                        FlashService.Success($translate.instant('register.success'), true);
                         $location.path('/login');
                     } else {
-                        var errorCode = response.data && response.data.message ? response.data.message : 'user.error.onRegister';
-                        $translate(errorCode)
-                            .then(function (translatedValue) {
-                                FlashService.Error(translatedValue);
-                                vm.dataLoading = false;
-                            });
+                         FlashService.Error(response.message);
                     }
-                }, function errorCallback(response) {
-                     var errorCode = response.data && response.data.message ? response.data.message : 'user.error.onRegister';
-                     $translate(errorCode)
-                         .then(function (translatedValue) {
-                             FlashService.Error(translatedValue);
-                             vm.dataLoading = false;
-                         });
-                 }
-               );
+                    vm.dataLoading = false;
+                },
+                function (response) {
+                    vm.dataLoading = false;
+                    FlashService.Error(response.message);
+                });
         }
     }
 

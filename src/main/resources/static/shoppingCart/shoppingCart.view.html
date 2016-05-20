@@ -1,0 +1,31 @@
+﻿<h1>{{ 'shoppingCart.title' | translate }}</h1>
+<div ng-cloak class="ng-cloak">
+
+    <div id="shoppingCarts" class="row list-group">
+        {{itemShoppingCart}}
+        <div class="item  col-xs-4 col-lg-4" ng-repeat="itemShoppingCart in vm.allItemShoppingCarts">
+            <div class="thumbnail">
+                <div class="item-image">
+                    <img class="group list-group-image img-responsive" src="{{itemShoppingCart.productItem.urlImage}}"
+                         alt="{{itemShoppingCart.productItem.name}}"/>
+                </div>
+                <div class="caption">
+                    <h4 class="group inner list-group-item-heading">
+                        {{itemShoppingCart.productItem.name}}</h4>
+                    <p class="group inner list-group-item-text">
+                        {{itemShoppingCart.productItem.description}}</p>
+                    <p class="group inner list-group-item-text">
+                        {{ 'shoppingCart.quantity' | translate }}: {{itemShoppingCart.quantity}}</p>
+                    <div class="row">
+                        <div class="col-xs-12 col-md-6">
+                            <p class="lead">{{itemShoppingCart.totalPrice | currency}}</p>
+                        </div>
+                        <div class="col-xs-12 col-md-6">
+                            <a class="btn btn-success" href="">{{ 'shoppingCart.removeFromCart' | translate }}</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

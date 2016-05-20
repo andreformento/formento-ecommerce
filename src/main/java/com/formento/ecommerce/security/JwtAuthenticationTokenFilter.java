@@ -46,7 +46,7 @@ public class JwtAuthenticationTokenFilter extends UsernamePasswordAuthentication
 
         Optional<String> authTokenWithSchemeOptional = Optional.ofNullable(httpRequest.getHeader(this.tokenHeader));
 
-        if (authTokenWithSchemeOptional.isPresent()) {
+        if (authTokenWithSchemeOptional.filter((s) -> !s.isEmpty()).isPresent()) {
             final String authTokenWithScheme = authTokenWithSchemeOptional.get();
             final String authScheme = Optional
                     .ofNullable(this.tokenScheme)

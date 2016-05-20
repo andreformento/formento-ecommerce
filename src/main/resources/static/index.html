@@ -20,10 +20,11 @@
                 <a class="navbar-brand" href="#">{{ 'system.name' | translate }}</a>
             </div>
             <ul class="nav navbar-nav">
-                <li class="active"><a href="#">{{ 'system.menu.home' | translate }}</a></li>
-                <li><a href="#">{{ 'system.menu.shoppingCart' | translate }}</a></li>
+                <li class="active"><a href="#">{{ 'system.menu.products' | translate }}</a></li>
+                <li><a href="#shoppingCarts">{{ 'system.menu.shoppingCart' | translate }}</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
+                <li><a href="#account"><span class="glyphicon glyphicon-user"></span> {{ 'system.menu.account' | translate }}</a></li>
                 <li><a href="#register"><span class="glyphicon glyphicon-user"></span> {{ 'system.menu.register' | translate }}</a></li>
                 <li><a href="#login"><span class="glyphicon glyphicon-log-in"></span> {{ 'system.menu.login' | translate }}</a></li>
             </ul>
@@ -66,10 +67,12 @@
     <script src="app-services/flash.service.js"></script>
     <script src="app-services/user.service.js"></script>
     <script src="app-services/product.service.js"></script>
-    <script src="home/home.controller.js"></script>
+    <script src="app-services/shoppingCart.service.js"></script>
+    <script src="account/account.controller.js"></script>
     <script src="login/login.controller.js"></script>
     <script src="register/register.controller.js"></script>
     <script src="product/product.controller.js"></script>
+    <script src="shoppingCart/shoppingCart.controller.js"></script>
 
 </body>
 </html>

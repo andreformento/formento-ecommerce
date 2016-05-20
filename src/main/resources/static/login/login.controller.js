@@ -38,10 +38,10 @@
                             $translate(errorCode)
                                 .then(function (translatedValue) {
                                     FlashService.Error(translatedValue);
-                                    vm.dataLoading = false;
                                 });
                         }
 
+                        vm.dataLoading = false;
                     }, function errorCallback(response) {
                         var errorCode = response.data && response.data.message ? response.data.message : 'user.error.onLogin';
                         $translate(errorCode)

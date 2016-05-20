@@ -14,10 +14,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 
@@ -38,10 +35,17 @@ public class ItemShoppingCartController {
         return new ResponseEntity<>(new Resources<>(itemShoppingCartService.addItemShoppingCart(itemShoppingCart), linkTo(ItemShoppingCartController.class).withSelfRel()), HttpStatus.CREATED);
     }
 
+    @ApiOperation(value = "Add a item shopping cart", notes = "Add a item in a shopping cart and return updated list from shopping cart", response = ShoppingCart.class)
+    @RequestMapping(value = "/{itemShoppingCartId}",method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public HttpEntity<Resources<ItemShoppingCart>> removeItemShoppingCart(@PathVariable("itemShoppingCartId") Long itemShoppingCartId) {
+        itemShoppingCartService.removeItemShoppingCart(itemShoppingCartId);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
     @ApiOperation(value = "Get all items of shopping cart from logged user", notes = "Get all items of shopping cart from logged user", response = ItemShoppingCart.class)
     @RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public HttpEntity<Resources<ItemShoppingCart>> getAllFromLoggedUser() {
-        return new ResponseEntity<>(new Resources<>(itemShoppingCartService.getAllFromLoggedUser(), linkTo(ItemShoppingCartController.class).withSelfRel()), HttpStatus.CREATED);
+        return new ResponseEntity<>(new Resources<>(itemShoppingCartService.getAllFromLoggedUser(), linkTo(ItemShoppingCartController.class).withSelfRel()), HttpStatus.OK);
     }
 
 }

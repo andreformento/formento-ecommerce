@@ -1,5 +1,14 @@
 {
-  "user.byEmailAndPasswordNotFound": "Usuário ou senha inválido :/",
   "user.error.onLogin": "Erro no login",
-  "user.error.onRegister": "Não foi possível realizar o cadastro. Verifique os dados"
+  "user.error.onRegister": "Não foi possível realizar o cadastro. Verifique os dados",
+  "system.operationError": "Erro ao executar operação",
+  "authenticationToken.invalidToken": "Sessão inválida (token)",
+  "user.byEmailAndPasswordNotFound": "Usuário ou senha inválida",
+  "user.byEmailNotFound": "Email não encontrado",
+  "user.invalidToken": "Sessão inválida",
+  "user.save.notValid": "Usuário com dados incorretos",
+  "user.save.invalidPassword": "Senha incorreta",
+  "user.save.invalidMail": "Email incorreto",
+  "user.userNotFoundInSession": "Usuário não encontrado na sessão",
+  "user.validator.emailExists": "Email existente"
 }

@@ -1,8 +1,10 @@
 package com.formento.ecommerce.shoppingCart.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.formento.ecommerce.ecommerceOrder.model.ItemOrder;
 import com.formento.ecommerce.exception.BusinessEcommerceException;
+import com.formento.ecommerce.product.converter.ProductListSerializer;
 import com.formento.ecommerce.product.model.Product;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -24,7 +26,7 @@ public class ItemShoppingCart implements Serializable {
 
     @Id
     @GeneratedValue
-    private Long id;
+    private Long itemShoppingCartId;
 
     @NotNull
     @ManyToOne
@@ -36,6 +38,14 @@ public class ItemShoppingCart implements Serializable {
     private ShoppingCart shoppingCart;
 
     private Integer quantity;
+
+    public Long getId() {
+        return this.itemShoppingCartId;
+    }
+
+    public Product getProductItem() {
+        return product;
+    }
 
     public ItemShoppingCart(Product product, Integer quantity) {
         if (quantity.compareTo(product.getAvailability()) > 0) {
@@ -61,8 +71,8 @@ public class ItemShoppingCart implements Serializable {
     public static class Builder {
         private ItemShoppingCart instance = new ItemShoppingCart();
 
-        public Builder withId(Long id) {
-            instance.id = id;
+        public Builder withShoppingCartId(Long itemShoppingCartId) {
+            instance.itemShoppingCartId = itemShoppingCartId;
             return this;
         }
 

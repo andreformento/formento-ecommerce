@@ -32,6 +32,19 @@
                 });
         }
 
+        vm.remove = function(itemShoppingCart) {
+            console.log('itemShoppingCart',itemShoppingCart);
+
+            ShoppingCartService.RemoveById(itemShoppingCart.id)
+                .then(function (response) {
+                    FlashService.Success($translate.instant('shoppingCart.removedItemFromCart'), true);
+                    loadAllItemShoppingCarts();
+                },
+                function (response) {
+                    FlashService.Error(response.message);
+                });
+        }
+
     }
 
 })();

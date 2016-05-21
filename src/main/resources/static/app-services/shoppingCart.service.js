@@ -17,7 +17,7 @@
         _translate.refresh();
 
         service.GetAll = GetAll;
-        service.DeleteById = DeleteById;
+        service.RemoveById = RemoveById;
         service.Add = Add;
 
         return service;
@@ -27,11 +27,11 @@
         }
 
         function Add(itemShoppingCart) {
-            console.log('post itemShoppingCart1', itemShoppingCart);
             return $http.post('/api/v1/item-shopping-carts/', itemShoppingCart).then(handleSuccess, handleError);
         }
 
-        function DeleteById(id) {
+        function RemoveById(id) {
+            console.log('remove', id);
             return $http.delete('/api/v1/item-shopping-carts/' + id).then(handleSuccess, handleError);
         }
 

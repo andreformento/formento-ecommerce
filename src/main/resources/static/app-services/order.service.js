@@ -16,29 +16,17 @@
         _translatePartialLoader.addPart('order');
         _translate.refresh();
 
-        service.GetAll = GetAll;
-        service.RemoveById = RemoveById;
-        service.Add = Add;
-        service.Plus = Plus;
+        service.GetFromUser = GetFromUser;
+        service.finalizeCurrentFromUser = finalizeCurrentFromUser;
 
         return service;
 
-        function GetAll() {
+        function GetFromUser() {
             return $http.get('/api/v1/orders').then(handleSuccess, handleError);
         }
 
-        function Add(itemOrder) {
-            console.log('plus service',itemOrder);
-            return $http.post('/api/v1/orders/', itemOrder).then(handleSuccess, handleError);
-        }
-
-        function Plus(id) {
-            console.log('plus service id',id);
-            return $http.patch('/api/v1/orders/' + id).then(handleSuccess, handleError);
-        }
-
-        function RemoveById(id) {
-            return $http.delete('/api/v1/orders/' + id).then(handleSuccess, handleError);
+        function finalizeCurrentFromUser() {
+            return $http.post('/api/v1/orders').then(handleSuccess, handleError);
         }
 
         // private functions

@@ -5,8 +5,8 @@
         .module('app')
         .controller('ShoppingCartController', ShoppingCartController);
 
-    ShoppingCartController.$inject = ['ShoppingCartService', 'AuthenticationService', 'FlashService', '$rootScope', '$translate', '$translatePartialLoader'];
-    function ShoppingCartController(ShoppingCartService, AuthenticationService, FlashService, $rootScope, $translate, $translatePartialLoader) {
+    ShoppingCartController.$inject = ['ShoppingCartService', 'OrderService', 'AuthenticationService', 'FlashService', '$rootScope', '$location', '$translate', '$translatePartialLoader'];
+    function ShoppingCartController(ShoppingCartService, OrderService, AuthenticationService, FlashService, $rootScope, $location, $translate, $translatePartialLoader) {
         $translatePartialLoader.addPart('system');
         $translatePartialLoader.addPart('exception');
         $translatePartialLoader.addPart('shoppingCart');
@@ -88,15 +88,16 @@
         }
 
         vm.finalizeCurrentFromUser = function(itemShoppingCart) {
-            ShoppingCartService.finalizeCurrentFromUser()
+            OrderService.finalizeCurrentFromUser()
                 .then(function (response) {
-                    if (response.quantity) {
+                    if (response.totalValue) {
                         FlashService.Success($translate.instant('shoppingCart.createdOrder'), true);
+
                         $location.path('/order');
-                    } else if (itemShoppingCart.message) {
-                        FlashService.Error($translate.instant('shoppingCart.cannotCreateOrder'));
+                    } else if (response.message) {
+                        FlashService.Error($translate.instant(response.message));
                     } else {
-                        FlashService.Error(response.message);
+                        FlashService.Error($translate.instant('shoppingCart.cannotCreateOrder'));
                     }
                 },
                 function (response) {

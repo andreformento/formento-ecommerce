@@ -21,7 +21,6 @@
         service.RemoveById = RemoveById;
         service.Add = Add;
         service.Plus = Plus;
-        service.finalizeCurrentFromUser = finalizeCurrentFromUser;
 
         return service;
 
@@ -31,10 +30,6 @@
 
         function GetFromUser() {
             return $http.get('/api/v1/shopping-carts').then(handleSuccess, handleError);
-        }
-
-        function finalizeCurrentFromUser() {
-            return $http.post('/api/v1/shopping-carts').then(handleSuccess, handleError);
         }
 
         function Add(itemShoppingCart) {

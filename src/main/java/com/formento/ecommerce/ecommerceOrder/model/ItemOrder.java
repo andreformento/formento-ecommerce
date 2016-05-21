@@ -28,13 +28,13 @@ public class ItemOrder implements ProductPrice, Serializable {
     private Long id;
 
     @NotNull
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JsonSerialize(using = ProductListSerializer.class)
     private Product product;
 
     @JsonIgnore
     @NotNull
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     private EcommerceOrder ecommerceOrder;
 
     @Min(1)

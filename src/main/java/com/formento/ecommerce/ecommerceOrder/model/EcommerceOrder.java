@@ -1,5 +1,6 @@
 package com.formento.ecommerce.ecommerceOrder.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.formento.ecommerce.ecommerceOrder.model.converter.ItemOrdersSerializer;
 import com.formento.ecommerce.shoppingCart.model.ItemShoppingCart;
@@ -38,6 +39,7 @@ public class EcommerceOrder implements Serializable {
 
     @JsonSerialize(using = ItemOrdersSerializer.class)
     @OneToMany(mappedBy = "ecommerceOrder")
+    @JsonProperty
     private Collection<ItemOrder> itemOrders;
 
     @NotNull
@@ -59,6 +61,12 @@ public class EcommerceOrder implements Serializable {
     @JsonSerialize(using = OptionalLocalDateTimeSerializer.class)
     public Optional<LocalDateTime> getIntegrationDate() {
         return Optional.ofNullable(this.integrationDate);
+    }
+
+    @JsonProperty
+    @JsonSerialize(using = ItemOrdersSerializer.class)
+    public Collection<ItemOrder> getEcommerceItemOrders() {
+        return itemOrders;
     }
 
     public static class Builder {

@@ -12,7 +12,8 @@ public interface EcommerceOrderRepository extends PagingAndSortingRepository<Eco
 
     @Query(" select ecommerceOrder " +
             " from EcommerceOrder ecommerceOrder " +
-            " where ecommerceOrder.user.email = ?1")
+            " where ecommerceOrder.user.email = ?1" +
+            "   and ecommerceOrder.statusEcommerceOrder = 'CREATED'")
     Optional<EcommerceOrder> getCurrentOrder(String email);
 
 }

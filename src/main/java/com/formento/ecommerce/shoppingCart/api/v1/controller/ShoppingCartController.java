@@ -36,10 +36,4 @@ public class ShoppingCartController {
         return new ResponseEntity<>(new Resource<>(shoppingCartService.getOrCreateCurrentFromUser(), linkTo(ShoppingCartController.class).withSelfRel()), HttpStatus.OK);
     }
 
-    @ApiOperation(value = "Finalize shopping cart from logged user", notes = "Finalize shopping cart from logged user", response = ShoppingCart.class)
-    @RequestMapping(method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-    public HttpEntity<Resource<ShoppingCart>> finalizeFromLoggedUser() {
-        return new ResponseEntity<>(new Resource<>(shoppingCartService.finalizeCurrentFromUser(), linkTo(ShoppingCartController.class).withSelfRel()), HttpStatus.OK);
-    }
-
 }

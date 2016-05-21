@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 
 @RestController
-@RequestMapping("/api/v1/orders")
+    @RequestMapping("/api/v1/orders")
 @Validated
 @AllArgsConstructor
 @NoArgsConstructor
@@ -35,6 +35,12 @@ public class EcommerceOrderController {
     public HttpEntity<Resource<EcommerceOrder>> create() {
         Resource<EcommerceOrder> resource = new Resource<>(ecommerceOrderService.createIntegration(), linkTo(EcommerceOrderController.class).withSelfRel());
         return new ResponseEntity<>(resource, HttpStatus.CREATED);
+    }
+
+    @ApiOperation(value = "Get an order", notes = "Get and return an order", response = EcommerceOrder.class)
+    @RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public HttpEntity<Resource<EcommerceOrder>> getCurrentOrder() {
+        return new ResponseEntity<>(new Resource<>(ecommerceOrderService.getValidatedCurrentOrder(), linkTo(EcommerceOrderController.class).withSelfRel()), HttpStatus.CREATED);
     }
 
 }

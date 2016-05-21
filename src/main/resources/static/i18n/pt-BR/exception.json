@@ -3,12 +3,21 @@
   "user.error.onRegister": "Não foi possível realizar o cadastro. Verifique os dados",
   "system.operationError": "Erro ao executar operação",
   "authenticationToken.invalidToken": "Sessão inválida (token)",
-  "user.byEmailAndPasswordNotFound": "Usuário ou senha inválida",
+  "user.byEmailAndPasswordNotFound": "Usuário ou senha inválido",
   "user.byEmailNotFound": "Email não encontrado",
   "user.invalidToken": "Sessão inválida",
   "user.save.notValid": "Usuário com dados incorretos",
   "user.save.invalidPassword": "Senha incorreta",
   "user.save.invalidMail": "Email incorreto",
   "user.userNotFoundInSession": "Usuário não encontrado na sessão",
-  "user.validator.emailExists": "Email existente"
+  "user.validator.emailExists": "Email existente",
+  "shoppingCarts.error.onLoading": "Erro ao carregar carrinho de compras",
+  "itemShoppingCart.product.cannotBeNull": "O produto deve ser informado",
+  "itemShoppingCart.quantity.cannotBeNull": "A quantidade deve ser informada",
+  "product.notFoundById": "Produto informado não encontrado",
+  "itemShoppingCart.accessDeniedToLoggedUser": "Usuário sem acesso ao carrinho de compras solicitado",
+  "shoppingCart.quantityGreaterThenAvaliabityOfProduct": "Quantidade maior que a disponível do produto",
+  "shoppingCart.priceOfProductNotDefined": "Preço do produto indefinido",
+  "order.shoppingCart.empty": "Carrinho de compras vazio para realizar a compra",
+  "shoppingCart.finalizeCurrentFromUser.notItemsFoundException": "Não foi possível fazer a solicitação de compra pois não há itens no carrinho"
 }

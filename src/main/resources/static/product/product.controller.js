@@ -5,8 +5,8 @@
         .module('app')
         .controller('ProductController', ProductController);
 
-    ProductController.$inject = ['ProductService', '$rootScope', '$translate', '$translatePartialLoader'];
-    function ProductController(ProductService, $rootScope, $translate, $translatePartialLoader) {
+    ProductController.$inject = ['ProductService', 'ShoppingCartService', 'FlashService', '$rootScope', '$translate', '$translatePartialLoader'];
+    function ProductController(ProductService, ShoppingCartService, FlashService, $rootScope, $translate, $translatePartialLoader) {
         $translatePartialLoader.addPart('system');
         $translatePartialLoader.addPart('exception');
         $translatePartialLoader.addPart('product');
@@ -14,11 +14,11 @@
 
         var vm = this;
 
-        vm.allProducts = [];
-
         initController();
 
         function initController() {
+            vm.allProducts = [];
+
             loadAllProducts();
         }
 
@@ -28,6 +28,25 @@
                     var products = response._embedded.products;
                     vm.allProducts = products;
                 });
+        }
+
+        vm.add = function(product) {
+            if ($rootScope.globals.connected) {
+                var itemShoppingCart = {
+                        "product" : product,
+                        "quantity" : 1
+                    }
+                ShoppingCartService.Add(itemShoppingCart)
+                    .then(function (response) {
+                        FlashService.Success($translate.instant('shoppingItemCart.addWithSuccess'), true);
+                        loadAllProducts();
+                    },
+                    function (response) {
+                        FlashService.Error(response.message);
+                    });
+            } else {
+                FlashService.Info($translate.instant('shoppingItemCart.enterOnAccountToAddAnItem'), true);
+            }
         }
 
     }

@@ -10,6 +10,8 @@
         var service = {};
 
         service.Success = Success;
+        service.Info = Info;
+        service.Warning = Warning;
         service.Error = Error;
 
         initService();
@@ -37,7 +39,23 @@
         function Success(message, keepAfterLocationChange) {
             $rootScope.flash = {
                 message: message,
-                type: 'success', 
+                type: 'success',
+                keepAfterLocationChange: keepAfterLocationChange
+            };
+        }
+
+        function Info(message, keepAfterLocationChange) {
+            $rootScope.flash = {
+                message: message,
+                type: 'info',
+                keepAfterLocationChange: keepAfterLocationChange
+            };
+        }
+
+        function Warning(message, keepAfterLocationChange) {
+            $rootScope.flash = {
+                message: message,
+                type: 'warning',
                 keepAfterLocationChange: keepAfterLocationChange
             };
         }

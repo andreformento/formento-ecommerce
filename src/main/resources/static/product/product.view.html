@@ -18,7 +18,7 @@
                             <p class="lead">{{product.currentProductPrice | currency}}</p>
                         </div>
                         <div class="col-xs-12 col-md-6">
-                            <a class="btn btn-success" href="">{{ 'product.addToCart' | translate }}</a>
+                            <a class="btn btn-success pull-right" href="" ng-click="vm.add(product)">{{ 'product.addToCart' | translate }}</a>
                         </div>
                     </div>
                 </div>

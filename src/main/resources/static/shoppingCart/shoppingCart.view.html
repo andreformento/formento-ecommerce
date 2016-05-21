@@ -1,8 +1,12 @@
 ﻿<h1>{{ 'shoppingCart.title' | translate }}</h1>
-<div ng-cloak class="ng-cloak">
+
+<div ng-hide="vm.allItemShoppingCarts.length">
+    <h4>{{ 'shoppingCart.empty' | translate }}</h4>
+</div>
+
+<div ng-cloak class="ng-cloak" ng-show="vm.allItemShoppingCarts.length">
 
     <div id="shoppingCarts" class="row list-group">
-        {{itemShoppingCart}}
         <div class="item  col-xs-4 col-lg-4" ng-repeat="itemShoppingCart in vm.allItemShoppingCarts">
             <div class="thumbnail">
                 <div class="item-image">
@@ -20,7 +24,7 @@
                         <div class="col-xs-12 col-md-6">
                             <p class="lead">{{itemShoppingCart.totalPrice | currency}}</p>
                         </div>
-                        <div class="col-xs-12 col-md-6">
+                        <div class="col-xs-12 col-md-6" pull-right>
                             <a class="btn btn-success" href="">{{ 'shoppingCart.removeFromCart' | translate }}</a>
                         </div>
                     </div>

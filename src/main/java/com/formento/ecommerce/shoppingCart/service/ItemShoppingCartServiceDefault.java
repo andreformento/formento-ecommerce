@@ -34,7 +34,7 @@ public class ItemShoppingCartServiceDefault implements ItemShoppingCartService {
 
     @Override
     public Iterable<ItemShoppingCart> getAllFromLoggedUser() {
-        return repository.getCurrentFromUser(userService.loadUserValidated().getEmail());
+        return repository.getCurrentByUser(userService.loadUserValidated().getEmail());
     }
 
     @Override
@@ -46,6 +46,11 @@ public class ItemShoppingCartServiceDefault implements ItemShoppingCartService {
                         throw new AccessDeniedEcommerceException("itemShoppingCart.accessDeniedToLoggedUser");
                     return itemShoppingCart;
                 });
+    }
+
+    @Override
+    public Optional<ItemShoppingCart> getByProductFromLoggedUser(Long productId) {
+        return repository.getCurrentByUserAndProduct(userService.loadUserValidated().getEmail(), productId);
     }
 
     @Override
@@ -63,12 +68,27 @@ public class ItemShoppingCartServiceDefault implements ItemShoppingCartService {
         Optional.ofNullable(itemShoppingCart.getProduct()).orElseThrow(() -> new BusinessEcommerceException("itemShoppingCart.product.cannotBeNull"));
         Optional.ofNullable(itemShoppingCart.getQuantity()).orElseThrow(() -> new BusinessEcommerceException("itemShoppingCart.quantity.cannotBeNull"));
 
-        save(new ItemShoppingCart
-                .Builder()
-                .withShoppingCart(shoppingCartService.getOrCreateCurrentFromUser())
-                .withProduct(productService.findById(itemShoppingCart.getProduct().getId()))
-                .withQuantity(itemShoppingCart.getQuantity())
-                .build());
+        Optional<ItemShoppingCart> itemShoppingCartOptional = getByProductFromLoggedUser(itemShoppingCart.getProduct().getId())
+                .map(saved -> new ItemShoppingCart
+                        .Builder()
+                        .withSelf(saved)
+                        .addQuantity(itemShoppingCart.getQuantity())
+                        .build());
+
+        ItemShoppingCart toSave;
+        if (itemShoppingCartOptional.isPresent()) {
+            toSave = itemShoppingCartOptional.get();
+        } else {
+            toSave = new ItemShoppingCart
+                    .Builder()
+                    .withShoppingCart(shoppingCartService.getOrCreateCurrentFromUser())
+                    .withProduct(productService.findById(itemShoppingCart.getProduct().getId()).orElseThrow(() -> new BusinessEcommerceException("product.notFoundById")))
+                    .withQuantity(itemShoppingCart.getQuantity())
+                    .build();
+        }
+
+        save(toSave);
+
         return getAllFromLoggedUser();
     }
 

@@ -1,14 +1,6 @@
 {
   "shoppingCart.title": "Carrinho de compras",
+  "shoppingCart.empty": "Nenhum item adicionado ao carrinho",
   "shoppingCart.quantity": "Quantidade",
-  "shoppingCart.removeFromCart": "Remover",
-
-  "shoppingCarts.error.onLoading": "Erro ao carregar carrinho de compras",
-  "itemShoppingCart.product.cannotBeNull": "O produto deve ser informado",
-  "itemShoppingCart.quantity.cannotBeNull": "A quantidade deve ser informada",
-  "itemShoppingCart.accessDeniedToLoggedUser": "Usuário sem acesso ao carrinho de compras solicitado",
-  "shoppingCart.quantityGreaterThenAvaliabityOfProduct": "Quantidade maior que a disponível do produto",
-  "shoppingCart.priceOfProductNotDefined": "Preço do produto indefinido",
-  "order.shoppingCart.empty": "Carrinho de compras vazio para realizar a compra",
-  "shoppingCart.finalizeCurrentFromUser.notItemsFoundException": "Não foi possível fazer a solicitação de compra pois não há itens no carrinho"
+  "shoppingCart.removeFromCart": "Remover"
 }

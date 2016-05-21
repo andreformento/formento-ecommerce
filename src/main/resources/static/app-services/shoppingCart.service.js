@@ -18,11 +18,17 @@
 
         service.GetAll = GetAll;
         service.DeleteById = DeleteById;
+        service.Add = Add;
 
         return service;
 
         function GetAll() {
             return $http.get('/api/v1/item-shopping-carts').then(handleSuccess, handleError);
+        }
+
+        function Add(itemShoppingCart) {
+            console.log('post itemShoppingCart1', itemShoppingCart);
+            return $http.post('/api/v1/item-shopping-carts/', itemShoppingCart).then(handleSuccess, handleError);
         }
 
         function DeleteById(id) {

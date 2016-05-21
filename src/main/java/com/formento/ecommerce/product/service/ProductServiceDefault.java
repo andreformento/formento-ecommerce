@@ -1,6 +1,5 @@
 package com.formento.ecommerce.product.service;
 
-import com.formento.ecommerce.exception.DataNotFoundEcommerceException;
 import com.formento.ecommerce.product.model.Product;
 import com.formento.ecommerce.product.repository.ProductRepository;
 import lombok.NoArgsConstructor;
@@ -22,10 +21,8 @@ public class ProductServiceDefault implements ProductService {
     }
 
     @Override
-    public Product findById(Long id) {
-        return Optional
-                .ofNullable(productRepository.findOne(id))
-                .orElseThrow(() -> new DataNotFoundEcommerceException("product.notFoundById"));
+    public Optional<Product> findById(Long id) {
+        return Optional.ofNullable(productRepository.findOne(id));
     }
 
 }

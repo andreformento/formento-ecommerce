@@ -12,6 +12,8 @@ public interface ItemShoppingCartService {
 
     Optional<ItemShoppingCart> getByIdFromLoggedUser(Long itemShoppingCartId);
 
+    Optional<ItemShoppingCart> getByProductFromLoggedUser(Long productId);
+
     void save(Iterable<ItemShoppingCart> itemShoppingCarts);
 
     void removeItemShoppingCart(Long itemShoppingCartId);

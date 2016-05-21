@@ -1,4 +1,6 @@
 {
   "product.title": "Produtos",
-  "product.addToCart": "Adicionar"
+  "product.addToCart": "Adicionar",
+  "shoppingItemCart.addWithSuccess": "Item adicionado com sucesso",
+  "shoppingItemCart.enterOnAccountToAddAnItem": "Faça o login para adicionar um item no carrinho de compras"
 }

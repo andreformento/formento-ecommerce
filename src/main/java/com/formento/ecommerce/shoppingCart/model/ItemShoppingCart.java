@@ -1,10 +1,8 @@
 package com.formento.ecommerce.shoppingCart.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.formento.ecommerce.ecommerceOrder.model.ItemOrder;
 import com.formento.ecommerce.exception.BusinessEcommerceException;
-import com.formento.ecommerce.product.converter.ProductListSerializer;
 import com.formento.ecommerce.product.model.Product;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -71,6 +69,13 @@ public class ItemShoppingCart implements Serializable {
     public static class Builder {
         private ItemShoppingCart instance = new ItemShoppingCart();
 
+        public Builder withSelf(ItemShoppingCart self) {
+            return withShoppingCartId(self.itemShoppingCartId)
+                    .withProduct(self.product)
+                    .withShoppingCart(self.shoppingCart)
+                    .withQuantity(self.quantity);
+        }
+
         public Builder withShoppingCartId(Long itemShoppingCartId) {
             instance.itemShoppingCartId = itemShoppingCartId;
             return this;
@@ -88,6 +93,11 @@ public class ItemShoppingCart implements Serializable {
 
         public Builder withQuantity(Integer quantity) {
             instance.quantity = quantity;
+            return this;
+        }
+
+        public Builder addQuantity(Integer quantityToAdd) {
+            instance.quantity += quantityToAdd;
             return this;
         }
 

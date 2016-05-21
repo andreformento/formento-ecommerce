@@ -1,5 +1,6 @@
 package com.formento.ecommerce.shoppingCart.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.formento.ecommerce.user.model.User;
 import com.formento.ecommerce.util.converter.LocalDateTimeSerializer;
@@ -46,6 +47,7 @@ public class ShoppingCart implements Serializable {
     @JsonSerialize(using = LocalDateTimeSerializer.class)
     private LocalDateTime shoppingDate;
 
+    @JsonIgnore
     public Optional<LocalDateTime> getShoppingDate() {
         return Optional.ofNullable(shoppingDate);
     }

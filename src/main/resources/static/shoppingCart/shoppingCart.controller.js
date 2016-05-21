@@ -15,10 +15,12 @@
         var vm = this;
 
         vm.allItemShoppingCarts = [];
+        vm.shoppingCart = {};
 
         initController();
 
         function initController() {
+            loadShoppingCart();
             loadAllItemShoppingCarts();
         }
 
@@ -29,6 +31,13 @@
                 },
                 function (response) {
                     FlashService.Error(response.message);
+                });
+        }
+
+        function loadShoppingCart() {
+            ShoppingCartService.GetFromUser()
+                .then(function (response) {
+                    vm.shoppingCart = response;
                 });
         }
 

@@ -17,14 +17,24 @@
         _translate.refresh();
 
         service.GetAll = GetAll;
+        service.GetFromUser = GetFromUser;
         service.RemoveById = RemoveById;
         service.Add = Add;
         service.Plus = Plus;
+        service.finalizeCurrentFromUser = finalizeCurrentFromUser;
 
         return service;
 
         function GetAll() {
             return $http.get('/api/v1/item-shopping-carts').then(handleSuccess, handleError);
+        }
+
+        function GetFromUser() {
+            return $http.get('/api/v1/shopping-carts').then(handleSuccess, handleError);
+        }
+
+        function finalizeCurrentFromUser() {
+            return $http.post('/api/v1/shopping-carts').then(handleSuccess, handleError);
         }
 
         function Add(itemShoppingCart) {

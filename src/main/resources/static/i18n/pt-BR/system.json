@@ -1,5 +1,6 @@
 {
   "system.title": "Ecommerce Formento",
+  "system.welcome": "Olá",
   "account.welcome2": "Bem vindo2",
   "system.name": "Ecommerce Formento",
   "system.menu.account": "Minha conta",
@@ -7,5 +8,6 @@
   "system.menu.products": "Produtos",
   "system.menu.register": "Cadastrar",
   "system.menu.login": "Entrar",
+  "system.menu.logout": "Sair",
   "system.logout": "Sair"
 }

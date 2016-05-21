@@ -17,7 +17,7 @@
 
         $routeProvider
             .when('/account', {
-                controller: 'AccountController',
+                controller: 'UserController',
                 templateUrl: 'account/account.view.html',
                 controllerAs: 'vm'
             })
@@ -53,7 +53,7 @@
     function run($rootScope, $location, $cookieStore, $http) {
         // keep user logged in after page refresh
         $rootScope.globals = $cookieStore.get('globals') || {};
-        if ($rootScope.globals.currentUser && $rootScope.globals.currentUser.token) {
+        if ($rootScope.globals.connected) {
             $http.defaults.headers.common['Authorization'] = 'Bearer ' + $rootScope.globals.currentUser.token; // jshint ignore:line
         }
 

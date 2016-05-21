@@ -15,11 +15,11 @@
         return service;
 
         function GetAll() {
-            return $http.get('/api/v1/products').then(handleSuccess, handleError('Error getting all products'));
+            return $http.get('/api/v1/products').then(handleSuccess, handleError);
         }
 
         function GetById(id) {
-            return $http.get('/api/v1/products/' + id).then(handleSuccess, handleError('Error getting product by id'));
+            return $http.get('/api/v1/products/' + id).then(handleSuccess, handleError);
         }
 
         // private functions

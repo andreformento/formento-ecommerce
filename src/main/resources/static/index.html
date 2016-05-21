@@ -21,14 +21,12 @@
             </div>
             <ul class="nav navbar-nav">
                 <li class="active"><a href="#">{{ 'system.menu.products' | translate }}</a></li>
-                <li ng-show="authentication.currentUser"><a href="#shoppingCarts">{{ 'system.menu.shoppingCart' | translate }}</a></li>
+                <li ng-show="authentication.connected"><a href="#shoppingCarts">{{ 'system.menu.shoppingCart' | translate }}</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
-                <li ><a href="#account">{{authentication.connected}}</a></li>
-                <li ><a href="#account">{{authentication}}</a></li>
-                <li ><a href="#account">{{authentication.currentUser}}</a></li>
                 <li ng-show="authentication.connected"><a href="#account">{{authentication.currentUser.name}}</a></li>
                 <li ng-show="authentication.connected"><a href="#account"><span class="glyphicon glyphicon-user"></span> {{ 'system.menu.account' | translate }}</a></li>
+                <li ng-show="authentication.connected"><a href="#login"><span class="glyphicon glyphicon-log-out"></span> {{ 'system.menu.logout' | translate }}</a></li>
 
                 <li ng-hide="authentication.connected"><a href="#register"><span class="glyphicon glyphicon-user"></span> {{ 'system.menu.register' | translate }}</a></li>
                 <li ng-hide="authentication.connected"><a href="#login"><span class="glyphicon glyphicon-log-in"></span> {{ 'system.menu.login' | translate }}</a></li>

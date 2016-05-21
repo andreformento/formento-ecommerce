@@ -5,14 +5,13 @@
         .module('app')
         .factory('AuthenticationService', AuthenticationService);
 
-    AuthenticationService.$inject = ['$http', '$cookieStore', '$rootScope', 'UserService'];
-    function AuthenticationService($http, $cookieStore, $rootScope, UserService) {
+    AuthenticationService.$inject = ['$http', '$cookieStore', '$rootScope', 'UserService', '$route'];
+    function AuthenticationService($http, $cookieStore, $rootScope, UserService, $route) {
         var service = {};
 
         service.Login = Login;
         service.SetCredentials = SetCredentials;
         service.ClearCredentials = ClearCredentials;
-        service.currentUser = {};
 
         return service;
 
@@ -25,11 +24,8 @@
                 var token = user.token;
                 $rootScope.globals = {
                     currentUser: user,
-                    connected: true,
-                    token: token
+                    connected: true
                 };
-
-                service.currentUser = user;
 
                 $http.defaults.headers.common['Authorization'] = 'Bearer ' + token; // jshint ignore:line
                 $cookieStore.put('globals', $rootScope.globals);

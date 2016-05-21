@@ -5,8 +5,8 @@
         .module('app')
         .controller('LoginController', LoginController);
 
-    LoginController.$inject = ['$location', 'AuthenticationService', 'FlashService', '$translate', '$translatePartialLoader'];
-    function LoginController($location, AuthenticationService, FlashService, $translate, $translatePartialLoader) {
+    LoginController.$inject = ['$location', 'AuthenticationService', 'FlashService', '$translate', '$translatePartialLoader', '$window'];
+    function LoginController($location, AuthenticationService, FlashService, $translate, $translatePartialLoader, $window) {
         $translatePartialLoader.addPart('system');
         $translatePartialLoader.addPart('exception');
         $translatePartialLoader.addPart('login');
@@ -32,7 +32,7 @@
 
                         if (user.token) {
                             AuthenticationService.SetCredentials(user);
-                            $location.path('/');
+                            $window.location.href = '/';
                         } else {
                             var errorCode = response.data && response.data.message ? response.data.message : 'user.error.onLogin';
                             $translate(errorCode)

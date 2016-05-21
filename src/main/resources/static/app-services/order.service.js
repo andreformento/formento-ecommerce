@@ -3,17 +3,17 @@
 
     angular
         .module('app')
-        .factory('ShoppingCartService', ShoppingCartService);
+        .factory('OrderService', OrderService);
 
-    ShoppingCartService.$inject = ['$http', '$translate', '$translatePartialLoader'];
-    function ShoppingCartService($http, $translate, $translatePartialLoader) {
+    OrderService.$inject = ['$http', '$translate', '$translatePartialLoader'];
+    function OrderService($http, $translate, $translatePartialLoader) {
         var service = {},
             _translatePartialLoader = $translatePartialLoader,
             _translate = $translate;
 
         _translatePartialLoader.addPart('system');
         _translatePartialLoader.addPart('exception');
-        _translatePartialLoader.addPart('shoppingCart');
+        _translatePartialLoader.addPart('order');
         _translate.refresh();
 
         service.GetAll = GetAll;
@@ -24,21 +24,21 @@
         return service;
 
         function GetAll() {
-            return $http.get('/api/v1/item-shopping-carts').then(handleSuccess, handleError);
+            return $http.get('/api/v1/orders').then(handleSuccess, handleError);
         }
 
-        function Add(itemShoppingCart) {
-            console.log('Add service',itemShoppingCart);
-            return $http.post('/api/v1/item-shopping-carts/', itemShoppingCart).then(handleSuccess, handleError);
+        function Add(itemOrder) {
+            console.log('plus service',itemOrder);
+            return $http.post('/api/v1/orders/', itemOrder).then(handleSuccess, handleError);
         }
 
         function Plus(id) {
             console.log('plus service id',id);
-            return $http.patch('/api/v1/item-shopping-carts/' + id).then(handleSuccess, handleError);
+            return $http.patch('/api/v1/orders/' + id).then(handleSuccess, handleError);
         }
 
         function RemoveById(id) {
-            return $http.delete('/api/v1/item-shopping-carts/' + id).then(handleSuccess, handleError);
+            return $http.delete('/api/v1/orders/' + id).then(handleSuccess, handleError);
         }
 
         // private functions

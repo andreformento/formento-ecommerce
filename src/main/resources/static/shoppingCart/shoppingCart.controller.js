@@ -33,7 +33,6 @@
         }
 
         vm.remove = function(itemShoppingCart) {
-            console.log('itemShoppingCart',itemShoppingCart);
 
             ShoppingCartService.RemoveById(itemShoppingCart.id)
                 .then(function (response) {
@@ -46,12 +45,16 @@
         }
 
         vm.add = function(itemShoppingCart) {
-            console.log('add',itemShoppingCart);
-
-            ShoppingCartService.Add(itemShoppingCart.id)
+            ShoppingCartService.Add(itemShoppingCart)
                 .then(function (response) {
-                    FlashService.Success($translate.instant('shoppingCart.addItemToCart'), true);
-                    loadAllItemShoppingCarts();
+                    if (response.quantity) {
+                        FlashService.Success($translate.instant('shoppingCart.addItemToCart'), true);
+                        loadAllItemShoppingCarts();
+                    } else if (response.message) {
+                        FlashService.Error($translate.instant('itemShoppingCart.cannotAddItem'));
+                    } else {
+                        FlashService.Error(response.message);
+                    }
                 },
                 function (response) {
                     FlashService.Error(response.message);
@@ -59,11 +62,8 @@
         }
 
         vm.plus = function(itemShoppingCart) {
-            console.log('plus',itemShoppingCart);
-
             ShoppingCartService.Plus(itemShoppingCart.id)
                 .then(function (response) {
-                console.log('ok',response);
                     if (response.quantity) {
                         FlashService.Success($translate.instant('shoppingCart.addItemToCart'), true);
                         loadAllItemShoppingCarts();
@@ -74,7 +74,23 @@
                     }
                 },
                 function (response) {
-                console.log('erro',response);
+                    FlashService.Error(response.message);
+                });
+        }
+
+        vm.finalizeCurrentFromUser = function(itemShoppingCart) {
+            ShoppingCartService.finalizeCurrentFromUser()
+                .then(function (response) {
+                    if (response.quantity) {
+                        FlashService.Success($translate.instant('shoppingCart.createdOrder'), true);
+                        $location.path('/order');
+                    } else if (itemShoppingCart.message) {
+                        FlashService.Error($translate.instant('shoppingCart.cannotCreateOrder'));
+                    } else {
+                        FlashService.Error(response.message);
+                    }
+                },
+                function (response) {
                     FlashService.Error(response.message);
                 });
         }

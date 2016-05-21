@@ -4,5 +4,7 @@
   "shoppingCart.quantity": "Quantidade",
   "shoppingCart.removeFromCart": "Remover",
   "shoppingCart.removedItemFromCart": "Item removido com sucesso",
-  "shoppingCart.addItemToCart": "Item adicionado com sucesso"
+  "shoppingCart.addItemToCart": "Item adicionado com sucesso",
+  "shoppingCart.finalize": "Finalizar compra",
+  "shoppingCart.createdOrder": "Pedido criado"
 }

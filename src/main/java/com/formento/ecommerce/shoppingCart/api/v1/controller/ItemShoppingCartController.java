@@ -32,8 +32,8 @@ public class ItemShoppingCartController {
 
     @ApiOperation(value = "Add an item shopping cart", notes = "Add an item in a shopping cart and return updated list from shopping cart", response = ShoppingCart.class)
     @RequestMapping(method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-    public HttpEntity<Resources<ItemShoppingCart>> addItemShoppingCart(@RequestBody ItemShoppingCart itemShoppingCart) {
-        return new ResponseEntity<>(new Resources<>(itemShoppingCartService.addItemShoppingCart(itemShoppingCart), linkTo(ItemShoppingCartController.class).withSelfRel()), HttpStatus.CREATED);
+    public HttpEntity<Resource<ItemShoppingCart>> addItemShoppingCart(@RequestBody ItemShoppingCart itemShoppingCart) {
+        return new ResponseEntity<>(new Resource<>(itemShoppingCartService.addItemShoppingCart(itemShoppingCart), linkTo(ItemShoppingCartController.class).withSelfRel()), HttpStatus.CREATED);
     }
 
     @ApiOperation(value = "Plus an item shopping cart", notes = "Plus an item in a shopping cart and return updated list from shopping cart", response = ShoppingCart.class)

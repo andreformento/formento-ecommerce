@@ -76,7 +76,7 @@ public class ItemShoppingCartServiceDefault implements ItemShoppingCartService {
     }
 
     @Override
-    public Iterable<ItemShoppingCart> addItemShoppingCart(ItemShoppingCart itemShoppingCart) {
+    public ItemShoppingCart addItemShoppingCart(ItemShoppingCart itemShoppingCart) {
         Optional.ofNullable(itemShoppingCart.getProduct()).orElseThrow(() -> new BusinessEcommerceException("itemShoppingCart.product.cannotBeNull"));
         Optional.ofNullable(itemShoppingCart.getQuantity()).orElseThrow(() -> new BusinessEcommerceException("itemShoppingCart.quantity.cannotBeNull"));
 
@@ -99,9 +99,7 @@ public class ItemShoppingCartServiceDefault implements ItemShoppingCartService {
                     .build();
         }
 
-        save(toSave);
-
-        return getAllFromLoggedUser();
+        return save(toSave);
     }
 
 }

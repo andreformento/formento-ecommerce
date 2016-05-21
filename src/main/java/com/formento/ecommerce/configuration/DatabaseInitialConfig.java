@@ -98,7 +98,7 @@ public class DatabaseInitialConfig {
                 .withLastLogin(LocalDateTime.now())
                 .build());
 
-        itemShoppingCartRepository.save(shoppingCartRepository.save(new ShoppingCart
+        Iterable<ItemShoppingCart> items = itemShoppingCartRepository.save(shoppingCartRepository.save(new ShoppingCart
                 .Builder()
                 .withUser(user)
                 .withItemShoppingCart(new ItemShoppingCart
@@ -112,6 +112,8 @@ public class DatabaseInitialConfig {
                         .withQuantity(2)
                         .build())
                 .build()).getItemShoppingCarts());
+
+        System.out.println(items);
     }
 
 }

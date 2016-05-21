@@ -26,11 +26,15 @@ public class ShoppingCartServiceDefault implements ShoppingCartService {
 
     @Override
     public ShoppingCart getOrCreateCurrentFromUser() {
-        return getCurrentFromUser()
-                .orElse(save(new ShoppingCart
-                        .Builder()
-                        .withUser(userService.loadUserValidated())
-                        .build()));
+        Optional<ShoppingCart> currentFromUser = getCurrentFromUser();
+        if (currentFromUser.isPresent()) {
+            return currentFromUser.get();
+        } else {
+            return save(new ShoppingCart
+                    .Builder()
+                    .withUser(userService.loadUserValidated())
+                    .build());
+        }
     }
 
     @Override

@@ -38,8 +38,14 @@
                     }
                 ShoppingCartService.Add(itemShoppingCart)
                     .then(function (response) {
-                        FlashService.Success($translate.instant('shoppingItemCart.addWithSuccess'), true);
-                        loadAllProducts();
+                        if (response.quantity) {
+                            FlashService.Success($translate.instant('shoppingItemCart.addWithSuccess'), true);
+                            loadAllProducts();
+                        } else if (itemShoppingCart.message) {
+                            FlashService.Error($translate.instant('itemShoppingCart.cannotAddItem'));
+                        } else {
+                            FlashService.Error(response.message);
+                        }
                     },
                     function (response) {
                         FlashService.Error(response.message);

@@ -22,7 +22,7 @@
             </div>
             <ul class="nav navbar-nav">
                 <li class="active"><a href="#">{{ 'system.menu.products' | translate }}</a></li>
-                <li ng-show="authentication.connected"><a href="#shoppingCarts">{{ 'system.menu.shoppingCart' | translate }}</a></li>
+                <li ng-show="authentication.connected"><a href="#shoppingCarts"><span class="glyphicon glyphicon-shopping-cart"></span> {{ 'system.menu.shoppingCart' | translate }}</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li ng-show="authentication.connected"><a href="#account">{{authentication.currentUser.name}}</a></li>
@@ -67,12 +67,14 @@
     <script src="app-services/user.service.js"></script>
     <script src="app-services/product.service.js"></script>
     <script src="app-services/shoppingCart.service.js"></script>
+    <script src="app-services/order.service.js"></script>
     <script src="account/account.controller.js"></script>
     <script src="login/login.controller.js"></script>
     <script src="user/user.controller.js"></script>
     <script src="register/register.controller.js"></script>
     <script src="product/product.controller.js"></script>
     <script src="shoppingCart/shoppingCart.controller.js"></script>
+    <script src="order/order.controller.js"></script>
 
 </body>
 </html>

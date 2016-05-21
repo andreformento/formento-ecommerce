@@ -5,6 +5,9 @@
 </div>
 
 <div ng-cloak class="ng-cloak" ng-show="vm.allItemShoppingCarts.length">
+    <div>
+        <a class="btn btn-success pull-right" href="" ng-click="vm.finalizeCurrentFromUser()"><span class="glyphicon glyphicon-circle-arrow-right"></span> {{ 'shoppingCart.finalize' | translate }}</a>
+    </div>
 
     <div id="shoppingCarts" class="row list-group">
         <div class="item  col-xs-4 col-lg-4" ng-repeat="itemShoppingCart in vm.allItemShoppingCarts">

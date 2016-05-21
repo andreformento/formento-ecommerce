@@ -20,5 +20,6 @@
   "shoppingCart.quantityGreaterThenAvaliabityOfProduct": "O limite do estoque do produto foi atingido",
   "shoppingCart.priceOfProductNotDefined": "Preço do produto indefinido",
   "order.shoppingCart.empty": "Carrinho de compras vazio para realizar a compra",
-  "shoppingCart.finalizeCurrentFromUser.notItemsFoundException": "Não foi possível fazer a solicitação de compra pois não há itens no carrinho"
+  "shoppingCart.finalizeCurrentFromUser.notItemsFoundException": "Não foi possível fazer a solicitação de compra pois não há itens no carrinho",
+  "shoppingCart.cannotCreateOrder": "Não foi possível criar o pedido"
 }

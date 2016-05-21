@@ -1,35 +1,35 @@
-﻿<h1>{{ 'shoppingCart.title' | translate }}</h1>
+﻿<h1>{{ 'order.title' | translate }}</h1>
 
-<div ng-hide="vm.allItemShoppingCarts.length">
-    <h4>{{ 'shoppingCart.empty' | translate }}</h4>
+<div ng-hide="vm.allItemOrders.length">
+    <h4>{{ 'order.empty' | translate }}</h4>
 </div>
 
-<div ng-cloak class="ng-cloak" ng-show="vm.allItemShoppingCarts.length">
+<div ng-cloak class="ng-cloak" ng-show="vm.allItemOrders.length">
     <div>
-        <a class="btn btn-success pull-right" href="" ng-click="vm.finalizeCurrentFromUser()"><span class="glyphicon glyphicon-circle-arrow-right"></span> {{ 'shoppingCart.finalize' | translate }}</a>
+        <a class="btn btn-success pull-right" href="" ng-click="vm.finalizeCurrentFromUser()"><span class="glyphicon glyphicon-circle-arrow-right"></span> {{ 'order.finalize' | translate }}</a>
     </div>
 
-    <div id="shoppingCarts" class="row list-group">
-        <div class="item  col-xs-4 col-lg-4" ng-repeat="itemShoppingCart in vm.allItemShoppingCarts">
+    <div id="orders" class="row list-group">
+        <div class="item  col-xs-4 col-lg-4" ng-repeat="itemOrder in vm.allItemOrders">
             <div class="thumbnail">
                 <div class="item-image">
-                    <img class="group list-group-image img-responsive" src="{{itemShoppingCart.productItem.urlImage}}"
-                         alt="{{itemShoppingCart.productItem.name}}"/>
+                    <img class="group list-group-image img-responsive" src="{{itemOrder.productItem.urlImage}}"
+                         alt="{{itemOrder.productItem.name}}"/>
                 </div>
                 <div class="caption">
                     <h4 class="group inner list-group-item-heading">
-                        {{itemShoppingCart.productItem.name}}</h4>
+                        {{itemOrder.productItem.name}}</h4>
                     <p class="group inner list-group-item-text">
-                        {{itemShoppingCart.productItem.description}}</p>
+                        {{itemOrder.productItem.description}}</p>
                     <p class="group inner list-group-item-text">
-                        {{ 'shoppingCart.quantity' | translate }}: {{itemShoppingCart.quantity}}</p>
+                        {{ 'order.quantity' | translate }}: {{itemOrder.quantity}}</p>
                     <div class="row">
                         <div class="col-xs-12 col-md-6">
-                            <p class="lead">{{itemShoppingCart.totalPrice | currency}}</p>
+                            <p class="lead">{{itemOrder.totalPrice | currency}}</p>
                         </div>
                         <div class="col-xs-12 col-md-6">
-                            <a class="btn btn-danger pull-right" href="" ng-click="vm.remove(itemShoppingCart)">{{ 'shoppingCart.removeFromCart' | translate }}</a>
-                            <a class="btn btn-info pull-right" href="" ng-click="vm.plus(itemShoppingCart)"><span class="glyphicon glyphicon-plus"></span></a>
+                            <a class="btn btn-danger pull-right" href="" ng-click="vm.remove(itemOrder)">{{ 'order.removeFromCart' | translate }}</a>
+                            <a class="btn btn-info pull-right" href="" ng-click="vm.plus(itemOrder)"><span class="glyphicon glyphicon-plus"></span></a>
                         </div>
                     </div>
                 </div>

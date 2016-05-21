@@ -46,6 +46,12 @@
                 controllerAs: 'vm'
             })
 
+            .when('/order', {
+                controller: 'OrderController',
+                templateUrl: 'order/order.view.html',
+                controllerAs: 'vm'
+            })
+
             .otherwise({ redirectTo: '/products' });
     }
 

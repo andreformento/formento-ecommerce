@@ -1,0 +1,39 @@
+﻿<h1>{{ 'shoppingCart.title' | translate }}</h1>
+
+<div ng-hide="vm.allItemShoppingCarts.length">
+    <h4>{{ 'shoppingCart.empty' | translate }}</h4>
+</div>
+
+<div ng-cloak class="ng-cloak" ng-show="vm.allItemShoppingCarts.length">
+    <div>
+        <a class="btn btn-success pull-right" href="" ng-click="vm.finalizeCurrentFromUser()"><span class="glyphicon glyphicon-circle-arrow-right"></span> {{ 'shoppingCart.finalize' | translate }}</a>
+    </div>
+
+    <div id="shoppingCarts" class="row list-group">
+        <div class="item  col-xs-4 col-lg-4" ng-repeat="itemShoppingCart in vm.allItemShoppingCarts">
+            <div class="thumbnail">
+                <div class="item-image">
+                    <img class="group list-group-image img-responsive" src="{{itemShoppingCart.productItem.urlImage}}"
+                         alt="{{itemShoppingCart.productItem.name}}"/>
+                </div>
+                <div class="caption">
+                    <h4 class="group inner list-group-item-heading">
+                        {{itemShoppingCart.productItem.name}}</h4>
+                    <p class="group inner list-group-item-text">
+                        {{itemShoppingCart.productItem.description}}</p>
+                    <p class="group inner list-group-item-text">
+                        {{ 'shoppingCart.quantity' | translate }}: {{itemShoppingCart.quantity}}</p>
+                    <div class="row">
+                        <div class="col-xs-12 col-md-6">
+                            <p class="lead">{{itemShoppingCart.totalPrice | currency}}</p>
+                        </div>
+                        <div class="col-xs-12 col-md-6">
+                            <a class="btn btn-danger pull-right" href="" ng-click="vm.remove(itemShoppingCart)">{{ 'shoppingCart.removeFromCart' | translate }}</a>
+                            <a class="btn btn-info pull-right" href="" ng-click="vm.plus(itemShoppingCart)"><span class="glyphicon glyphicon-plus"></span></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

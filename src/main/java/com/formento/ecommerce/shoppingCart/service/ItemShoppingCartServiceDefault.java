@@ -16,6 +16,8 @@ import java.util.Optional;
 @Service
 public class ItemShoppingCartServiceDefault implements ItemShoppingCartService {
 
+    private static final String ITEM_SHOPPING_CART_ACCESS_DENIED_TO_LOGGED_USER = "itemShoppingCart.accessDeniedToLoggedUser";
+
     @Autowired
     private ItemShoppingCartRepository repository;
 
@@ -42,8 +44,9 @@ public class ItemShoppingCartServiceDefault implements ItemShoppingCartService {
         return Optional
                 .ofNullable(repository.findOne(itemShoppingCartId))
                 .map(itemShoppingCart -> {
-                    if (!itemShoppingCart.getShoppingCart().getUser().getEmail().equals(userService.loadUserValidated().getEmail()))
-                        throw new AccessDeniedEcommerceException("itemShoppingCart.accessDeniedToLoggedUser");
+                    if (!itemShoppingCart.getShoppingCart().getUser().getEmail().equals(userService.loadUserValidated().getEmail())) {
+                        throw new AccessDeniedEcommerceException(ITEM_SHOPPING_CART_ACCESS_DENIED_TO_LOGGED_USER);
+                    }
                     return itemShoppingCart;
                 });
     }
@@ -64,6 +67,15 @@ public class ItemShoppingCartServiceDefault implements ItemShoppingCartService {
     }
 
     @Override
+    public ItemShoppingCart plusItemShoppingCart(Long itemShoppingCartId) {
+        return save(new ItemShoppingCart
+                .Builder()
+                .withSelf(getByIdFromLoggedUser(itemShoppingCartId).orElseThrow(() -> new BusinessEcommerceException(ITEM_SHOPPING_CART_ACCESS_DENIED_TO_LOGGED_USER)))
+                .addQuantity(1)
+                .build());
+    }
+
+    @Override
     public Iterable<ItemShoppingCart> addItemShoppingCart(ItemShoppingCart itemShoppingCart) {
         Optional.ofNullable(itemShoppingCart.getProduct()).orElseThrow(() -> new BusinessEcommerceException("itemShoppingCart.product.cannotBeNull"));
         Optional.ofNullable(itemShoppingCart.getQuantity()).orElseThrow(() -> new BusinessEcommerceException("itemShoppingCart.quantity.cannotBeNull"));
@@ -75,7 +87,7 @@ public class ItemShoppingCartServiceDefault implements ItemShoppingCartService {
                         .addQuantity(itemShoppingCart.getQuantity())
                         .build());
 
-        ItemShoppingCart toSave;
+        final ItemShoppingCart toSave;
         if (itemShoppingCartOptional.isPresent()) {
             toSave = itemShoppingCartOptional.get();
         } else {

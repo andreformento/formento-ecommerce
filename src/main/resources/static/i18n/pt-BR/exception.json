@@ -16,7 +16,8 @@
   "itemShoppingCart.quantity.cannotBeNull": "A quantidade deve ser informada",
   "product.notFoundById": "Produto informado não encontrado",
   "itemShoppingCart.accessDeniedToLoggedUser": "Usuário sem acesso ao carrinho de compras solicitado",
-  "shoppingCart.quantityGreaterThenAvaliabityOfProduct": "Quantidade maior que a disponível do produto",
+  "itemShoppingCart.cannotAddItem": "Não foi possível adicionar o item",
+  "shoppingCart.quantityGreaterThenAvaliabityOfProduct": "O limite do estoque do produto foi atingido",
   "shoppingCart.priceOfProductNotDefined": "Preço do produto indefinido",
   "order.shoppingCart.empty": "Carrinho de compras vazio para realizar a compra",
   "shoppingCart.finalizeCurrentFromUser.notItemsFoundException": "Não foi possível fazer a solicitação de compra pois não há itens no carrinho"

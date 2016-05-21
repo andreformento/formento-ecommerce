@@ -45,6 +45,40 @@
                 });
         }
 
+        vm.add = function(itemShoppingCart) {
+            console.log('add',itemShoppingCart);
+
+            ShoppingCartService.Add(itemShoppingCart.id)
+                .then(function (response) {
+                    FlashService.Success($translate.instant('shoppingCart.addItemToCart'), true);
+                    loadAllItemShoppingCarts();
+                },
+                function (response) {
+                    FlashService.Error(response.message);
+                });
+        }
+
+        vm.plus = function(itemShoppingCart) {
+            console.log('plus',itemShoppingCart);
+
+            ShoppingCartService.Plus(itemShoppingCart.id)
+                .then(function (response) {
+                console.log('ok',response);
+                    if (response.quantity) {
+                        FlashService.Success($translate.instant('shoppingCart.addItemToCart'), true);
+                        loadAllItemShoppingCarts();
+                    } else if (itemShoppingCart.message) {
+                        FlashService.Error($translate.instant('itemShoppingCart.cannotAddItem'));
+                    } else {
+                        FlashService.Error(response.message);
+                    }
+                },
+                function (response) {
+                console.log('erro',response);
+                    FlashService.Error(response.message);
+                });
+        }
+
     }
 
 })();

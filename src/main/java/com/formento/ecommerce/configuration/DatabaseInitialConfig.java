@@ -70,7 +70,7 @@ public class DatabaseInitialConfig {
                         .withName("Computador")
                         .withDescription("Apple")
                         .withUrlImage("http://technozigzag.com/wp-content/uploads/2014/10/apple-imac-retina-display.jpg")
-                        .withAvailability(300)
+                        .withAvailability(3)
                         .addProductPrice(BigDecimal.valueOf(2500), LocalDate.now().minusMonths(1))
                         .build()
                 ).getProductPrices());

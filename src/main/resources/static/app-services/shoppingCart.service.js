@@ -19,6 +19,7 @@
         service.GetAll = GetAll;
         service.RemoveById = RemoveById;
         service.Add = Add;
+        service.Plus = Plus;
 
         return service;
 
@@ -27,11 +28,16 @@
         }
 
         function Add(itemShoppingCart) {
+            console.log('plus service',itemShoppingCart);
             return $http.post('/api/v1/item-shopping-carts/', itemShoppingCart).then(handleSuccess, handleError);
         }
 
+        function Plus(id) {
+            console.log('plus service id',id);
+            return $http.patch('/api/v1/item-shopping-carts/' + id).then(handleSuccess, handleError);
+        }
+
         function RemoveById(id) {
-            console.log('remove', id);
             return $http.delete('/api/v1/item-shopping-carts/' + id).then(handleSuccess, handleError);
         }
 
@@ -45,9 +51,7 @@
             var errorCode = error.data && error.data.message ? error.data.message : 'system.operationError',
                 errorMessage = _translate.instant(errorCode);
 
-            return function () {
-               return { success: false, message: errorMessage };
-            };
+            return { success: false, message: errorMessage };
         }
     }
 

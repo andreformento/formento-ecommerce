@@ -6,6 +6,8 @@ import java.util.Optional;
 
 public interface ItemShoppingCartService {
 
+    ItemShoppingCart plusItemShoppingCart(Long itemShoppingCartId);
+
     Iterable<ItemShoppingCart> addItemShoppingCart(ItemShoppingCart itemShoppingCart);
 
     Iterable<ItemShoppingCart> getAllFromLoggedUser();

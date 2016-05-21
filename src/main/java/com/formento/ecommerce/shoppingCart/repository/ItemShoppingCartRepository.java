@@ -13,8 +13,10 @@ public interface ItemShoppingCartRepository extends PagingAndSortingRepository<I
     @Query(" select itemShoppingCart " +
             "  from ItemShoppingCart itemShoppingCart " +
             "  inner join itemShoppingCart.shoppingCart shoppingCart " +
+            "  inner join itemShoppingCart.product product " +
             " where shoppingCart.user.email = ?1" +
-            "   and shoppingCart.shoppingDate is null")
+            "   and shoppingCart.shoppingDate is null" +
+            " order by product.name")
     Iterable<ItemShoppingCart> getCurrentByUser(String email);
 
     @Query(" select itemShoppingCart " +

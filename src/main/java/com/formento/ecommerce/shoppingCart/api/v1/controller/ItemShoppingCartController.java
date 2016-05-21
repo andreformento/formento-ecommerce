@@ -8,6 +8,7 @@ import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.hateoas.Resource;
 import org.springframework.hateoas.Resources;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
@@ -29,14 +30,20 @@ public class ItemShoppingCartController {
     @Autowired
     private ItemShoppingCartService itemShoppingCartService;
 
-    @ApiOperation(value = "Add a item shopping cart", notes = "Add a item in a shopping cart and return updated list from shopping cart", response = ShoppingCart.class)
+    @ApiOperation(value = "Add an item shopping cart", notes = "Add an item in a shopping cart and return updated list from shopping cart", response = ShoppingCart.class)
     @RequestMapping(method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     public HttpEntity<Resources<ItemShoppingCart>> addItemShoppingCart(@RequestBody ItemShoppingCart itemShoppingCart) {
         return new ResponseEntity<>(new Resources<>(itemShoppingCartService.addItemShoppingCart(itemShoppingCart), linkTo(ItemShoppingCartController.class).withSelfRel()), HttpStatus.CREATED);
     }
 
-    @ApiOperation(value = "Add a item shopping cart", notes = "Add a item in a shopping cart and return updated list from shopping cart", response = ShoppingCart.class)
-    @RequestMapping(value = "/{itemShoppingCartId}",method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "Plus an item shopping cart", notes = "Plus an item in a shopping cart and return updated list from shopping cart", response = ShoppingCart.class)
+    @RequestMapping(value = "/{itemShoppingCartId}", method = RequestMethod.PATCH, produces = MediaType.APPLICATION_JSON_VALUE)
+    public HttpEntity<Resource<ItemShoppingCart>> plusItemShoppingCart(@PathVariable("itemShoppingCartId") Long itemShoppingCartId) {
+        return new ResponseEntity<>(new Resource<>(itemShoppingCartService.plusItemShoppingCart(itemShoppingCartId), linkTo(ItemShoppingCartController.class).withSelfRel()), HttpStatus.CREATED);
+    }
+
+    @ApiOperation(value = "Add an item shopping cart", notes = "Add an item in a shopping cart and return updated list from shopping cart", response = ShoppingCart.class)
+    @RequestMapping(value = "/{itemShoppingCartId}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
     public HttpEntity<Resources<ItemShoppingCart>> removeItemShoppingCart(@PathVariable("itemShoppingCartId") Long itemShoppingCartId) {
         itemShoppingCartService.removeItemShoppingCart(itemShoppingCartId);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);

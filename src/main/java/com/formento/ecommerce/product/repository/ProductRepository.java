@@ -10,7 +10,8 @@ public interface ProductRepository extends PagingAndSortingRepository<Product, L
 
     @Query(" select product " +
             " from Product product " +
-            " where product.availability > 0")
+            " where product.availability > 0" +
+            " order by product.name")
     Iterable<Product> findByAvaliable();
 
 }

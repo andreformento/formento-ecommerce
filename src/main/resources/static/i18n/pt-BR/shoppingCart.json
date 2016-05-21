@@ -3,5 +3,6 @@
   "shoppingCart.empty": "Nenhum item adicionado ao carrinho",
   "shoppingCart.quantity": "Quantidade",
   "shoppingCart.removeFromCart": "Remover",
-  "shoppingCart.removedItemFromCart": "Item removido com sucesso"
+  "shoppingCart.removedItemFromCart": "Item removido com sucesso",
+  "shoppingCart.addItemToCart": "Item adicionado com sucesso"
 }

@@ -46,11 +46,15 @@ public class ItemShoppingCart implements Serializable {
     }
 
     public ItemShoppingCart(Product product, Integer quantity) {
+        this.product = product;
+        setQuantity(quantity);
+    }
+
+    private void setQuantity(Integer quantity) {
         if (quantity.compareTo(product.getAvailability()) > 0) {
             throw new BusinessEcommerceException("shoppingCart.quantityGreaterThenAvaliabityOfProduct");
         }
 
-        this.product = product;
         this.quantity = quantity;
     }
 
@@ -64,6 +68,10 @@ public class ItemShoppingCart implements Serializable {
 
     public ItemOrder generateItemOrder() {
         return new ItemOrder(product, getProductPrice(), quantity, getTotalPrice());
+    }
+
+    private void addQuantity(Integer quantityToAdd) {
+        setQuantity(this.quantity + quantityToAdd);
     }
 
     public static class Builder {
@@ -92,12 +100,12 @@ public class ItemShoppingCart implements Serializable {
         }
 
         public Builder withQuantity(Integer quantity) {
-            instance.quantity = quantity;
+            instance.setQuantity(quantity);
             return this;
         }
 
         public Builder addQuantity(Integer quantityToAdd) {
-            instance.quantity += quantityToAdd;
+            instance.addQuantity(quantityToAdd);
             return this;
         }
 

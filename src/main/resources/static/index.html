@@ -3,9 +3,10 @@
 <head>
     <meta charset="utf-8" />
     <title>{{ 'system.title' | translate }}</title>
-    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" />
     <link href="app-content/app.css" rel="stylesheet" />
     <link href="app-content/ecommerce.css" rel="stylesheet" />
+    <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="bootstrap/css/bootstrap-theme.min.css" rel="stylesheet" />
     <style type="text/css">
 [ng\:cloak], [ng-cloak], .ng-cloak {
 	display: none !important;
@@ -34,13 +35,6 @@
         </div>
     </nav>
 
-    <!--<div class="jumbotron">-->
-        <!--<div class="container">-->
-            <!--<div class="col-sm-8 col-sm-offset-2">-->
-                <!--<div ng-class="{ 'alert': flash, 'alert-success': flash.type === 'success', 'alert-danger': flash.type === 'error' }" ng-if="flash" ng-bind="flash.message"></div>-->
-            <!--</div>-->
-        <!--</div>-->
-    <!--</div>-->
     <div class="container">
         <div ng-class="{ 'alert': flash, 'alert-success': flash.type === 'success', 'alert-danger': flash.type === 'error' }" ng-if="flash" ng-bind="flash.message"></div>
     </div>
@@ -55,15 +49,17 @@
         </div>
     </div>
 
+    <script src="lib/jquery-2.2.4.min.js"></script>
+    <script src="bootstrap/js/bootstrap.min.js"></script>
 
-    <script src="//code.jquery.com/jquery-2.0.3.min.js"></script>
-    <script src="//code.angularjs.org/1.2.20/angular.js"></script>
-    <script src="//code.angularjs.org/1.2.20/angular-route.js"></script>
-    <script src="//code.angularjs.org/1.2.13/angular-cookies.js"></script>
+    <script src="lib/angular.min.js"></script>
+    <script src="lib/angular-cookies.min.js"></script>
+    <script src="lib/angular-route.min.js"></script>
 
     <script src="lib/angular-translate.min.js"></script>
     <script src="lib/angular-translate-loader-static-files.min.js"></script>
     <script src="lib/angular-translate-loader-partial.min.js"></script>
+    <script src="lib/angular-locale_pt-br.js"></script>
 
     <script src="app.js"></script>
     <script src="app-services/authentication.service.js"></script>

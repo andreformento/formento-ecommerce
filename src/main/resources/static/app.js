@@ -46,9 +46,21 @@
                 controllerAs: 'vm'
             })
 
+            .when('/orders/:orderId', {
+                controller: 'OrderEditController',
+                templateUrl: 'order/order.edit.html',
+                controllerAs: 'vm'
+            })
+
             .when('/order', {
                 controller: 'OrderController',
                 templateUrl: 'order/order.view.html',
+                controllerAs: 'vm'
+            })
+
+            .when('/payments/:paymentId', {
+                controller: 'PaymentViewController',
+                templateUrl: 'payment/payment.view.html',
                 controllerAs: 'vm'
             })
 

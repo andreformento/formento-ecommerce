@@ -6,6 +6,8 @@ import java.util.Optional;
 
 public interface Payment {
 
+    Optional<String> getIntegrationId();
+
     MethodPayment getMethodPayment();
 
     FundingInstrument getFundingInstrument();

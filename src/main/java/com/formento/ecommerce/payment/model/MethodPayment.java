@@ -11,6 +11,6 @@ public interface MethodPayment {
 
     Integer getCount();
 
-    Collection<Installment> getInstallments();
+    Collection<? extends Installment> getInstallments();
 
 }

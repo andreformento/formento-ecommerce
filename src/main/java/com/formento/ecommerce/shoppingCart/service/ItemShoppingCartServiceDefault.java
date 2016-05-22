@@ -44,7 +44,7 @@ public class ItemShoppingCartServiceDefault implements ItemShoppingCartService {
         return Optional
                 .ofNullable(repository.findOne(itemShoppingCartId))
                 .map(itemShoppingCart -> {
-                    if (!itemShoppingCart.getShoppingCart().getUser().getEmail().equals(userService.loadUserValidated().getEmail())) {
+                    if (!itemShoppingCart.getShoppingCart().getUser().getEmail().equals(userService.getValidatedUserOfSession().getEmail())) {
                         throw new AccessDeniedEcommerceException(ITEM_SHOPPING_CART_ACCESS_DENIED_TO_LOGGED_USER);
                     }
                     return itemShoppingCart;

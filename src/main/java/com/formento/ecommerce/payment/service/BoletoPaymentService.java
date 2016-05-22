@@ -1,22 +1,21 @@
 package com.formento.ecommerce.payment.service;
 
+import com.formento.ecommerce.ecommerceOrder.model.EcommerceOrder;
 import com.formento.ecommerce.ecommerceOrder.service.EcommerceOrderService;
 import com.formento.ecommerce.installment.factory.MethodPaymentFactoryDefault;
 import com.formento.ecommerce.integration.moip.BoletoPaymentFacade;
 import com.formento.ecommerce.integration.moip.MoipApi;
 import com.formento.ecommerce.payment.model.Payment;
-import com.formento.ecommerce.payment.model.boleto.BoletoEcommerceFundingInstrument;
+import com.formento.ecommerce.payment.service.request.BoletoPaymentRequest;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.math.BigDecimal;
-
 @AllArgsConstructor
 @NoArgsConstructor
 @Service
-public class BoletoPaymentService implements PaymentService<BoletoEcommerceFundingInstrument> {
+public class BoletoPaymentService implements PaymentService<BoletoPaymentRequest> {
 
     @Autowired
     private MoipApi moipApi;
@@ -24,13 +23,21 @@ public class BoletoPaymentService implements PaymentService<BoletoEcommerceFundi
     @Autowired
     private EcommerceOrderService ecommerceOrderService;
 
+    @Autowired
+    private PaymentEditService paymentEditService;
+
     @Override
-    public Payment createPayment(BigDecimal totalValue, Integer quantity, BoletoEcommerceFundingInstrument fundingInstrument) {
-        return new BoletoPaymentFacade(
-                moipApi,
-                ecommerceOrderService.getValidatedCurrentOrder(),
-                new MethodPaymentFactoryDefault().makeMethodPayment(totalValue, quantity),
-                fundingInstrument).makePayment();
+    public Payment createPayment(Long orderId, BoletoPaymentRequest boletoPaymentRequest) {
+        EcommerceOrder order = ecommerceOrderService.getValidatedOrderById(orderId);
+
+        return paymentEditService.create(
+                new BoletoPaymentFacade(
+                        moipApi,
+                        order,
+                        new MethodPaymentFactoryDefault().makeMethodPayment(order.getTotalValue(), boletoPaymentRequest.getInstallmentCount()),
+                        boletoPaymentRequest.generateFundingInstrument()
+                ).makePayment()
+        );
     }
 
 }

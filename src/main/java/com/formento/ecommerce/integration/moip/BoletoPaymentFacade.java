@@ -11,6 +11,9 @@ import com.formento.ecommerce.payment.model.boleto.BoletoEcommerceFundingInstrum
 import com.formento.ecommerce.payment.model.boleto.InstructionLines;
 import com.formento.ecommerce.util.LocalDateUtil;
 
+import java.time.LocalDate;
+import java.util.GregorianCalendar;
+
 public class BoletoPaymentFacade extends AbstractPaymentFacade implements PaymentFacade {
 
     private final BoletoEcommerceFundingInstrument boletoEcommerceFundingInstrument;

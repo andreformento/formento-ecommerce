@@ -1,0 +1,45 @@
+﻿<h2>{{ 'order.title' | translate }}
+        <span class="pull-right label label-pill label-info"> {{vm.order.totalValue | currency}} </span>
+    </span>
+</h2>
+
+<div ng-cloak class="ng-cloak" ng-show="vm.order.itemOrders.length">
+    <div id="orders" class="row list-group">
+        <div class="item  col-xs-4 col-lg-4" ng-repeat="itemOrder in vm.order.itemOrders">
+            <div class="thumbnail">
+                <div class="item-image">
+                    <img class="group list-group-image img-responsive" src="{{itemOrder.productOrder.urlImage}}"
+                         alt="{{itemOrder.productOrder.name}}"/>
+                </div>
+                <div class="caption">
+                    <h4 class="group inner list-group-item-heading">
+                        {{itemOrder.productOrder.name}}</h4>
+                    <p class="group inner list-group-item-text">
+                        {{ 'order.quantity' | translate }}: <span class="badge">{{itemOrder.quantity}}</span></p>
+                    <div class="row">
+                        <div class="col-xs-12 col-md-6">
+                            <p class="lead">{{itemOrder.totalPrice | currency}}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div> BOLETO
+    {{vm.boletoPaymentRequest}}
+        <!--<input type="text" ng-model="vm.boletoPaymentRequest.totalValue" value="0">-->
+        <!--<input type="text" ng-model="vm.boletoPaymentRequest.quantity" value="0">-->
+        <!--fundingInstrument:-->
+
+    <form name="boletoPaymentRequestForm">
+        <div class="form-group" ng-class="{ 'has-error': boletoPaymentRequestForm.installmentCount.$invalid }">
+            <input type="text" class="form-control" name="installmentCount" ng-model="vm.boletoPaymentRequest.installmentCount" required>
+        </div>
+        <input type="submit" ng-click="vm.createBoletoPaymentFromOrder()" />
+    </form>
+        <!--<div class="form-group" ng-class="{ 'has-error': boletoPaymentRequestForm.fundingInstrument..$invalid }">-->
+            <!--<input type="text" class="form-control" name="fundingInstrument." ng-model="vm.boletoPaymentRequest.fundingInstrument." required>-->
+        <!--</div>-->
+</div>

@@ -31,6 +31,7 @@ public class EcommerceOrder implements Serializable {
 
     @Id
     @GeneratedValue
+    @JsonProperty
     private Long id;
 
     @NotNull
@@ -38,7 +39,7 @@ public class EcommerceOrder implements Serializable {
     private User user;
 
     @JsonSerialize(using = ItemOrdersSerializer.class)
-    @OneToMany(mappedBy = "ecommerceOrder")
+    @OneToMany(mappedBy = "ecommerceOrder", cascade = CascadeType.ALL)
     @JsonProperty
     private Collection<ItemOrder> itemOrders;
 
@@ -63,10 +64,8 @@ public class EcommerceOrder implements Serializable {
         return Optional.ofNullable(this.integrationDate);
     }
 
-    @JsonProperty
-    @JsonSerialize(using = ItemOrdersSerializer.class)
-    public Collection<ItemOrder> getEcommerceItemOrders() {
-        return itemOrders;
+    public Long getOrderId() {
+        return this.id;
     }
 
     public static class Builder {
@@ -85,7 +84,7 @@ public class EcommerceOrder implements Serializable {
         private Builder withItemShoppingCarts(Collection<ItemShoppingCart> itemShoppingCarts) {
             instance.itemOrders = itemShoppingCarts
                     .stream()
-                    .map(ItemShoppingCart::generateItemOrder)
+                    .map(s -> s.generateItemOrder(instance))
                     .collect(Collectors.toList());
             return withTotalValue(instance.itemOrders);
         }

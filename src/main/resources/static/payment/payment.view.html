@@ -1,0 +1,28 @@
+﻿<h2>{{ 'payment.title' | translate }}
+        <span class="pull-right label label-pill label-info"> {{vm.payment.paymentEcommerceOrder.totalValue | currency}} </span>
+    </span>
+</h2>
+
+<div ng-cloak class="ng-cloak" ng-show="vm.payment.paymentEcommerceOrder.itemOrders.length">
+    <div id="payments" class="row list-group">
+        <div class="item  col-xs-4 col-lg-4" ng-repeat="itemOrder in vm.payment.paymentEcommerceOrder.itemOrders">
+            <div class="thumbnail">
+                <div class="item-image">
+                    <img class="group list-group-image img-responsive" src="{{itemOrder.productOrder.urlImage}}"
+                         alt="{{itemOrder.productOrder.name}}"/>
+                </div>
+                <div class="caption">
+                    <h4 class="group inner list-group-item-heading">
+                        {{itemOrder.productOrder.name}}</h4>
+                    <p class="group inner list-group-item-text">
+                        {{ 'payment.quantity' | translate }}: <span class="badge">{{itemOrder.quantity}}</span></p>
+                    <div class="row">
+                        <div class="col-xs-12 col-md-6">
+                            <p class="lead">{{itemOrder.totalPrice | currency}}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

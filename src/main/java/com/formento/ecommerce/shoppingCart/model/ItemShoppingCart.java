@@ -1,6 +1,7 @@
 package com.formento.ecommerce.shoppingCart.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.formento.ecommerce.ecommerceOrder.model.EcommerceOrder;
 import com.formento.ecommerce.ecommerceOrder.model.ItemOrder;
 import com.formento.ecommerce.exception.BusinessEcommerceException;
 import com.formento.ecommerce.product.model.Product;
@@ -66,8 +67,15 @@ public class ItemShoppingCart implements Serializable {
         return getProductPrice().multiply(BigDecimal.valueOf(quantity));
     }
 
-    public ItemOrder generateItemOrder() {
-        return new ItemOrder(product, getProductPrice(), quantity, getTotalPrice());
+    public ItemOrder generateItemOrder(EcommerceOrder ecommerceOrder) {
+        return new ItemOrder
+                .Builder()
+                .withProduct(product)
+                .withUnitPrice(getProductPrice())
+                .withQuantity(quantity)
+                .withTotalPrice(getTotalPrice())
+                .withEcommerceOrder(ecommerceOrder)
+                .build();
     }
 
     private void addQuantity(Integer quantityToAdd) {

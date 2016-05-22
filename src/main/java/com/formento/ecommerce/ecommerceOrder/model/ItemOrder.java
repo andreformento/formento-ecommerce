@@ -1,8 +1,9 @@
 package com.formento.ecommerce.ecommerceOrder.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.formento.ecommerce.product.converter.ProductListSerializer;
+import com.formento.ecommerce.product.converter.OptionalProductSerializer;
 import com.formento.ecommerce.product.model.Product;
 import com.formento.ecommerce.productPrice.model.ProductPrice;
 import lombok.AllArgsConstructor;
@@ -27,9 +28,10 @@ public class ItemOrder implements ProductPrice, Serializable {
     @GeneratedValue
     private Long id;
 
+    @JsonSerialize(using = OptionalProductSerializer.class)
+    @JsonProperty
     @NotNull
     @ManyToOne(fetch = FetchType.EAGER)
-    @JsonSerialize(using = ProductListSerializer.class)
     private Product product;
 
     @JsonIgnore
@@ -46,18 +48,46 @@ public class ItemOrder implements ProductPrice, Serializable {
     @NotNull
     private BigDecimal totalPrice;
 
-    public ItemOrder(Product product, BigDecimal unitPrice, Integer quantity, BigDecimal totalPrice) {
-        this.product = product;
-        this.unitPrice = unitPrice;
-        this.quantity = quantity;
-        this.totalPrice = totalPrice;
+    public Product getProductOrder() {
+        return this.product;
     }
 
-    public ItemOrder(ItemOrder itemOrder) {
-        this(itemOrder.product,
-                itemOrder.unitPrice,
-                itemOrder.quantity,
-                itemOrder.totalPrice);
+    public static class Builder {
+        private ItemOrder instance = new ItemOrder();
+
+        public Builder withId(Long id) {
+            instance.id = id;
+            return this;
+        }
+
+        public Builder withProduct(Product product) {
+            instance.product = product;
+            return this;
+        }
+
+        public Builder withEcommerceOrder(EcommerceOrder ecommerceOrder) {
+            instance.ecommerceOrder = ecommerceOrder;
+            return this;
+        }
+
+        public Builder withQuantity(Integer quantity) {
+            instance.quantity = quantity;
+            return this;
+        }
+
+        public Builder withUnitPrice(BigDecimal unitPrice) {
+            instance.unitPrice = unitPrice;
+            return this;
+        }
+
+        public Builder withTotalPrice(BigDecimal totalPrice) {
+            instance.totalPrice = totalPrice;
+            return this;
+        }
+
+        public ItemOrder build() {
+            return this.instance;
+        }
     }
 
 }

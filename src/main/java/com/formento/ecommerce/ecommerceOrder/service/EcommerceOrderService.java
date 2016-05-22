@@ -8,11 +8,12 @@ public interface EcommerceOrderService {
 
     EcommerceOrder createIntegration();
 
-    Optional<EcommerceOrder> getCurrentOrder();
+    Optional<EcommerceOrder> getOrderById(Long orderId);
 
-    EcommerceOrder getValidatedCurrentOrder();
+    EcommerceOrder getValidatedOrderById(Long orderId);
 
     EcommerceOrder save(EcommerceOrder ecommerceOrder);
 
     EcommerceOrder changeStatusOrder(Long orderId, EcommerceOrder ecommerceOrderToChange);
+
 }

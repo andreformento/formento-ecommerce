@@ -13,6 +13,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -20,7 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 
 @RestController
-    @RequestMapping("/api/v1/orders")
+@RequestMapping("/api/v1/orders")
 @Validated
 @AllArgsConstructor
 @NoArgsConstructor
@@ -38,9 +39,9 @@ public class EcommerceOrderController {
     }
 
     @ApiOperation(value = "Get an order", notes = "Get and return an order", response = EcommerceOrder.class)
-    @RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public HttpEntity<Resource<EcommerceOrder>> getCurrentOrder() {
-        return new ResponseEntity<>(new Resource<>(ecommerceOrderService.getValidatedCurrentOrder(), linkTo(EcommerceOrderController.class).withSelfRel()), HttpStatus.CREATED);
+    @RequestMapping(value = "/{orderId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public HttpEntity<Resource<EcommerceOrder>> getOrderById(@PathVariable("orderId") Long orderId) {
+        return new ResponseEntity<>(new Resource<>(ecommerceOrderService.getValidatedOrderById(orderId), linkTo(EcommerceOrderController.class).withSelfRel()), HttpStatus.CREATED);
     }
 
 }

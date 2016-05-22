@@ -8,7 +8,7 @@ import com.formento.ecommerce.integration.PaymentFacade;
 import com.formento.ecommerce.payment.model.FundingInstrument;
 import com.formento.ecommerce.payment.model.MethodPayment;
 import com.formento.ecommerce.payment.model.Payment;
-import com.formento.ecommerce.payment.model.PaymentDefault;
+import com.formento.ecommerce.payment.model.PaymentIntegration;
 import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
@@ -30,13 +30,14 @@ public abstract class AbstractPaymentFacade implements PaymentFacade {
                 .installmentCount(methodPayment.getCount())
                 .fundingInstrument(fundingInstrumentRequest);
 
-        moipApi.getApi().payment().create(paymentRequest);
+        br.com.moip.resource.Payment moipPayment = moipApi.getApi().payment().create(paymentRequest);
 
-        return new PaymentDefault
+        return new PaymentIntegration
                 .Builder()
                 .withFundingInstrument(fundingInstrument)
                 .withMethodPayment(methodPayment)
                 .withEcommerceOrder(ecommerceOrder)
+                .withIntegrationId(moipPayment.getId())
                 .build();
     }
 

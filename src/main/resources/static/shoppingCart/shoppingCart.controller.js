@@ -16,15 +16,16 @@
 
         vm.allItemShoppingCarts = [];
         vm.shoppingCart = {};
+        vm.sending = false;
 
         initController();
 
         function initController() {
-            loadShoppingCart();
             loadAllItemShoppingCarts();
         }
 
         function loadAllItemShoppingCarts() {
+            loadShoppingCart();
             ShoppingCartService.GetAll()
                 .then(function (response) {
                     vm.allItemShoppingCarts = response._embedded && response._embedded.itemShoppingCarts ? response._embedded.itemShoppingCarts : [];
@@ -87,22 +88,26 @@
                 });
         }
 
-        vm.finalizeCurrentFromUser = function(itemShoppingCart) {
-            OrderService.finalizeCurrentFromUser()
-                .then(function (response) {
-                    if (response.totalValue) {
-                        FlashService.Success($translate.instant('shoppingCart.createdOrder'), true);
+        vm.finalizeShoppingCartCurrentFromUser = function() {
+            if (!vm.sending) {
+                vm.sending = true;
+                OrderService.finalizeCurrentFromUser()
+                    .then(function (response) {
+                        console.log('vm.finalizeCurrentFromUser',response);
+                        if (response.orderId) {
+                            FlashService.Success($translate.instant('shoppingCart.createdOrder'), true);
 
-                        $location.path('/order');
-                    } else if (response.message) {
+                            $location.path('/orders/' + response.orderId);
+                        } else if (response.message) {
+                            FlashService.Error($translate.instant(response.message));
+                        } else {
+                            FlashService.Error($translate.instant('shoppingCart.cannotCreateOrder'));
+                        }
+                    },
+                    function (response) {
                         FlashService.Error($translate.instant(response.message));
-                    } else {
-                        FlashService.Error($translate.instant('shoppingCart.cannotCreateOrder'));
-                    }
-                },
-                function (response) {
-                    FlashService.Error(response.message);
-                });
+                    });
+            }
         }
 
     }

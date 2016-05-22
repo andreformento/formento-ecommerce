@@ -1,9 +1,13 @@
-﻿<h1>{{ 'shoppingCart.title' | translate }}
+﻿<h2>{{ 'shoppingCart.title' | translate }}
     <span ng-show="vm.allItemShoppingCarts.length" class="pull-right">
-        <a class="btn btn-success pull-right" href="" ng-click="vm.finalizeCurrentFromUser()"><span class="glyphicon glyphicon-circle-arrow-right"></span> {{ 'shoppingCart.finalize' | translate }}</a>
-        <h4 class="pull-right"> {{vm.shoppingCart.totalValue | currency}} </h4>
+        <a ng-disabled="vm.sending" class="btn btn-success pull-right" href="" ng-click="vm.finalizeShoppingCartCurrentFromUser()">
+            <span ng-hide="vm.sending" class="glyphicon glyphicon-circle-arrow-right"></span>
+            <span ng-show="vm.sending" class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span>
+            {{ 'shoppingCart.finalize' | translate }}
+        </a>
+        <span class="pull-right label label-pill label-info"> {{vm.shoppingCart.totalValue | currency}} </span>
     </span>
-</h1>
+</h2>
 
 <div ng-hide="vm.allItemShoppingCarts.length">
     <h4>{{ 'shoppingCart.empty' | translate }}</h4>
@@ -23,7 +27,7 @@
                     <p class="group inner list-group-item-text">
                         {{itemShoppingCart.productItem.description}}</p>
                     <p class="group inner list-group-item-text">
-                        {{ 'shoppingCart.quantity' | translate }}: {{itemShoppingCart.quantity}}</p>
+                        {{ 'shoppingCart.quantity' | translate }}: <span class="badge"></span></p>
                     <div class="row">
                         <div class="col-xs-12 col-md-6">
                             <p class="lead">{{itemShoppingCart.totalPrice | currency}}</p>

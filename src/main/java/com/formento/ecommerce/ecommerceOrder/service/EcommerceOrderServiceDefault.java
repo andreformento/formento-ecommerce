@@ -2,6 +2,7 @@ package com.formento.ecommerce.ecommerceOrder.service;
 
 import com.formento.ecommerce.ecommerceOrder.model.EcommerceOrder;
 import com.formento.ecommerce.ecommerceOrder.repository.EcommerceOrderRepository;
+import com.formento.ecommerce.exception.AccessDeniedEcommerceException;
 import com.formento.ecommerce.exception.BusinessEcommerceException;
 import com.formento.ecommerce.integration.moip.MoipApi;
 import com.formento.ecommerce.integration.moip.MoipOrderIntegrationFacade;
@@ -39,16 +40,6 @@ public class EcommerceOrderServiceDefault implements EcommerceOrderService {
     }
 
     @Override
-    public Optional<EcommerceOrder> getCurrentOrder() {
-        return ecommerceOrderRepository.getCurrentOrder(userService.loadUserValidated().getEmail());
-    }
-
-    @Override
-    public EcommerceOrder getValidatedCurrentOrder() {
-        return getCurrentOrder().orElseThrow(() -> new BusinessEcommerceException("order.currrentOrderNotFound"));
-    }
-
-    @Override
     public EcommerceOrder save(EcommerceOrder ecommerceOrder) {
         return ecommerceOrderRepository.save(ecommerceOrder);
     }
@@ -64,6 +55,23 @@ public class EcommerceOrderServiceDefault implements EcommerceOrderService {
                                 ecommerceOrderToChange)
                         .build()
         );
+    }
+
+    @Override
+    public Optional<EcommerceOrder> getOrderById(Long orderId) {
+        return Optional
+                .ofNullable(ecommerceOrderRepository.findOne(orderId))
+                .map(ecommerceOrder -> {
+                    if (!ecommerceOrder.getUser().getEmail().equals(userService.getValidatedUserOfSession().getEmail())) {
+                        throw new AccessDeniedEcommerceException("ecommerceOrder.accessDenied");
+                    }
+                    return ecommerceOrder;
+                });
+    }
+
+    @Override
+    public EcommerceOrder getValidatedOrderById(Long orderId) {
+        return getOrderById(orderId).orElseThrow(() -> new BusinessEcommerceException("ecommerceOrder.notFound"));
     }
 
 }

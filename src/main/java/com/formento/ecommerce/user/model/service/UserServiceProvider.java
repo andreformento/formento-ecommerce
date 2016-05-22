@@ -55,7 +55,7 @@ public class UserServiceProvider implements UserService {
 
     @Override
     public User create(User user) {
-        Preconditions.checkNotNull(user,  "user.save.notValid");
+        Preconditions.checkNotNull(user, "user.save.notValid");
         Preconditions.checkNotNull(user.getPassword(), "user.save.invalidPassword");
         Preconditions.checkNotNull(user.getEmail(), "user.save.invalidMail");
 
@@ -114,6 +114,12 @@ public class UserServiceProvider implements UserService {
         } else {
             return Optional.empty();
         }
+    }
+
+    @Override
+    public UserAuthentication getValidatedUserOfSession() {
+        return getUserOfSession()
+                .orElseThrow(() -> new AccessDeniedEcommerceException("user.userNotFoundInSession"));
     }
 
     @Override

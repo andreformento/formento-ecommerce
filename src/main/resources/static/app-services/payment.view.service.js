@@ -3,25 +3,25 @@
 
     angular
         .module('app')
-        .factory('OrderService', OrderService);
+        .factory('PaymentViewService', PaymentViewService);
 
-    OrderService.$inject = ['$http', '$translate', '$translatePartialLoader'];
-    function OrderService($http, $translate, $translatePartialLoader) {
+    PaymentViewService.$inject = ['$http', '$translate', '$translatePartialLoader'];
+    function PaymentViewService($http, $translate, $translatePartialLoader) {
         var service = {},
             _translatePartialLoader = $translatePartialLoader,
             _translate = $translate;
 
         _translatePartialLoader.addPart('system');
         _translatePartialLoader.addPart('exception');
-        _translatePartialLoader.addPart('order');
+        _translatePartialLoader.addPart('payment');
         _translate.refresh();
 
-        service.finalizeCurrentFromUser = finalizeCurrentFromUser;
+        service.GetFromUserById = GetFromUserById;
 
         return service;
 
-        function finalizeCurrentFromUser() {
-            return $http.post('/api/v1/orders').then(handleSuccess, handleError);
+        function GetFromUserById(paymentId) {
+            return $http.get('/api/v1/payments/' + paymentId).then(handleSuccess, handleError);
         }
 
         // private functions

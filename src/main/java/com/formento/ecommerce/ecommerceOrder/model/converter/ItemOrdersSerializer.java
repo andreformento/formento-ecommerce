@@ -16,7 +16,14 @@ public class ItemOrdersSerializer extends JsonSerializer<Collection<ItemOrder>> 
     public void serialize(Collection<ItemOrder> value, JsonGenerator jsonGenerator, SerializerProvider provider) throws IOException {
         List<ItemOrder> itemOrders = value
                 .stream()
-                .map(ItemOrder::new)
+                .map(itemOrder -> new ItemOrder
+                        .Builder()
+                        .withId(itemOrder.getId())
+                        .withProduct(itemOrder.getProduct())
+                        .withTotalPrice(itemOrder.getTotalPrice())
+                        .withQuantity(itemOrder.getQuantity())
+                        .withUnitPrice(itemOrder.getUnitPrice())
+                        .build())
                 .collect(Collectors.toList());
 
         jsonGenerator.writeObject(itemOrders);

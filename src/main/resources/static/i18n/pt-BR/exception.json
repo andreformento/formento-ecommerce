@@ -21,5 +21,9 @@
   "shoppingCart.priceOfProductNotDefined": "Preço do produto indefinido",
   "order.shoppingCart.empty": "Carrinho de compras vazio para realizar a compra",
   "shoppingCart.finalizeCurrentFromUser.notItemsFoundException": "Não foi possível fazer a solicitação de compra pois não há itens no carrinho",
-  "shoppingCart.cannotCreateOrder": "Não foi possível criar o pedido"
+  "shoppingCart.cannotCreateOrder": "Não foi possível criar o pedido",
+  "ecommerceOrder.accessDenied": "Sem acesso ao pedido informado",
+  "ecommerceOrder.notFound": "Pedido não encontrado",
+  "methodPayment.quantity.notAccepted": "Método de pagamento não aceito, verifique a quantidade de vezes selecionada",
+  "payment.accessDenied": "Acesso negado ao pagamento"
 }

@@ -20,6 +20,8 @@ public interface UserService {
 
     Optional<UserAuthentication> getUserOfSession();
 
+    UserAuthentication getValidatedUserOfSession();
+
     Optional<User> loadUser();
 
     User loadUserValidated();

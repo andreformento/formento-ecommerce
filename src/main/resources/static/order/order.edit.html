@@ -118,6 +118,7 @@
                     <label for="creditCardHolderTaxDocumentNumber">{{ 'order.creditCardHolderTaxDocumentNumber' | translate }}</label>
                     <input type="text" class="form-control" id="creditCardHolderTaxDocumentNumber" name="creditCardHolderTaxDocumentNumber"
                            ng-model="vm.creditCardPaymentRequest.creditCard.holder.taxDocument.number" required>
+                    <small>{{ 'order.taxDocumento.numberExample' | translate }}</small>
                 </div>
 
                 <a ng-disabled="vm.sending" class="btn btn-success pull-right" href="" ng-click="vm.createCreditCardPaymentFromOrder()">

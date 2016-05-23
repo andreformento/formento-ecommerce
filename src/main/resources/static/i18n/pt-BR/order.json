@@ -24,5 +24,6 @@
   "order.creditCardHolderPhoneAreaCode": "Código de área (DDD)",
   "order.creditCardHolderPhoneNumber": "Número de telefone",
   "order.creditCardHolderTaxDocumentType": "Tipo de documento",
-  "order.creditCardHolderTaxDocumentNumber": "Número do documento"
+  "order.creditCardHolderTaxDocumentNumber": "Número do documento",
+  "order.taxDocumento.numberExample": "Coloque somente números. Exemplo: 22222222222"
 }

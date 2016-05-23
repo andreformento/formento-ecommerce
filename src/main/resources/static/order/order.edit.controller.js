@@ -34,7 +34,6 @@
                 .GetFromUserById(vm.orderId)
                 .then(function (response) {
                     vm.order = response;
-                    console.log('load',vm.order);
                     vm.coupon = vm.order.coupon;
                 });
         }
@@ -83,13 +82,11 @@
         }
 
         vm.applyDiscount = function() {
-        console.log('applydiscount',vm.orderId, vm.coupon);
             if (!vm.sendingDiscountCoupon) {
                 vm.sendingDiscountCoupon = true;
                 OrderEditService
                     .applyDiscount(vm.orderId, vm.coupon)
                     .then(function (response) {
-                        console.log('fez request', response);
                         if (response.orderId) {
                             FlashService.Success($translate.instant('order.discountDone'), true);
                             loadOrderById();

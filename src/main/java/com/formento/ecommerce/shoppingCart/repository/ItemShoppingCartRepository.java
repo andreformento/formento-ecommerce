@@ -3,11 +3,11 @@ package com.formento.ecommerce.shoppingCart.repository;
 import com.formento.ecommerce.shoppingCart.model.ItemShoppingCart;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
-import org.springframework.data.rest.webmvc.RepositoryRestController;
+import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
 
-@RepositoryRestController
+@Repository
 public interface ItemShoppingCartRepository extends PagingAndSortingRepository<ItemShoppingCart, Long> {
 
     @Query(" select itemShoppingCart " +

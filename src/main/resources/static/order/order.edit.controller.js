@@ -15,8 +15,8 @@
         var vm = this;
 
         vm.order = {};
-        vm.boletoPaymentRequest = {};
-        vm.creditCardPaymentRequest = {};
+        vm.boletoPaymentRequest = {"installmentCount": 1};
+        vm.creditCardPaymentRequest = {"installmentCount": 1};
         vm.orderId = 0;
         vm.sending = false;
 
@@ -58,18 +58,12 @@
 
         vm.createCreditCardPaymentFromOrder = function() {
             if (!vm.sending) {
-                console.log('creditCardPaymentRequest', vm.creditCardPaymentRequest)
-                console.log('data formatada1', moment(vm.creditCardPaymentRequest.creditCard.holder.birthdate).format('DD-MM-YYYY'));
-//                console.log('data formatada2', $moment(creditCardPaymentRequest.creditCard.holder.birthdate).format('DD-MM-YYYY'));
                 vm.creditCardPaymentRequest.creditCard.holder.birthdate = moment(vm.creditCardPaymentRequest.creditCard.holder.birthdate).format('DD-MM-YYYY');
-                console.log('creditCardPaymentRequest certo ', vm.creditCardPaymentRequest)
                 vm.sending = true;
                 PaymentService
                     .createCreditCardPaymentFromOrder(vm.orderId, vm.creditCardPaymentRequest)
                     .then(function (response) {
-                console.log('foi...', response)
                         if (response.paymentId) {
-                console.log('pago', response.paymentId)
                             FlashService.Success($translate.instant('order.createdPayment'), true);
                             $location.path('/payments/' + response.paymentId);
                         } else if (response.message) {

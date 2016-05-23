@@ -3,11 +3,11 @@ package com.formento.ecommerce.ecommerceOrder.repository;
 import com.formento.ecommerce.ecommerceOrder.model.EcommerceOrder;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
-import org.springframework.data.rest.webmvc.RepositoryRestController;
+import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
 
-@RepositoryRestController
+@Repository
 public interface EcommerceOrderRepository extends PagingAndSortingRepository<EcommerceOrder, Long> {
 
     @Query(" select ecommerceOrder " +

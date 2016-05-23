@@ -2,7 +2,8 @@
   "order.title": "Pedido",
   "order.createPayment": "Efetuar pagamento",
   "order.quantity": "Quantidade",
-  "order.": "Quantidade",
+  "order.boletoJustOneTime": "Boleto apenas à vista",
+  "order.creditCardMax12Times": "Pagamento feito em mais de uma parcela no cartão de crédito tem acréscimo de 2,5%",
   "order.paymentByBoleto": "Boleto",
   "order.paymentByCreditCard": "Cartão de crédito",
 

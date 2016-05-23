@@ -6,8 +6,10 @@
         .config(config)
         .run(run);
 
-    config.$inject = ['$routeProvider', '$locationProvider', '$translateProvider', '$translatePartialLoaderProvider'];
-    function config($routeProvider, $locationProvider, $translateProvider, $translatePartialLoaderProvider) {
+    config.$inject = ['$routeProvider', '$httpProvider', '$locationProvider', '$translateProvider', '$translatePartialLoaderProvider'];
+    function config($routeProvider, $httpProvider, $locationProvider, $translateProvider, $translatePartialLoaderProvider) {
+
+        $httpProvider.interceptors.push('responseObserver');
 
         $translateProvider
             .useLoader('$translatePartialLoader', {
@@ -71,8 +73,10 @@
     function run($rootScope, $location, $cookieStore, $http) {
         // keep user logged in after page refresh
         $rootScope.globals = $cookieStore.get('globals') || {};
-        if ($rootScope.globals.connected) {
+        if ($rootScope.globals && $rootScope.globals.connected) {
             $http.defaults.headers.common['Authorization'] = 'Bearer ' + $rootScope.globals.currentUser.token; // jshint ignore:line
+        } else {
+            $http.defaults.headers.common['Authorization'] = '';
         }
 
         $rootScope.$on('$locationChangeStart', function (event, next, current) {
@@ -84,5 +88,29 @@
             }
         });
     }
+
+    angular.module('app').factory('responseObserver', function responseObserver($q, $window, $cookieStore) {
+        return {
+            'responseError': function(errorResponse) {
+
+                switch (errorResponse.status) {
+                case 500:
+                    if (errorResponse.data) {
+                        var ecommerceError = JSON.parse(errorResponse.data),
+                            messageError = ecommerceError.message,
+                            revalidate = messageError == 'user.invalidToken';
+                        if (revalidate) {
+                            $cookieStore.remove('globals');
+                            $http.defaults.headers.common['Authorization'] = '';
+
+                            $window.location = '/#/login';
+                        }
+                    }
+                    break;
+                }
+                return $q.reject(errorResponse);
+            }
+        };
+    });
 
 })();

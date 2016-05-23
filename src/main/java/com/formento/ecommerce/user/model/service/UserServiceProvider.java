@@ -107,6 +107,13 @@ public class UserServiceProvider implements UserService {
     }
 
     @Override
+    public void validateByToken(String token) {
+        userRepository
+                .findByToken(token)
+                .orElseThrow(() -> new AccessDeniedEcommerceException("user.invalidToken"));
+    }
+
+    @Override
     public Optional<UserAuthentication> getUserOfSession() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication != null && authentication.getPrincipal() instanceof UserAuthentication) {

@@ -26,4 +26,9 @@ public interface UserRepository extends PagingAndSortingRepository<User, UUID> {
             "   and user.password = ?2")
     Optional<User> findByEmailAndPassword(@Param("email") String email, @Param("password") String password);
 
+    @Query(" select user " +
+            " from User user " +
+            " where user.token = ?1")
+    Optional<User> findByToken(String token);
+
 }

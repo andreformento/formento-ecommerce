@@ -94,6 +94,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                         urlUsers,
                         urlAuthenticationToken
                 ).permitAll()
+                .antMatchers(HttpMethod.PATCH,
+                        urlAuthenticationToken
+                ).permitAll()
                 .anyRequest().authenticated();
 
         // Custom JWT based security filter

@@ -78,9 +78,7 @@ public class MoipTest {
         PaymentRequest paymentRequest = new PaymentRequest()
                 .orderId(createdOrder.getId())
                 .installmentCount(1)
-                .fundingInstrument(
-                        fundingInstrumentRequest
-                );
+                .fundingInstrument(fundingInstrumentRequest);
         Payment createdPayment = api.payment().create(paymentRequest);
         assertNotNull(createdPayment);
     }

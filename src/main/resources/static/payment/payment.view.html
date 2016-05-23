@@ -1,6 +1,5 @@
 ﻿<h2>{{ 'payment.title' | translate }}
-        <span class="pull-right label label-pill label-info"> {{vm.payment.paymentEcommerceOrder.totalValue | currency}} </span>
-    </span>
+    <span class="pull-right"> {{vm.payment.paymentEcommerceOrder.totalValue | currency}} </span>
 </h2>
 
 <div ng-cloak class="ng-cloak" ng-show="vm.payment.paymentEcommerceOrder.itemOrders.length">

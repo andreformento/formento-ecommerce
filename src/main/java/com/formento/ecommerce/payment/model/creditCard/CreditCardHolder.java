@@ -13,8 +13,8 @@ import javax.validation.constraints.Size;
 import java.time.LocalDate;
 
 @Getter
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
 public class CreditCardHolder {
 
     @Size(min = 5, max = 80)

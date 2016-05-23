@@ -5,7 +5,7 @@
             <span ng-show="vm.sending" class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span>
             {{ 'shoppingCart.finalize' | translate }}
         </a>
-        <span class="pull-right label label-pill label-info"> {{vm.shoppingCart.totalValue | currency}} </span>
+        <span class="pull-right"> {{vm.shoppingCart.totalValue | currency}} </span>
     </span>
 </h2>
 
@@ -27,7 +27,7 @@
                     <p class="group inner list-group-item-text">
                         {{itemShoppingCart.productItem.description}}</p>
                     <p class="group inner list-group-item-text">
-                        {{ 'shoppingCart.quantity' | translate }}: <span class="badge"></span></p>
+                        {{ 'shoppingCart.quantity' | translate }}: <span class="badge">{{itemShoppingCart.quantity}}</span></p>
                     <div class="row">
                         <div class="col-xs-12 col-md-6">
                             <p class="lead">{{itemShoppingCart.totalPrice | currency}}</p>

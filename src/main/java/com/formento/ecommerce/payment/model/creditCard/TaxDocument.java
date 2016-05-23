@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.validator.constraints.NotEmpty;
 
+import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
@@ -19,7 +20,7 @@ public class TaxDocument implements Serializable {
     private Type type;
 
     // validator
-    @NotEmpty
+    @Transient
     private String number;
 
     public enum Type {

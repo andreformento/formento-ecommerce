@@ -1,6 +1,5 @@
 ﻿<h2>{{ 'order.title' | translate }}
-        <span class="pull-right label label-pill label-info"> {{vm.order.totalValue | currency}} </span>
-    </span>
+    <span class="pull-right"> {{vm.order.totalValue | currency}} </span>
 </h2>
 
 <div ng-cloak class="ng-cloak" ng-show="vm.order.itemOrders.length">
@@ -27,19 +26,71 @@
     </div>
 </div>
 
-<div> BOLETO
-    {{vm.boletoPaymentRequest}}
-        <!--<input type="text" ng-model="vm.boletoPaymentRequest.totalValue" value="0">-->
-        <!--<input type="text" ng-model="vm.boletoPaymentRequest.quantity" value="0">-->
-        <!--fundingInstrument:-->
-
+<div>
+    <h3>{{ 'order.paymentByBoleto' | translate }}</h3>
     <form name="boletoPaymentRequestForm">
         <div class="form-group" ng-class="{ 'has-error': boletoPaymentRequestForm.installmentCount.$invalid }">
-            <input type="text" class="form-control" name="installmentCount" ng-model="vm.boletoPaymentRequest.installmentCount" required>
+            <label for="installmentCount">{{ 'order.installmentCount' | translate }}</label>
+            <input type="text" class="form-control" name="installmentCount"
+                   ng-model="vm.boletoPaymentRequest.installmentCount" required>
         </div>
-        <input type="submit" ng-click="vm.createBoletoPaymentFromOrder()" />
+
+        <a ng-disabled="vm.sending" class="btn btn-success pull-right" href="" ng-click="vm.createBoletoPaymentFromOrder()">
+            <span ng-hide="vm.sending" class="glyphicon glyphicon-circle-arrow-right"></span>
+            <span ng-show="vm.sending" class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span>
+            {{ 'order.createPayment' | translate }}
+        </a>
     </form>
-        <!--<div class="form-group" ng-class="{ 'has-error': boletoPaymentRequestForm.fundingInstrument..$invalid }">-->
-            <!--<input type="text" class="form-control" name="fundingInstrument." ng-model="vm.boletoPaymentRequest.fundingInstrument." required>-->
-        <!--</div>-->
+</div>
+
+
+<div>
+    <h3>{{ 'order.paymentByCreditCard' | translate }}</h3>
+    <form name="creditCardPaymentRequestForm">
+
+        <div class="form-group" ng-class="{ 'has-error': creditCardPaymentRequestForm.installmentCount.$invalid }">
+            <label for="installmentCount">{{ 'order.installmentCount' | translate }}</label>
+            <input type="text" class="form-control" name="installmentCount"
+                   ng-model="vm.creditCardPaymentRequest.installmentCount" required>
+        </div>
+
+        <div class="form-group" ng-class="{ 'has-error': creditCardPaymentRequestForm.creditCardHolderName.$invalid }">
+            <label for="creditCardHolderName">{{ 'order.creditCardHolderName' | translate }}</label>
+            <input type="text" class="form-control" name="creditCardHolderName"
+                   ng-model="vm.creditCardPaymentRequest.creditCard.holder.name" required>
+        </div>
+        <div class="form-group" ng-class="{ 'has-error': creditCardPaymentRequestForm.creditCardHolderBirthdate.$invalid }">
+            <label for="creditCardHolderBirthdate">{{ 'order.creditCardHolderBirthdate' | translate }}</label>
+            <input type="date" class="form-control" name="creditCardHolderBirthdate" data-date-format="DD MMMM YYYY"
+                   ng-model="vm.creditCardPaymentRequest.creditCard.holder.birthdate" required>
+        </div>
+
+        <div class="form-group" ng-class="{ 'has-error': creditCardPaymentRequestForm.creditCardHolderPhoneAreaCode.$invalid }">
+            <label for="creditCardHolderPhoneAreaCode">{{ 'order.creditCardHolderPhoneAreaCode' | translate }}</label>
+            <input type="text" class="form-control" name="creditCardHolderPhoneAreaCode"
+                   ng-model="vm.creditCardPaymentRequest.creditCard.holder.phone.areaCode" required>
+        </div>
+        <div class="form-group" ng-class="{ 'has-error': creditCardPaymentRequestForm.creditCardHolderPhoneNumber.$invalid }">
+            <label for="creditCardHolderPhoneNumber">{{ 'order.creditCardHolderPhoneNumber' | translate }}</label>
+            <input type="text" class="form-control" name="creditCardHolderPhoneNumber"
+                   ng-model="vm.creditCardPaymentRequest.creditCard.holder.phone.number" required>
+        </div>
+
+        <div class="form-group" ng-class="{ 'has-error': creditCardPaymentRequestForm.creditCardHolderTaxDocumentType.$invalid }">
+            <label for="creditCardHolderTaxDocumentType">{{ 'order.creditCardHolderTaxDocumentType' | translate }}</label>
+            <input type="text" class="form-control" name="creditCardHolderTaxDocumentType"
+                   ng-model="vm.creditCardPaymentRequest.creditCard.holder.taxDocument.type" required>
+        </div>
+        <div class="form-group" ng-class="{ 'has-error': creditCardPaymentRequestForm.creditCardHolderTaxDocumentNumber.$invalid }">
+            <label for="creditCardHolderTaxDocumentNumber">{{ 'order.creditCardHolderTaxDocumentNumber' | translate }}</label>
+            <input type="text" class="form-control" name="creditCardHolderTaxDocumentNumber"
+                   ng-model="vm.creditCardPaymentRequest.creditCard.holder.taxDocument.number" required>
+        </div>
+
+        <a ng-disabled="vm.sending" class="btn btn-success pull-right" href="" ng-click="vm.createCreditCardPaymentFromOrder()">
+            <span ng-hide="vm.sending" class="glyphicon glyphicon-circle-arrow-right"></span>
+            <span ng-show="vm.sending" class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span>
+            {{ 'order.createPayment' | translate }}
+        </a>
+    </form>
 </div>

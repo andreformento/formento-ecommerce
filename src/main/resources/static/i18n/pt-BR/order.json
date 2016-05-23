@@ -2,9 +2,20 @@
   "order.title": "Pedido",
   "order.createPayment": "Efetuar pagamento",
   "order.quantity": "Quantidade",
+  "order.": "Quantidade",
+  "order.paymentByBoleto": "Boleto",
+  "order.paymentByCreditCard": "Cartão de crédito",
 
   "order.cannotCreatePayment": "Não foi possível criar o pedido",
   "order.currrentOrderNotFound": "Pedido não encontrado",
   "order.createdPayment": "Pagamento efetuado",
-  "ecommerceOrder.cannotChangeStatusBecauseDotNotExists": "Não é possível alterar o pedido pois ele não foi encontrado"
+  "ecommerceOrder.cannotChangeStatusBecauseDotNotExists": "Não é possível alterar o pedido pois ele não foi encontrado",
+
+  "order.installmentCount": "Quantidade de parcelas",
+  "order.creditCardHolderName": "Nome",
+  "order.creditCardHolderBirthdate": "Data de nascimento",
+  "order.creditCardHolderPhoneAreaCode": "Código de área (DDD)",
+  "order.creditCardHolderPhoneNumber": "Número de telefone",
+  "order.creditCardHolderTaxDocumentType": "Tipo de documento",
+  "order.creditCardHolderTaxDocumentNumber": "Número do documento"
 }

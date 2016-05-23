@@ -23,7 +23,6 @@
         initController();
 
         function initController() {
-            console.log('$routeParams.orderId',$routeParams.orderId);
             vm.orderId = $routeParams.orderId;
             loadOrderById();
         }
@@ -32,7 +31,6 @@
             OrderEditService
                 .GetFromUserById(vm.orderId)
                 .then(function (response) {
-                console.log( 'order controller load by id', vm.orderId, response);
                     vm.order = response;
                 });
         }
@@ -40,13 +38,10 @@
         vm.createBoletoPaymentFromOrder = function() {
             if (!vm.sending) {
                 vm.sending = true;
-                console.log('boleto',vm.orderId, vm.boletoPaymentRequest);
                 PaymentService
                     .createBoletoPaymentFromOrder(vm.orderId, vm.boletoPaymentRequest)
                     .then(function (response) {
-                console.log('finalize boleto response!!!!  ',response);
                         if (response.paymentId) {
-                console.log('response.paymentId!!!!  ',response.paymentId);
                             FlashService.Success($translate.instant('order.createdPayment'), true);
                             $location.path('/payments/' + response.paymentId);
                         } else if (response.message) {
@@ -56,7 +51,34 @@
                         }
                     },
                     function (response) {
-                    console.log('erro',response);
+                        FlashService.Error(response.message);
+                    });
+            }
+        }
+
+        vm.createCreditCardPaymentFromOrder = function() {
+            if (!vm.sending) {
+                console.log('creditCardPaymentRequest', vm.creditCardPaymentRequest)
+                console.log('data formatada1', moment(vm.creditCardPaymentRequest.creditCard.holder.birthdate).format('DD-MM-YYYY'));
+//                console.log('data formatada2', $moment(creditCardPaymentRequest.creditCard.holder.birthdate).format('DD-MM-YYYY'));
+                vm.creditCardPaymentRequest.creditCard.holder.birthdate = moment(vm.creditCardPaymentRequest.creditCard.holder.birthdate).format('DD-MM-YYYY');
+                console.log('creditCardPaymentRequest certo ', vm.creditCardPaymentRequest)
+                vm.sending = true;
+                PaymentService
+                    .createCreditCardPaymentFromOrder(vm.orderId, vm.creditCardPaymentRequest)
+                    .then(function (response) {
+                console.log('foi...', response)
+                        if (response.paymentId) {
+                console.log('pago', response.paymentId)
+                            FlashService.Success($translate.instant('order.createdPayment'), true);
+                            $location.path('/payments/' + response.paymentId);
+                        } else if (response.message) {
+                            FlashService.Error($translate.instant(response.message));
+                        } else {
+                            FlashService.Error($translate.instant('order.cannotCreatePayment'));
+                        }
+                    },
+                    function (response) {
                         FlashService.Error(response.message);
                     });
             }

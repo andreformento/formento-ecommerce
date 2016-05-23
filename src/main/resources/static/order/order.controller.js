@@ -25,7 +25,6 @@
         function loadOrder() {
             OrderService.GetFromUser()
                 .then(function (response) {
-                console.log( 'order controller response',response);
                     vm.order = response;
                 });
         }

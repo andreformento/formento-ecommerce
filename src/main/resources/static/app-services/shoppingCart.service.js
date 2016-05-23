@@ -33,12 +33,10 @@
         }
 
         function Add(itemShoppingCart) {
-            console.log('Add service',itemShoppingCart);
             return $http.post('/api/v1/item-shopping-carts/', itemShoppingCart).then(handleSuccess, handleError);
         }
 
         function Plus(id) {
-            console.log('plus service id',id);
             return $http.patch('/api/v1/item-shopping-carts/' + id).then(handleSuccess, handleError);
         }
 

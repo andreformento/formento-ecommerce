@@ -21,7 +21,6 @@
         initController();
 
         function initController() {
-            console.log('$routeParams.paymentId',$routeParams.paymentId);
             vm.paymentId = $routeParams.paymentId;
             loadPaymentById();
         }
@@ -30,7 +29,6 @@
             PaymentViewService
                 .GetFromUserById(vm.paymentId)
                 .then(function (response) {
-                console.log( 'payment controller load by id', vm.paymentId, response);
                     vm.payment = response;
                 });
         }

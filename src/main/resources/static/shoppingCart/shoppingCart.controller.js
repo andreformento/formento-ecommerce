@@ -93,7 +93,6 @@
                 vm.sending = true;
                 OrderService.finalizeCurrentFromUser()
                     .then(function (response) {
-                        console.log('vm.finalizeCurrentFromUser',response);
                         if (response.orderId) {
                             FlashService.Success($translate.instant('shoppingCart.createdOrder'), true);
 

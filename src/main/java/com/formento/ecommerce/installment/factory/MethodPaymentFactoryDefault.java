@@ -15,7 +15,7 @@ public class MethodPaymentFactoryDefault implements MethodPaymentFactory {
         if (count.equals(FundingInstrumentOption.BOLETO.getCountMax())) {
             return new UniqueMethodPayment(totalValue);
         } else if (count > FundingInstrumentOption.BOLETO.getCountMax() && count <= FundingInstrumentOption.CREDIT_CARD.getCountMax()) {
-            return new MethodPaymentInNTimes(totalValue, count);
+            return new MethodPaymentInNTimes(totalValue.multiply(BigDecimal.valueOf(1.025)), count);
         }
 
         throw new BusinessEcommerceException("methodPayment.quantity.notAccepted");

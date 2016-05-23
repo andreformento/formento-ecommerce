@@ -6,6 +6,7 @@ import com.formento.ecommerce.installment.factory.MethodPaymentFactoryDefault;
 import com.formento.ecommerce.integration.moip.CreditCardPaymentFacade;
 import com.formento.ecommerce.integration.moip.MoipApi;
 import com.formento.ecommerce.integration.moip.MoipConfiguration;
+import com.formento.ecommerce.payment.model.MethodPayment;
 import com.formento.ecommerce.payment.model.Payment;
 import com.formento.ecommerce.payment.service.request.CreditCardPaymentRequest;
 import lombok.AllArgsConstructor;
@@ -34,13 +35,15 @@ public class CreditCardPaymentService implements PaymentService<CreditCardPaymen
     public Payment createPayment(Long orderId, CreditCardPaymentRequest paymentRequest) {
         // TODO "salvar"
         EcommerceOrder order = ecommerceOrderService.getValidatedOrderById(orderId);
+        MethodPayment methodPayment = new MethodPaymentFactoryDefault().makeMethodPayment(order.getTotalValue(), paymentRequest.getInstallmentCount());
         return paymentEditService.create(
                 new CreditCardPaymentFacade(
                         moipApi,
                         moipConfiguration,
                         order,
-                        new MethodPaymentFactoryDefault().makeMethodPayment(order.getTotalValue(), paymentRequest.getInstallmentCount()),
-                        paymentRequest.generateFundingInstrument()).makePayment()
+                        methodPayment,
+                        paymentRequest.generateFundingInstrument()).makePayment(),
+                methodPayment.getTotalValue()
         );
     }
 

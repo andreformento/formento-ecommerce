@@ -6,6 +6,8 @@ import com.formento.ecommerce.payment.repository.PaymentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
+
 @Service
 public class PaymentEditServiceDefault implements PaymentEditService {
 
@@ -21,8 +23,8 @@ public class PaymentEditServiceDefault implements PaymentEditService {
     }
 
     @Override
-    public Payment create(Payment payment) {
-        PaymentEntity entity = new PaymentEntity(payment);
+    public Payment create(Payment payment, BigDecimal paymentValue) {
+        PaymentEntity entity = new PaymentEntity(payment, paymentValue);
         paymentValidator.validateBeforeCreate(entity);
         return paymentRepository.save(entity);
     }

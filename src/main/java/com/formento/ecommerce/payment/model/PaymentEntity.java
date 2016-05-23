@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Optional;
 
 @AllArgsConstructor
@@ -34,6 +35,8 @@ public class PaymentEntity implements Payment, Serializable {
     @ManyToOne
     private EcommerceOrder ecommerceOrder;
 
+    private BigDecimal paymentValue;
+
     @JsonSerialize(using = OptionalObjectSerializer.class)
     public Optional<String> getIntegrationId() {
         return Optional.ofNullable(this.integrationId);
@@ -52,9 +55,10 @@ public class PaymentEntity implements Payment, Serializable {
         return this.id;
     }
 
-    public PaymentEntity(Payment payment) {
+    public PaymentEntity(Payment payment, BigDecimal paymentValue) {
         this.methodPayment = new MethodPaymentEntity(payment.getMethodPayment());
         this.fundingInstrument = new FundingInstrumentEntity(payment.getFundingInstrument());
+        this.paymentValue = paymentValue;
 
         payment.getIntegrationId().ifPresent(integrationId -> this.integrationId = integrationId);
         payment.getEcommerceOrder().ifPresent(ecommerceOrder -> this.ecommerceOrder = ecommerceOrder);

@@ -1,5 +1,5 @@
 ﻿<h2>{{ 'payment.title' | translate }}
-    <span class="pull-right"> {{vm.payment.paymentEcommerceOrder.totalValue | currency}} </span>
+    <span class="pull-right"> {{vm.payment.paymentValue | currency}} </span>
 </h2>
 
 <div ng-cloak class="ng-cloak" ng-show="vm.payment.paymentEcommerceOrder.itemOrders.length">

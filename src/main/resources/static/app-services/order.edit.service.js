@@ -17,11 +17,16 @@
         _translate.refresh();
 
         service.GetFromUserById = GetFromUserById;
+        service.applyDiscount = applyDiscount;
 
         return service;
 
         function GetFromUserById(orderId) {
             return $http.get('/api/v1/orders/' + orderId).then(handleSuccess, handleError);
+        }
+
+        function applyDiscount(orderId, coupon) {
+            return $http.put('/api/v1/orders/' + orderId + '/coupon', coupon).then(handleSuccess, handleError);
         }
 
         // private functions

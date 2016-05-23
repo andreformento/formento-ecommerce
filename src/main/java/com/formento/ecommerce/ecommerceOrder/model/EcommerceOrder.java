@@ -2,6 +2,8 @@ package com.formento.ecommerce.ecommerceOrder.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.formento.ecommerce.discount.model.Coupon;
+import com.formento.ecommerce.discount.model.CouponDiscountCalculator;
 import com.formento.ecommerce.ecommerceOrder.model.converter.ItemOrdersSerializer;
 import com.formento.ecommerce.shoppingCart.model.ItemShoppingCart;
 import com.formento.ecommerce.shoppingCart.model.ShoppingCart;
@@ -17,6 +19,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.Optional;
@@ -50,9 +53,12 @@ public class EcommerceOrder implements Serializable {
 
     private LocalDateTime integrationDate;
 
+    @ManyToOne
+    private Coupon discountCoupon;
+
     @NotNull
     @Enumerated(EnumType.STRING)
-    public StatusEcommerceOrder statusEcommerceOrder;
+    private StatusEcommerceOrder statusEcommerceOrder;
 
     @JsonSerialize(using = OptionalObjectSerializer.class)
     public Optional<String> getIntegrationId() {
@@ -62,6 +68,19 @@ public class EcommerceOrder implements Serializable {
     @JsonSerialize(using = OptionalLocalDateTimeSerializer.class)
     public Optional<LocalDateTime> getIntegrationDate() {
         return Optional.ofNullable(this.integrationDate);
+    }
+
+    @JsonSerialize(using = OptionalLocalDateTimeSerializer.class)
+    public Optional<Coupon> getDiscountCoupon() {
+        return Optional.ofNullable(this.discountCoupon);
+    }
+
+    public BigDecimal getLiquidValue() {
+        return getDiscountCoupon().map(coupon -> new CouponDiscountCalculator(coupon, getTotalValue(), LocalDate.now()).calculateLiquidValue()).orElse(getTotalValue());
+    }
+
+    public Coupon getCoupon() {
+        return this.discountCoupon;
     }
 
     public Long getOrderId() {
@@ -113,14 +132,26 @@ public class EcommerceOrder implements Serializable {
         }
 
         public Builder changeStatus(EcommerceOrder ecommerceOrderOld, EcommerceOrder ecommerceOrderToChange) {
-            instance.id = ecommerceOrderOld.id;
-            instance.user = ecommerceOrderOld.user;
-            instance.itemOrders = ecommerceOrderOld.itemOrders;
-            instance.totalValue = ecommerceOrderOld.totalValue;
+            return withSelf(ecommerceOrderOld)
+                    .withStatusEcommerceOrder(ecommerceOrderToChange.statusEcommerceOrder)
+                    .withIntegrationId(ecommerceOrderToChange.integrationId);
+        }
 
-            instance.statusEcommerceOrder = ecommerceOrderToChange.statusEcommerceOrder;
+        public Builder withSelf(EcommerceOrder ecommerceOrder) {
+            instance.id = ecommerceOrder.id;
+            instance.user = ecommerceOrder.user;
+            instance.itemOrders = ecommerceOrder.itemOrders;
+            instance.totalValue = ecommerceOrder.totalValue;
+            instance.integrationId = ecommerceOrder.integrationId;
+            instance.integrationDate = ecommerceOrder.integrationDate;
+            instance.discountCoupon = ecommerceOrder.discountCoupon;
+            instance.statusEcommerceOrder = ecommerceOrder.statusEcommerceOrder;
+            return this;
+        }
 
-            return withIntegrationId(ecommerceOrderToChange.integrationId);
+        public Builder applyDiscount(Coupon discountCoupon) {
+            instance.discountCoupon = discountCoupon.validateNow();
+            return this;
         }
 
         public EcommerceOrder build() {

@@ -18,7 +18,9 @@
         vm.boletoPaymentRequest = {"installmentCount": 1};
         vm.creditCardPaymentRequest = {"installmentCount": 1};
         vm.orderId = 0;
+        vm.coupon = {"code": ""};
         vm.sending = false;
+        vm.sendingDiscountCoupon = false;
 
         initController();
 
@@ -32,6 +34,8 @@
                 .GetFromUserById(vm.orderId)
                 .then(function (response) {
                     vm.order = response;
+                    console.log('load',vm.order);
+                    vm.coupon = vm.order.coupon;
                 });
         }
 
@@ -58,8 +62,8 @@
 
         vm.createCreditCardPaymentFromOrder = function() {
             if (!vm.sending) {
-                vm.creditCardPaymentRequest.creditCard.holder.birthdate = moment(vm.creditCardPaymentRequest.creditCard.holder.birthdate).format('DD-MM-YYYY');
                 vm.sending = true;
+                vm.creditCardPaymentRequest.creditCard.holder.birthdate = moment(vm.creditCardPaymentRequest.creditCard.holder.birthdate).format('DD-MM-YYYY');
                 PaymentService
                     .createCreditCardPaymentFromOrder(vm.orderId, vm.creditCardPaymentRequest)
                     .then(function (response) {
@@ -74,6 +78,33 @@
                     },
                     function (response) {
                         FlashService.Error(response.message);
+                    });
+            }
+        }
+
+        vm.applyDiscount = function() {
+        console.log('applydiscount',vm.orderId, vm.coupon);
+            if (!vm.sendingDiscountCoupon) {
+                vm.sendingDiscountCoupon = true;
+                OrderEditService
+                    .applyDiscount(vm.orderId, vm.coupon)
+                    .then(function (response) {
+                        console.log('fez request', response);
+                        if (response.orderId) {
+                            FlashService.Success($translate.instant('order.discountDone'), true);
+                            loadOrderById();
+                        } else if (response.message) {
+                            FlashService.Error($translate.instant(response.message));
+                        } else {
+                            FlashService.Error($translate.instant('order.cannotDoDiscount'));
+                        }
+
+                        vm.sendingDiscountCoupon = false;
+                    },
+                    function (response) {
+                        FlashService.Error(response.message);
+
+                        vm.sendingDiscountCoupon = false;
                     });
             }
         }

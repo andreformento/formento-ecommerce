@@ -11,6 +11,12 @@
   "order.currrentOrderNotFound": "Pedido não encontrado",
   "order.createdPayment": "Pagamento efetuado",
   "ecommerceOrder.cannotChangeStatusBecauseDotNotExists": "Não é possível alterar o pedido pois ele não foi encontrado",
+  "order.discountCoupon": "Cupom de desconto",
+  "order.applyDiscount": "Aplicar desconto",
+  "order.discountCoupon.code": "Código da promoção",
+  "order.discountCoupon.example": "Exemplo: funny-promo",
+  "order.discountDone": "Desconto aplicado",
+  "order.cannotDoDiscount": "Não foi possível aplicar o desconto",
 
   "order.installmentCount": "Quantidade de parcelas",
   "order.creditCardHolderName": "Nome",

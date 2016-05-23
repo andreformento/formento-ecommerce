@@ -85,8 +85,8 @@ public class DatabaseInitialConfig {
                         .build()
                 ).getProductPrices());
 
+        couponRepository.save(new Coupon(null, "boring-promo", BigDecimal.valueOf(3), LocalDate.now().minusDays(7)));
         couponRepository.save(new Coupon(null, "funny-promo", BigDecimal.valueOf(5), LocalDate.now().plusYears(10l)));
-        couponRepository.save(new Coupon(null, "boring-promo", BigDecimal.valueOf(15), LocalDate.now().minusDays(3)));
 
         User user = userService.create(new User
                 .Builder()

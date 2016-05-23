@@ -3,6 +3,7 @@ package com.formento.ecommerce.ecommerceOrder.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.formento.ecommerce.discount.model.CouponDiscountCalculator;
 import com.formento.ecommerce.product.converter.OptionalProductSerializer;
 import com.formento.ecommerce.product.model.Product;
 import com.formento.ecommerce.productPrice.model.ProductPrice;
@@ -16,6 +17,7 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.time.LocalDate;
 
 @Getter
 @EqualsAndHashCode
@@ -50,6 +52,10 @@ public class ItemOrder implements ProductPrice, Serializable {
 
     public Product getProductOrder() {
         return this.product;
+    }
+
+    public BigDecimal getLiquidValue() {
+        return ecommerceOrder == null ? totalPrice : ecommerceOrder.getDiscountCoupon().map(coupon -> new CouponDiscountCalculator(coupon, totalPrice, LocalDate.now()).calculateLiquidValue()).orElse(totalPrice);
     }
 
     public static class Builder {

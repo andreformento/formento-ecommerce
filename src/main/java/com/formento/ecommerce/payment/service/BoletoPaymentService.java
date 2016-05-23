@@ -31,7 +31,7 @@ public class BoletoPaymentService implements PaymentService<BoletoPaymentRequest
     public Payment createPayment(Long orderId, BoletoPaymentRequest boletoPaymentRequest) {
         EcommerceOrder order = ecommerceOrderService.getValidatedOrderById(orderId);
 
-        MethodPayment methodPayment = new MethodPaymentFactoryDefault().makeMethodPayment(order.getTotalValue(), boletoPaymentRequest.getInstallmentCount());
+        MethodPayment methodPayment = new MethodPaymentFactoryDefault().makeMethodPayment(order.getLiquidValue(), boletoPaymentRequest.getInstallmentCount());
 
         return paymentEditService.create(
                 new BoletoPaymentFacade(

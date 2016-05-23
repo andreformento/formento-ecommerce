@@ -1,5 +1,6 @@
 package com.formento.ecommerce.ecommerceOrder.api.v1.controller;
 
+import com.formento.ecommerce.discount.model.Coupon;
 import com.formento.ecommerce.ecommerceOrder.model.EcommerceOrder;
 import com.formento.ecommerce.ecommerceOrder.service.EcommerceOrderService;
 import io.swagger.annotations.Api;
@@ -13,10 +14,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 
@@ -42,6 +40,12 @@ public class EcommerceOrderController {
     @RequestMapping(value = "/{orderId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public HttpEntity<Resource<EcommerceOrder>> getOrderById(@PathVariable("orderId") Long orderId) {
         return new ResponseEntity<>(new Resource<>(ecommerceOrderService.getValidatedOrderById(orderId), linkTo(EcommerceOrderController.class).withSelfRel()), HttpStatus.CREATED);
+    }
+
+    @ApiOperation(value = "Discount", notes = "Discount and return an order", response = EcommerceOrder.class)
+    @RequestMapping(value = "/{orderId}/coupon", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
+    public HttpEntity<Resource<EcommerceOrder>> applyDiscount(@PathVariable("orderId") Long orderId, @RequestBody Coupon discountCoupon) {
+        return new ResponseEntity<>(new Resource<>(ecommerceOrderService.applyDiscount(orderId, discountCoupon), linkTo(EcommerceOrderController.class).withSelfRel()), HttpStatus.OK);
     }
 
 }

@@ -35,7 +35,7 @@ public class CreditCardPaymentService implements PaymentService<CreditCardPaymen
     public Payment createPayment(Long orderId, CreditCardPaymentRequest paymentRequest) {
         // TODO "salvar"
         EcommerceOrder order = ecommerceOrderService.getValidatedOrderById(orderId);
-        MethodPayment methodPayment = new MethodPaymentFactoryDefault().makeMethodPayment(order.getTotalValue(), paymentRequest.getInstallmentCount());
+        MethodPayment methodPayment = new MethodPaymentFactoryDefault().makeMethodPayment(order.getLiquidValue(), paymentRequest.getInstallmentCount());
         return paymentEditService.create(
                 new CreditCardPaymentFacade(
                         moipApi,

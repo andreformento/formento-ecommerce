@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.ToString;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 
 @Getter
 @EqualsAndHashCode
@@ -14,7 +15,7 @@ public class InstallmentDefault implements Installment {
     private final BigDecimal totalValue;
 
     public InstallmentDefault(BigDecimal totalValue) {
-        this.totalValue = totalValue.setScale(2);
+        this.totalValue = totalValue.setScale(2, RoundingMode.DOWN);
     }
 
     public InstallmentDefault(Double totalValue) {

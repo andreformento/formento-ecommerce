@@ -3,6 +3,7 @@ package com.formento.ecommerce.discount.model;
 import com.formento.ecommerce.exception.DiscountEcommerceException;
 import lombok.*;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -24,6 +25,8 @@ public class Coupon implements Serializable {
     @GeneratedValue
     private Long id;
 
+    @NotNull
+    @Column(unique = true)
     @Size(min = 1, max = 80)
     private String code;
 
@@ -33,14 +36,15 @@ public class Coupon implements Serializable {
     private LocalDate expirationDate;
 
     // any logical to validate coupon
-    public void validate(LocalDate date) {
+    public Coupon validate(LocalDate date) {
         if (expirationDate.isBefore(date)) {
             throw new DiscountEcommerceException("discount.coupon.invalid.expiredDate");
         }
+        return this;
     }
 
-    public void validateNow() {
-        validate(LocalDate.now());
+    public Coupon validateNow() {
+        return validate(LocalDate.now());
     }
 
 }

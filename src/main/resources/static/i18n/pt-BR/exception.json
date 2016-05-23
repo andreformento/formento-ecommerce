@@ -25,5 +25,7 @@
   "ecommerceOrder.accessDenied": "Sem acesso ao pedido informado",
   "ecommerceOrder.notFound": "Pedido não encontrado",
   "methodPayment.quantity.notAccepted": "Método de pagamento não aceito, verifique a quantidade de vezes selecionada",
-  "payment.accessDenied": "Acesso negado ao pagamento"
+  "payment.accessDenied": "Acesso negado ao pagamento",
+  "discount.coupon.invalid.expiredDate": "Cupom expirado",
+  "coupon.notFound": "Cupom não encontrado"
 }

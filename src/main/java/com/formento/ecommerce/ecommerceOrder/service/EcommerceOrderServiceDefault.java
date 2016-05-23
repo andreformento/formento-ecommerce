@@ -1,5 +1,7 @@
 package com.formento.ecommerce.ecommerceOrder.service;
 
+import com.formento.ecommerce.discount.model.Coupon;
+import com.formento.ecommerce.discount.service.CouponService;
 import com.formento.ecommerce.ecommerceOrder.model.EcommerceOrder;
 import com.formento.ecommerce.ecommerceOrder.repository.EcommerceOrderRepository;
 import com.formento.ecommerce.exception.AccessDeniedEcommerceException;
@@ -30,6 +32,9 @@ public class EcommerceOrderServiceDefault implements EcommerceOrderService {
     @Autowired
     private MoipApi moipApi;
 
+    @Autowired
+    private CouponService couponService;
+
     @Override
     public EcommerceOrder createIntegration() {
         return new MoipOrderIntegrationFacade(
@@ -53,6 +58,17 @@ public class EcommerceOrderServiceDefault implements EcommerceOrderService {
                                 Optional.ofNullable(ecommerceOrderRepository.findOne(orderId))
                                         .orElseThrow(() -> new BusinessEcommerceException("ecommerceOrder.cannotChangeStatusBecauseDotNotExists")),
                                 ecommerceOrderToChange)
+                        .build()
+        );
+    }
+
+    @Override
+    public EcommerceOrder applyDiscount(Long orderId, Coupon discountCoupon) {
+        return ecommerceOrderRepository.save(
+                new EcommerceOrder
+                        .Builder()
+                        .withSelf(getValidatedOrderById(orderId))
+                        .applyDiscount(couponService.getCouponByCode(discountCoupon.getCode()))
                         .build()
         );
     }

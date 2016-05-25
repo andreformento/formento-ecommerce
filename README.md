@@ -1,5 +1,5 @@
 # formento-ecommerce
-Ecommerce with integration to a payment integration
+Ecommerce with payment integration
 
 # Technology
 * Java 8

@@ -7,3 +7,4 @@ Ecommerce with payment integration
 * Spring (data, security, hateoas)
 * AngularJS
 * Maven
+* Lombok

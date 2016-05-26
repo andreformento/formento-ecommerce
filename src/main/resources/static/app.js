@@ -101,9 +101,7 @@
                             revalidate = messageError == 'user.invalidToken';
                         if (revalidate) {
                             $cookieStore.remove('globals');
-                            $http.defaults.headers.common['Authorization'] = '';
-
-                            $window.location = '/#/login';
+                            $window.location.reload();
                         }
                     }
                     break;

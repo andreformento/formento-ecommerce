@@ -98,7 +98,7 @@
                     if (errorResponse.data) {
                         var ecommerceError = JSON.parse(errorResponse.data),
                             messageError = ecommerceError.message,
-                            revalidate = messageError == 'user.invalidToken';
+                            revalidate = messageError == 'user.invalidToken' || messageError == 'accessDenied.invalidSession';
                         if (revalidate) {
                             $cookieStore.remove('globals');
                             $window.location.reload();

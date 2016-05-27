@@ -25,6 +25,6 @@ target/
 .mvn/
 
 ######################
-# Maven
+# Angular
 ######################
 node_modules/

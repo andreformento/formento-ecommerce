@@ -87,33 +87,6 @@ public class DatabaseInitialConfig {
 
         couponRepository.save(new Coupon(null, "boring-promo", BigDecimal.valueOf(3), LocalDate.now().minusDays(7)));
         couponRepository.save(new Coupon(null, "funny-promo", BigDecimal.valueOf(5), LocalDate.now().plusYears(10l)));
-
-        User user = userService.create(new User
-                .Builder()
-                .withEmail("andreformento.sc@gmail.com")
-                .withPassword("1")
-                .withName("André")
-                .withCreationDate(LocalDate.now())
-                .withUpdateDate(LocalDate.now())
-                .withLastLogin(LocalDateTime.now())
-                .build());
-
-        Iterable<ItemShoppingCart> items = itemShoppingCartRepository.save(shoppingCartRepository.save(new ShoppingCart
-                .Builder()
-                .withUser(user)
-                .withItemShoppingCart(new ItemShoppingCart
-                        .Builder()
-                        .withProduct(table)
-                        .withQuantity(5)
-                        .build())
-                .withItemShoppingCart(new ItemShoppingCart
-                        .Builder()
-                        .withProduct(chair)
-                        .withQuantity(2)
-                        .build())
-                .build()).getItemShoppingCarts());
-
-        System.out.println(items);
     }
 
 }

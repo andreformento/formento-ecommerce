@@ -18,17 +18,28 @@ import org.springframework.web.bind.annotation.*;
 
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 
+/**
+ * Integration API to Boleto payment
+ */
+
 @RestController
 @RequestMapping("/api/v1/boleto-payment-payments")
 @Validated
 @AllArgsConstructor
 @NoArgsConstructor
-@Api(value = "API of boleto payment", description = "Boleto payment", basePath = "/api/v1/boleto-payment-payments", produces = "application/json")
-public class BoletoPaymentController {
+@Api(value = "API of boleto payment", produces = "application/json")
+class BoletoPaymentController {
 
     @Autowired
     private BoletoPaymentService boletoPaymentService;
 
+    /**
+     * Resource to order
+     *
+     * @param orderId              id of order
+     * @param boletoPaymentRequest params to do request
+     * @return Payment resource
+     */
     @ApiOperation(value = "Create a payment for an order", notes = "Create a payment for an order and return a payment", response = Payment.class)
     @RequestMapping(value = "/order/{orderId}", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     public HttpEntity<Resource<Payment>> createPayment(@PathVariable("orderId") Long orderId, @RequestBody BoletoPaymentRequest boletoPaymentRequest) {
